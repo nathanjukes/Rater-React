@@ -2,13 +2,11 @@ import React from "react";
 
 const Navbar = () => {
   return (
-    <div class="flex p-5 m-5 bg-white">
-      <h1>navbar</h1>
-      <ul class="flex ml-5">
-        <li class="mr-4">test</li>
-        <li class="mr-4">test2</li>
-      </ul>
-    </div>
+    <nav class="bg-stone-100 p-8 text-black text-center shadow-sm shadow-neutral-400">
+      <h1 class="text-4xl font-bold leading-none tracking-tight inline-block">
+        Cisco's Dashboard
+      </h1>
+    </nav>
   );
 };
 
