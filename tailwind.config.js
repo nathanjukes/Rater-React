@@ -11,6 +11,9 @@ module.exports = {
         backgroundWhite: "#efeff0",
         buttonPurple: "#b4b7ee",
       },
+      variants: {
+        opacity: ({ after }) => after(["disabled"]),
+      },
     },
   },
   plugins: [],

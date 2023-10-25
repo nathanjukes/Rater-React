@@ -4,6 +4,8 @@ import Navbar from "./Navbar";
 import DashboardDataDisplay from "./DashboardDataDisplay";
 import { useState } from "react";
 import AppsDataDisplay from "./AppsDataDisplay";
+import ServicesDataDisplay from "./ServicesDataDisplay";
+import ApisDataDisplay from "./ApisDataDisplay";
 
 const Dashboard = () => {
   const [page, setPage] = useState("DashboardDataDisplay");
@@ -15,6 +17,8 @@ const Dashboard = () => {
   const componentMap = {
     DashboardDataDisplay: DashboardDataDisplay,
     AppsDataDisplay: AppsDataDisplay,
+    ServicesDataDisplay: ServicesDataDisplay,
+    ApisDataDisplay: ApisDataDisplay,
   };
 
   const SelectedPage = componentMap[page];
