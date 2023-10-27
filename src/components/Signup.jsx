@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import Navbar from "./Navbar";
 import Typed from "react-typed";
-import axios from "axios";
+import React, { useState, useEffect, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "../api/axios";
+import AuthContext from "../context/AuthProvider";
 
 const EMAIL_REGEX = /^\S+@\S+\.\S+$/;
 const PASSWORD_REGEX =
@@ -11,6 +13,7 @@ const SIGNUP_PATH = "/auth/register";
 
 const Signup = () => {
   const navigate = useNavigate();
+  const { auth, setAuth } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -96,7 +99,10 @@ const Signup = () => {
         }
       );
       console.log(resp.data);
-      //navigate("/dashboard");
+      const accessToken = resp?.data?.accessToken;
+      const refreshToken = resp?.data?.refreshToken;
+      setAuth({ email, password, accessToken, refreshToken });
+      navigate("/dashboard");
     } catch (error) {
       console.log(error);
       if (!error?.response) {
@@ -211,7 +217,6 @@ const Signup = () => {
                   type="submit"
                   class="w-full flex justify-center bg-purple-800 hover-bg-purple-700 text-gray-300 p-4 rounded-lg tracking-wide font-medium cursor-pointer transition ease-in duration-500 brightness-125 disabled:opacity-30"
                   disabled={loadingState}
-                  onClick={handleSubmit}
                 >
                   <h1>Sign Up!</h1>
                 </button>

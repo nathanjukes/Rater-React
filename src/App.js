@@ -6,6 +6,7 @@ import Dashboard from "./components/Dashboard";
 import Sidebar from "./components/Sidebar";
 import DashboardDataDisplay from "./components/DashboardDataDisplay";
 import Login from "./components/Login";
+import User from "./components/User";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="" Component={Dashboard} />
           <Route path="/navbar" Component={Navbar} />
           <Route path="/signup" Component={Signup} />
+          <Route path="/user" Component={User} />
           <Route path="/login" Component={Login} />
           <Route path="/dashboard" Component={Dashboard} />
           <Route path="/sidebar" Component={Sidebar} />

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Signout from "./Signout";
 
 const Sidebar = ({ onPageChange }) => {
   return (
@@ -114,20 +115,16 @@ const Sidebar = ({ onPageChange }) => {
           stroke="currentColor"
         >
           <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
             d="M12 6v6m0 0v6m0-6h6m-6 0H6"
           ></path>
         </svg>
         <p class="text-black">New Project</p>
       </button>
 
-      <div class="mt-auto">
-        <button class="w-full p-4 text-gray-300 bg-transparent hover:border-gray-500 rounded-lg border-2 border-gray-300 transition duration-200">
-          <Link to="/login">Sign out</Link>
-        </button>
-      </div>
+      <Signout />
     </aside>
   );
 };
