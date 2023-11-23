@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import useRefreshToken from "../hooks/useRefreshToken";
-import axios from "../api/axios";
-import useAuth from "../hooks/useAuth";
-import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import useRefreshToken from "../../../hooks/useRefreshToken";
+import axios from "../../../api/axios";
+import useAuth from "../../../hooks/useAuth";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { Link, useNavigate } from "react-router-dom";
 import Application from "./Application";
 import { Route } from "react-router-dom";

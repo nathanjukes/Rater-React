@@ -1,16 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
-import useRefreshToken from "../hooks/useRefreshToken";
-import axios from "../api/axios";
-import useAuth from "../hooks/useAuth";
-import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import useRefreshToken from "../../../hooks/useRefreshToken";
+import axios from "../../../api/axios";
+import useAuth from "../../../hooks/useAuth";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { Link, useNavigate } from "react-router-dom";
 import { Route } from "react-router-dom";
+import ServicesList from "../Services/ServicesList";
 
 const Application = ({ onPageChange, selectedApp }) => {
   const [app, setApp] = useState(selectedApp);
   const axiosPrivate = useAxiosPrivate();
 
-  console.log("appId:", selectedApp);
   useEffect(() => {
     const getApp = async () => {
       try {
@@ -25,13 +25,21 @@ const Application = ({ onPageChange, selectedApp }) => {
   }, []);
 
   if (!app) {
-    return <div></div>; // Display a loading state while fetching data)
+    return <div></div>;
   }
 
   return (
     <div>
-      <h2>{app.name}</h2>
-      {/* Display other details of the app */}
+      <div class="flex justify-between items-center m-4">
+        <h1 class=" text-4xl font-extralight leading-none tracking-wider text-center text-black md:text-4xl lg:text-5xl underline flex-auto">
+          {app.name}'s Services
+        </h1>
+      </div>
+      <ServicesList
+        services={app.services}
+        apiCount={app.apiCount}
+        appId={app.id}
+      />
     </div>
   );
 };

@@ -1,114 +1,66 @@
-import Navbar from "./Navbar";
+import Navbar from "../Navigation/Navbar";
 import Typed from "react-typed";
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "../api/axios";
-import AuthContext from "../context/AuthProvider";
+import axios from "axios";
+import AuthContext from "../../context/AuthProvider";
 
-const EMAIL_REGEX = /^\S+@\S+\.\S+$/;
-const PASSWORD_REGEX =
-  /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/;
+const LOGIN_PATH = "/auth/login";
 
-const SIGNUP_PATH = "/auth/register";
-
-const Signup = () => {
+const Login = () => {
   const navigate = useNavigate();
   const { auth, setAuth } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [org, setOrg] = useState("");
 
-  const [validEmail, setValidEmail] = useState(true);
-  const [validPassword, setValidPassword] = useState(true);
-  const [validOrganisation, setValidOrganisation] = useState(true);
   const [emptyFields, setEmptyFields] = useState(true);
 
   const [errorMsg, setErrorMsg] = useState("");
-  const [loadingState, setLoadingState] = useState(true);
-
-  useEffect(() => {
-    if (email === "") {
-      setValidEmail(true);
-    } else {
-      setValidEmail(EMAIL_REGEX.test(email));
-    }
-  }, [email]);
-
-  useEffect(() => {
-    if (password === "") {
-      setValidPassword(true);
-    } else {
-      setValidPassword(PASSWORD_REGEX.test(password));
-    }
-  }, [password]);
-
-  useEffect(() => {
-    if (org.trim() === "") {
-      setValidOrganisation(true);
-    } else {
-      setValidOrganisation(org.length >= 3);
-    }
-  }, [org]);
+  const [loadingState, setLoadingState] = useState(false);
 
   useEffect(() => {
     const emailIsEmpty = email === "";
     const passwordIsEmpty = password === "";
-    const orgIsEmpty = org.trim() === "";
 
-    setEmptyFields(emailIsEmpty || passwordIsEmpty || orgIsEmpty);
+    setEmptyFields(emailIsEmpty || passwordIsEmpty);
 
-    if (validEmail && validPassword && validOrganisation) {
-      if (!emptyFields) {
-        setLoadingState(false);
-        setErrorMsg("");
-      } else {
-        setErrorMsg("Empty fields");
-        setLoadingState(true);
-      }
-    } else {
-      setLoadingState(true);
-      if (!validEmail) {
-        setErrorMsg("Email invalid");
-      } else if (!validPassword) {
-        setErrorMsg("Password invalid");
-      } else if (!validOrganisation) {
-        setErrorMsg("Organisation invalid");
-      }
+    if (!emptyFields) {
+      setErrorMsg("");
     }
-  }, [email, password, org, validEmail, validPassword, validOrganisation]);
+  }, [email, password]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Signing up");
-    console.log(
-      "Email: " +
-        validEmail +
-        " Password: " +
-        validPassword +
-        " Organisation: " +
-        validOrganisation
-    );
+    console.log("Logging in");
+
+    if (emptyFields) {
+      setErrorMsg("Fields are empty");
+      return;
+    }
 
     try {
       const resp = await axios.post(
-        SIGNUP_PATH,
-        JSON.stringify({ email, password, orgName: org }),
+        LOGIN_PATH,
+        JSON.stringify({ email, password }),
         {
           headers: { "Content-Type": "application/json" },
         }
       );
       console.log(resp.data);
+
       const accessToken = resp?.data?.accessToken;
       const refreshToken = resp?.data?.refreshToken;
       setAuth({ email, password, accessToken, refreshToken });
+
+      console.log("Successfully logged in, accessToken: " + auth.accessToken);
       navigate("/dashboard");
     } catch (error) {
       console.log(error);
       if (!error?.response) {
         setErrorMsg("Please try again later");
-      } else if (error.response?.status === 409) {
-        setErrorMsg("Email or Organisation Name already in use");
+      } else if (error.response?.status === 400) {
+        setErrorMsg("Incorrect Email or Password");
       } else {
         setErrorMsg("Please try again later");
       }
@@ -148,16 +100,16 @@ const Signup = () => {
           <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
             <div>
               <h1 class="text-xl font-bold tracking-wide text-gray-200 md:text-2xl text-center pb-4">
-                Create your account now!
+                Sign in to your account!
               </h1>
               <div class="mb-7 text-center text-md tracking-wide">
                 <p class="text-gray-400">
-                  Already have an account?
+                  Don't have an account?
                   <Link
-                    to="/login"
+                    to="/signup"
                     class="m-1 font-semibold text-purple-600 hover:text-purple-500"
                   >
-                    Log in!
+                    Sign Up!
                   </Link>
                 </p>
               </div>
@@ -187,19 +139,6 @@ const Signup = () => {
                   required
                 />
               </div>
-              <div class="input-container">
-                <input
-                  class="w-full text-sm px-4 py-3 bg-gray-200 focus:bg-gray-100 border-2 border-gray-200 rounded-lg focus:outline-none hover:border-purple-700 focus:border-purple-700 placeholder-gray-500 transition duration-200"
-                  type="text"
-                  placeholder="Organisation Name"
-                  id="org"
-                  value={org}
-                  onChange={(e) => setOrg(e.target.value)}
-                  required
-                  autoCorrect="off"
-                  autoComplete="off"
-                />
-              </div>
               <h2
                 className={
                   errorMsg
@@ -218,7 +157,7 @@ const Signup = () => {
                   class="w-full flex justify-center bg-purple-800 hover-bg-purple-700 text-gray-300 p-4 rounded-lg tracking-wide font-medium cursor-pointer transition ease-in duration-500 brightness-125 disabled:opacity-30"
                   disabled={loadingState}
                 >
-                  <h1>Sign Up!</h1>
+                  <h1>Log in!</h1>
                 </button>
               </div>
             </div>
@@ -229,4 +168,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Login;

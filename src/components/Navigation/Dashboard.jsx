@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import Sidebar from "./Sidebar";
+import Sidebar from "../DataComponents/Services/Sidebar";
 import Navbar from "./Navbar";
 import DashboardDataDisplay from "./DashboardDataDisplay";
-import ServicesDataDisplay from "./ServicesDataDisplay";
-import ApisDataDisplay from "./ApisDataDisplay";
-import Applications from "./Applications";
-import Application from "./Application";
+import ServicesDataDisplay from "../DataComponents/Services/ServicesDataDisplay";
+import Applications from "../DataComponents/Apps/Applications";
+import Application from "../DataComponents/Apps/Application";
+import AppsDataDisplay from "../DataComponents/Apps/AppsDataDisplay";
+import ApisDataDisplay from "../DataComponents/Apis/ApisDataDisplay";
 
 const Dashboard = () => {
-  const [page, setPage] = useState("DashboardDataDisplay");
+  const [page, setPage] = useState("AppsDataDisplay");
   const [selectedApp, setSelectedApp] = useState(null);
 
   const handlePageChange = (p, appData) => {
@@ -18,7 +19,8 @@ const Dashboard = () => {
 
   const componentMap = {
     DashboardDataDisplay: DashboardDataDisplay,
-    AppsDataDisplay: Applications,
+    AppsDataDisplay: AppsDataDisplay,
+    Applications: Applications,
     Application: Application,
     ServicesDataDisplay: ServicesDataDisplay,
     ApisDataDisplay: ApisDataDisplay,

@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Signout from "./Signout";
+import Signout from "../../Auth/Signout";
 
 const Sidebar = ({ onPageChange }) => {
   return (
     <aside class="w-1/6 bg-sideBarPurple p-6 text-gray-200 flex flex-col">
       <button
-        onClick={() => onPageChange("DashboardDataDisplay")}
+        onClick={() => onPageChange("AppsDataDisplay")}
         class="flex items-center justify-center mb-6"
       >
         <img
@@ -19,7 +19,7 @@ const Sidebar = ({ onPageChange }) => {
       <ul class="text-lg font-semibold">
         <button
           class="mb-4 p-4 rounded-lg border-2 border-gray-300 hover:border-gray-500 w-full transition duration-200"
-          onClick={() => onPageChange("DashboardDataDisplay")}
+          onClick={() => onPageChange("AppsDataDisplay")}
         >
           <div class="flex items-center text-gray-300 font-semibold">
             <img

@@ -1,13 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Signup from "./components/Signup";
-import Dashboard from "./components/Dashboard";
-import Sidebar from "./components/Sidebar";
-import DashboardDataDisplay from "./components/DashboardDataDisplay";
-import Login from "./components/Login";
-import User from "./components/User";
-import Application from "./components/Application";
+import Navbar from "./components/Navigation/Navbar";
+import Signup from "./components/Auth/Signup";
+import Dashboard from "./components/Navigation/Dashboard";
+import Sidebar from "./components/DataComponents/Services/Sidebar";
+import DashboardDataDisplay from "./components/Navigation/DashboardDataDisplay";
+import Login from "./components/Auth/Login";
+import User from "./components/Auth/User";
+import Application from "./components/DataComponents/Apps/Application";
 import useAxiosPrivate from "./hooks/useAxiosPrivate";
 import { axiosPrivate } from "./api/axios";
 

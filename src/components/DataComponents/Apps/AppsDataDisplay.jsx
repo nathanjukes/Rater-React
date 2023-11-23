@@ -1,7 +1,7 @@
 import React from "react";
 import Applications from "./Applications";
 
-const AppsDataDisplay = () => {
+const AppsDataDisplay = ({ onPageChange }) => {
   return (
     <div>
       <div class="flex justify-between items-center m-4">
@@ -9,7 +9,7 @@ const AppsDataDisplay = () => {
           Applications
         </h1>
       </div>
-      <Applications />
+      <Applications onPageChange={onPageChange} />
     </div>
   );
 };
