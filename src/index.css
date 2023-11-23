@@ -2,10 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 @import url("https://fonts.googleapis.com/css?family=DM+Sans");
+@import url("https://fonts.googleapis.com/css?family=Nunito");
 
 body {
   margin: 0;
-  font-family: "DM Sans";
+  font-family: "Nunito";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

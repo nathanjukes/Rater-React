@@ -1,22 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 import DashboardDataDisplay from "./DashboardDataDisplay";
-import { useState } from "react";
-import AppsDataDisplay from "./AppsDataDisplay";
 import ServicesDataDisplay from "./ServicesDataDisplay";
 import ApisDataDisplay from "./ApisDataDisplay";
+import Applications from "./Applications";
+import Application from "./Application";
 
 const Dashboard = () => {
   const [page, setPage] = useState("DashboardDataDisplay");
+  const [selectedApp, setSelectedApp] = useState(null);
 
-  const handlePageChange = (p) => {
+  const handlePageChange = (p, appData) => {
     setPage(p);
+    setSelectedApp(appData);
   };
 
   const componentMap = {
     DashboardDataDisplay: DashboardDataDisplay,
-    AppsDataDisplay: AppsDataDisplay,
+    AppsDataDisplay: Applications,
+    Application: Application,
     ServicesDataDisplay: ServicesDataDisplay,
     ApisDataDisplay: ApisDataDisplay,
   };
@@ -24,16 +27,20 @@ const Dashboard = () => {
   const SelectedPage = componentMap[page];
 
   return (
-    <div class="flex flex-col md:flex-row h-screen bg-backgroundWhite">
+    <div className="flex flex-col md:flex-row h-screen bg-backgroundWhite">
       <Sidebar onPageChange={handlePageChange} />
 
-      {/* Main Area */}
-      <main class="w-screen flex flex-col">
+      <main className="w-screen flex flex-col">
         <Navbar />
-
-        {/* Data area with scrollable content */}
-        <div class="overflow-auto flex-grow no-scrollbar">
-          {SelectedPage ? <SelectedPage /> : <DashboardDataDisplay />}
+        <div className="overflow-auto flex-grow no-scrollbar">
+          {SelectedPage ? (
+            <SelectedPage
+              onPageChange={handlePageChange}
+              selectedApp={selectedApp}
+            />
+          ) : (
+            <DashboardDataDisplay />
+          )}
         </div>
       </main>
     </div>
