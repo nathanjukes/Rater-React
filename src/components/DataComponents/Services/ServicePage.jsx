@@ -6,25 +6,26 @@ import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { Link, useNavigate } from "react-router-dom";
 import { Route } from "react-router-dom";
 import ServicesList from "../Services/ServicesList";
+import ApisList from "../Apis/ApisList";
 
-const Application = ({ onPageChange, selectedApp }) => {
-  const [app, setApp] = useState(selectedApp);
+const ServicePage = ({ onPageChange, selectedApp, serviceId }) => {
+  const [service, setService] = useState(serviceId);
   const axiosPrivate = useAxiosPrivate();
 
   useEffect(() => {
-    const getApp = async () => {
+    const getService = async () => {
       try {
-        const response = await axiosPrivate.get(`/apps/${selectedApp}`);
-        setApp(response.data);
+        const response = await axiosPrivate.get(`/services/${serviceId}`);
+        setService(response.data);
       } catch (error) {
-        console.error("Error getting app:", error);
+        console.error("Error getting service:", error);
       }
     };
 
-    getApp();
+    getService();
   }, []);
 
-  if (!app) {
+  if (!service) {
     return <div></div>;
   }
 
@@ -32,17 +33,16 @@ const Application = ({ onPageChange, selectedApp }) => {
     <div>
       <div class="flex justify-between items-center m-4">
         <h1 class=" text-4xl font-extralight leading-none tracking-wider text-center text-black md:text-4xl lg:text-5xl underline flex-auto">
-          {app.name}'s Services
+          {service.name}'s APIs
         </h1>
       </div>
-      <ServicesList
-        services={app.services}
-        apiCount={app.apiCount}
-        appId={app.id}
+      <ApisList
+        apis={service.apis}
         onPageChange={onPageChange}
+        serviceId={service.id}
       />
     </div>
   );
 };
 
-export default Application;
+export default ServicePage;
