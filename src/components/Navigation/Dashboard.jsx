@@ -8,16 +8,19 @@ import Application from "../DataComponents/Apps/Application";
 import AppsDataDisplay from "../DataComponents/Apps/AppsDataDisplay";
 import ApisDataDisplay from "../DataComponents/Apis/ApisDataDisplay";
 import ServicePage from "../DataComponents/Services/ServicePage";
+import ApiPage from "../DataComponents/Apis/ApiPage";
 
 const Dashboard = () => {
   const [page, setPage] = useState("AppsDataDisplay");
   const [selectedApp, setSelectedApp] = useState(null);
   const [serviceId, setServiceId] = useState(null);
+  const [apiId, setApiId] = useState(null);
 
-  const handlePageChange = (p, appData, serviceId) => {
+  const handlePageChange = (p, appData, serviceId, apiId) => {
     setPage(p);
     setSelectedApp(appData);
     setServiceId(serviceId);
+    setApiId(apiId);
   };
 
   const componentMap = {
@@ -28,6 +31,7 @@ const Dashboard = () => {
     ServicesDataDisplay: ServicesDataDisplay,
     ApisDataDisplay: ApisDataDisplay,
     Service: ServicePage,
+    Api: ApiPage,
   };
 
   const SelectedPage = componentMap[page];
@@ -44,6 +48,7 @@ const Dashboard = () => {
               onPageChange={handlePageChange}
               selectedApp={selectedApp}
               serviceId={serviceId}
+              apiId={apiId}
             />
           ) : (
             <DashboardDataDisplay />

@@ -66,7 +66,7 @@ const ApisList = ({ apis, onPageChange, serviceId }) => {
 
   const handleApiClick = (apiId) => {
     console.log("Going to api page:", apiId);
-    onPageChange("Service", serviceId, apiId);
+    onPageChange("Api", serviceId, serviceId, apiId);
   };
 
   return (
