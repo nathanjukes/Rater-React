@@ -1,5 +1,5 @@
 import React from "react";
-import Applications from "./Applications";
+import Applications from "./AppsList";
 
 const AppsDataDisplay = ({ onPageChange }) => {
   return (

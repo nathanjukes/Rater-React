@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
@@ -12,6 +12,7 @@ const LogoutButton = () => {
     try {
       console.log("Logging out");
       await axiosPrivate.post(LOGOUT_PATH);
+      localStorage.removeItem("token");
       navigate("/login");
     } catch (error) {
       console.error(error);

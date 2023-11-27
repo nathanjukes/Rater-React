@@ -6,6 +6,7 @@ import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { Link, useNavigate } from "react-router-dom";
 import { Route } from "react-router-dom";
 import ServicesList from "../Services/ServicesList";
+import Loading from "../../Util/Loading";
 
 const Application = ({ onPageChange, selectedApp }) => {
   const [app, setApp] = useState(selectedApp);
@@ -24,8 +25,8 @@ const Application = ({ onPageChange, selectedApp }) => {
     getApp();
   }, []);
 
-  if (!app) {
-    return <div></div>;
+  if (!app || !app.name) {
+    return <Loading />;
   }
 
   return (

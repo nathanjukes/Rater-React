@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Route } from "react-router-dom";
 import ServicesList from "../Services/ServicesList";
 import ApisList from "../Apis/ApisList";
+import Loading from "../../Util/Loading";
 
 const RULES_URL = "/apis/rules/create";
 
@@ -70,8 +71,8 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
     closeModal();
   };
 
-  if (!api) {
-    return <div></div>;
+  if (!api || !api.idRules || !api.ipRules || !api.roleRules) {
+    return <Loading />;
   }
 
   return (

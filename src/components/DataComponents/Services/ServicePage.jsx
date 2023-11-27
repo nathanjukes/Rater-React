@@ -8,6 +8,7 @@ import { Route } from "react-router-dom";
 import ServicesList from "../Services/ServicesList";
 import ApisList from "../Apis/ApisList";
 import useAxiosPrivateRateControl from "../../../hooks/useAxiosPrivateRateControl";
+import Loading from "../../Util/Loading";
 
 const API_KEY_URL = "/auth";
 
@@ -56,8 +57,8 @@ const ServicePage = ({ onPageChange, selectedApp, serviceId }) => {
     getApiKey();
   }, []);
 
-  if (!service) {
-    return <div></div>;
+  if (!service || !service.name) {
+    return <Loading />;
   }
 
   return (

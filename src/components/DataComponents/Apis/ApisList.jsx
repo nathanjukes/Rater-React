@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
+import Loading from "../../Util/Loading";
 
 const APIS_URL = "/apis";
 
@@ -40,6 +41,10 @@ const ApisList = ({ apis, onPageChange, serviceId }) => {
     setNewBaseLimit("");
     setNewHttpMethod("");
   };
+
+  if (!apis) {
+    return <Loading />;
+  }
 
   const createApi = async () => {
     try {

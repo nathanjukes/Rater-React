@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
+import ServiceBox from "./ServiceBox";
+import Loading from "../../Util/Loading";
 
 const SERVICES_URL = "/services";
 
@@ -55,23 +57,17 @@ const ServicesList = ({ services, onPageChange, appId }) => {
     onPageChange("Service", appId, serviceId);
   };
 
+  if (!services) {
+    return <Loading />;
+  }
+
   return (
     <div className="grid grid-cols-4">
       {servicesList &&
         servicesList.map((service) => (
           <div key={service.id} className="p-4">
             <div onClick={() => handleServiceClick(service.id)}>
-              <div className="bg-buttonPurple border-2 p-3 border-gray-500 rounded-md flex flex-col cursor-pointer">
-                <h2 className="inline-block p-4 text-center uppercase text-2xl font-semibold leading-none tracking-wider text-black">
-                  {service.name}
-                </h2>
-                <div className="flex justify-center">
-                  <div className="inline-block px-4">
-                    Active APIs:{" "}
-                    {service && service.apis ? service.apis.length : 0}
-                  </div>
-                </div>
-              </div>
+              <ServiceBox service={service} />
             </div>
           </div>
         ))}

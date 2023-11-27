@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Signout from "../../Auth/Signout";
+import Signout from "../Auth/Signout";
 
 const Sidebar = ({ onPageChange }) => {
   return (

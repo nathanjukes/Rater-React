@@ -6,6 +6,7 @@ import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { Link, useNavigate } from "react-router-dom";
 import Application from "./Application";
 import { Route } from "react-router-dom";
+import Loading from "../../Util/Loading";
 
 const APPS_URL = "/apps";
 
@@ -79,13 +80,15 @@ const Applications = ({ onPageChange }) => {
     onPageChange("Application", appId);
   };
 
+  if (apps.length == 0) {
+    return <Loading />;
+  }
+
   return (
     <div className="grid grid-cols-4">
       {apps.map((app) => (
         <div key={app.id} className="p-4">
-          <div
-            onClick={() => handleAppClick(app.id)} // Call handleAppClick when app is clicked
-          >
+          <div onClick={() => handleAppClick(app.id)}>
             <div className="bg-buttonPurple border-2 p-3 border-gray-500 rounded-md flex flex-col cursor-pointer">
               <h2 className="inline-block p-4 text-center uppercase text-2xl font-semibold leading-none tracking-wider text-black">
                 {app.name}

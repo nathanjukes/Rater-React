@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import Sidebar from "../DataComponents/Services/Sidebar";
+import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 import DashboardDataDisplay from "./DashboardDataDisplay";
-import ServicesDataDisplay from "../DataComponents/Services/ServicesDataDisplay";
-import Applications from "../DataComponents/Apps/Applications";
+import Applications from "../DataComponents/Apps/AppsList";
 import Application from "../DataComponents/Apps/Application";
 import AppsDataDisplay from "../DataComponents/Apps/AppsDataDisplay";
-import ApisDataDisplay from "../DataComponents/Apis/ApisDataDisplay";
 import ServicePage from "../DataComponents/Services/ServicePage";
 import ApiPage from "../DataComponents/Apis/ApiPage";
+import useRequireAuth from "../../hooks/useRequireAuth";
 
 const Dashboard = () => {
+  // useRequireAuth();
   const [page, setPage] = useState("AppsDataDisplay");
   const [selectedApp, setSelectedApp] = useState(null);
   const [serviceId, setServiceId] = useState(null);
@@ -28,8 +28,6 @@ const Dashboard = () => {
     AppsDataDisplay: AppsDataDisplay,
     Applications: Applications,
     Application: Application,
-    ServicesDataDisplay: ServicesDataDisplay,
-    ApisDataDisplay: ApisDataDisplay,
     Service: ServicePage,
     Api: ApiPage,
   };

@@ -12,7 +12,10 @@ const useAxiosPrivate = () => {
   useEffect(() => {
     const reqInterceptor = axiosPrivate.interceptors.request.use(
       (config) => {
-        config.headers["Authorization"] = "Bearer " + auth.accessToken;
+        const token = localStorage.getItem("token");
+        if (token) {
+          config.headers["Authorization"] = "Bearer " + token;
+        }
         return config;
       },
       (error) => Promise.reject(error)
@@ -30,10 +33,10 @@ const useAxiosPrivate = () => {
             const accessToken = await refresh();
             const newConfig = { ...prev };
             newConfig.headers["Authorization"] = "Bearer " + accessToken;
-            auth.accessToken = accessToken;
+            localStorage.setItem("token", accessToken);
+            setAuth({ ...auth, accessToken });
             return axiosPrivate(newConfig);
           } catch (refreshError) {
-            // Handle refresh token expiry --> redirect to the login page.
             navigate("/login");
           }
         }
@@ -45,7 +48,7 @@ const useAxiosPrivate = () => {
       axiosPrivate.interceptors.request.eject(reqInterceptor);
       axiosPrivate.interceptors.response.eject(respInterceptor);
     };
-  }, [auth, refresh, setAuth]);
+  }, [auth, refresh, setAuth, navigate]);
 
   return axiosPrivate;
 };

@@ -36,6 +36,13 @@ const Signup = () => {
   }, [email]);
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/dashboard");
+    }
+  }, [navigate]);
+
+  useEffect(() => {
     if (password === "") {
       setValidPassword(true);
     } else {

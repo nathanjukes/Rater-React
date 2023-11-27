@@ -30,6 +30,13 @@ const Login = () => {
     }
   }, [email, password]);
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/dashboard");
+    }
+  }, [navigate]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Logging in");

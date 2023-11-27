@@ -12,7 +12,10 @@ const useAxiosPrivateRateControl = () => {
   useEffect(() => {
     const reqInterceptor = axiosPrivateRateControl.interceptors.request.use(
       (config) => {
-        config.headers["Authorization"] = "Bearer " + auth.accessToken;
+        const token = localStorage.getItem("token");
+        if (token) {
+          config.headers["Authorization"] = "Bearer " + token;
+        }
         return config;
       },
       (error) => Promise.reject(error)
@@ -21,7 +24,6 @@ const useAxiosPrivateRateControl = () => {
     const respInterceptor = axiosPrivateRateControl.interceptors.response.use(
       (response) => response,
       async (error) => {
-        // Token Expired
         const prev = error.config;
         if (error.response && error.response.status === 401 && !prev._retry) {
           prev._retry = true;
@@ -30,10 +32,10 @@ const useAxiosPrivateRateControl = () => {
             const accessToken = await refresh();
             const newConfig = { ...prev };
             newConfig.headers["Authorization"] = "Bearer " + accessToken;
-            auth.accessToken = accessToken;
+            localStorage.setItem("token", accessToken);
+            setAuth({ ...auth, accessToken });
             return axiosPrivateRateControl(newConfig);
           } catch (refreshError) {
-            // Handle refresh token expiry --> redirect to the login page.
             navigate("/login");
           }
         }
@@ -45,7 +47,7 @@ const useAxiosPrivateRateControl = () => {
       axiosPrivateRateControl.interceptors.request.eject(reqInterceptor);
       axiosPrivateRateControl.interceptors.response.eject(respInterceptor);
     };
-  }, [auth, refresh, setAuth]);
+  }, [auth, refresh, setAuth, navigate]);
 
   return axiosPrivateRateControl;
 };
