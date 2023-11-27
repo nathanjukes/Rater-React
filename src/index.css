@@ -3,10 +3,11 @@
 @tailwind utilities;
 @import url("https://fonts.googleapis.com/css?family=DM+Sans");
 @import url("https://fonts.googleapis.com/css?family=Nunito");
+@import url("https://fonts.googleapis.com/css?family=Inter");
 
 body {
   margin: 0;
-  font-family: "Nunito";
+  font-family: "Inter";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
