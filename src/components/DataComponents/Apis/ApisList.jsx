@@ -9,8 +9,10 @@ const ApisList = ({ apis, onPageChange, serviceId }) => {
   const [showModal, setShowModal] = useState(false);
   const [newApiName, setNewApiName] = useState("");
   const [newBaseLimit, setNewBaseLimit] = useState("");
-  const [newHttpMethod, setNewHttpMethod] = useState("");
+  const [newHttpMethod, setNewHttpMethod] = useState("GET");
   const [apisList, setApis] = useState([]);
+  const [hoveredApi, setHoveredApi] = useState(null);
+
   const axiosPrivate = useAxiosPrivate();
 
   useEffect(() => {
@@ -39,7 +41,7 @@ const ApisList = ({ apis, onPageChange, serviceId }) => {
     setShowModal(false);
     setNewApiName("");
     setNewBaseLimit("");
-    setNewHttpMethod("");
+    setNewHttpMethod("GET");
   };
 
   if (!apis) {
@@ -63,6 +65,25 @@ const ApisList = ({ apis, onPageChange, serviceId }) => {
     }
   };
 
+  const deleteApi = async (apiId) => {
+    try {
+      const confirmDelete = window.confirm(
+        "Are you sure you want to delete this API?"
+      );
+      if (!confirmDelete) {
+        return;
+      }
+
+      const response = await axiosPrivate.delete(APIS_URL + "/" + apiId);
+
+      console.log("Deleted api:", apiId);
+
+      setApis(apisList.filter((a) => a.id !== apiId));
+    } catch (error) {
+      console.error("Error deleting api:", error);
+    }
+  };
+
   const handleCreate = () => {
     console.log("Creating new api:", newApiName);
     createApi();
@@ -79,9 +100,13 @@ const ApisList = ({ apis, onPageChange, serviceId }) => {
       {apisList &&
         apisList.map((api) => (
           <div key={api.id} className="p-4">
-            <div onClick={() => handleApiClick(api.id)}>
-              <div className="bg-buttonPurple border-2 p-3 border-gray-500 rounded-md flex flex-col cursor-pointer">
-                <h2 className="inline-block p-4 text-center uppercase text-2xl font-semibold leading-none tracking-wider text-black">
+            <div
+              onClick={() => handleApiClick(api.id)}
+              onMouseEnter={() => setHoveredApi(api.id)}
+              onMouseLeave={() => setHoveredApi(null)}
+            >
+              <div className="bg-buttonPurple border-2 p-3 border-gray-500 rounded-md flex flex-col cursor-pointer relative">
+                <h2 className="inline-block p-4 text-center uppercase text-2xl font-semibold leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
                   {api.name}
                 </h2>
                 <div className="flex justify-center">
@@ -97,6 +122,28 @@ const ApisList = ({ apis, onPageChange, serviceId }) => {
                       : 0}
                   </div>
                 </div>
+                {hoveredApi === api.id && (
+                  <button
+                    className="absolute top-0 right-0 mt-2 mr-2 bg-zinc-700 hover:bg-zinc-900 text-white font-bold py-1 px-2 rounded-full opacity-100 transition duration-300 ease-in-out z-20 flex items-center justify-center"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      deleteApi(api.id);
+                    }}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M14.95 5.05a1 1 0 010 1.414L11.414 10l3.536 3.536a1 1 0 11-1.414 1.414L10 11.414l-3.536 3.536a1 1 0 01-1.414-1.414L8.586 10 5.05 6.464a1 1 0 111.414-1.414L10 8.586l3.536-3.537a1 1 0 011.414 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </button>
+                )}
               </div>
             </div>
           </div>

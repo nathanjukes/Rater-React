@@ -10,6 +10,8 @@ const ServicesList = ({ services, onPageChange, appId }) => {
   const [showModal, setShowModal] = useState(false);
   const [newServiceName, setNewServiceName] = useState("");
   const [servicesList, setServices] = useState([]);
+  const [hoveredService, setHoveredService] = useState(null);
+
   const axiosPrivate = useAxiosPrivate();
 
   useEffect(() => {
@@ -46,6 +48,27 @@ const ServicesList = ({ services, onPageChange, appId }) => {
     }
   };
 
+  const deleteService = async (serviceId) => {
+    try {
+      const confirmDelete = window.confirm(
+        "Are you sure you want to delete this service?"
+      );
+      if (!confirmDelete) {
+        return;
+      }
+
+      const response = await axiosPrivate.delete(
+        SERVICES_URL + "/" + serviceId
+      );
+
+      console.log("Deleted service:", serviceId);
+
+      setServices(servicesList.filter((s) => s.id !== serviceId));
+    } catch (error) {
+      console.error("Error deleting app:", error);
+    }
+  };
+
   const handleCreate = () => {
     console.log("Creating new service:", newServiceName);
     createService();
@@ -65,9 +88,35 @@ const ServicesList = ({ services, onPageChange, appId }) => {
     <div className="grid grid-cols-4">
       {servicesList &&
         servicesList.map((service) => (
-          <div key={service.id} className="p-4">
-            <div onClick={() => handleServiceClick(service.id)}>
+          <div key={service.id} className="p-4 relative">
+            <div
+              onClick={() => handleServiceClick(service.id)}
+              onMouseEnter={() => setHoveredService(service.id)}
+              onMouseLeave={() => setHoveredService(null)}
+            >
               <ServiceBox service={service} />
+              {hoveredService === service.id && (
+                <button
+                  className="absolute top-0 right-0 mt-6 mr-6 bg-zinc-700 hover:bg-zinc-900 text-white font-bold py-1 px-2 rounded-full opacity-100 transition duration-300 ease-in-out z-20 flex items-center justify-center"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    deleteService(service.id);
+                  }}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M14.95 5.05a1 1 0 010 1.414L11.414 10l3.536 3.536a1 1 0 11-1.414 1.414L10 11.414l-3.536 3.536a1 1 0 01-1.414-1.414L8.586 10 5.05 6.464a1 1 0 111.414-1.414L10 8.586l3.536-3.537a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </button>
+              )}
             </div>
           </div>
         ))}
