@@ -70,7 +70,7 @@ const Sidebar = ({ onPageChange }) => {
             <span>Metrics</span>
           </div>
         </button>
-        <div class="mt-5 border-gray-500 border-t-2 pt-4 items-center">
+        <div class="mt-5 border-gray-500 border-t-2 pt-4 items-center w-full">
           <button
             class="w-full sidebar-button rounded-md p-2 py-3 my-2 pl-4 transition duration-75 bg-gray-300 bg-opacity-0 hover:bg-opacity-10"
             onClick={() => onPageChange("ApisDataDisplay")}
