@@ -47,13 +47,13 @@ const Navbar = () => {
   }
 
   return (
-    <nav class="bg-navBarWhite border-b border-gray-200 p-6 text-black text-center shadow-sm flex justify-between items-center">
-      <h1 class="text-4xl font-bold leading-none tracking-tight text-left">
+    <nav class="bg-navBarWhite border-b border-gray-200 p-6 pb-3 pt-4 text-black text-center shadow-sm flex justify-between items-center">
+      <h1 class="text-3xl font-bold leading-9 tracking-tight text-gray-900 sm:text-4xl sm:leading-10 md:text-5xl md:leading-14">
         {orgInfo.name}'s Dashboard
       </h1>
       <div class="flex flex-col items-center justify-center text-right">
         <UserSvg class="h-12 w-12"></UserSvg>
-        <h2 class="font-normal">{userInfo.email}</h2>
+        <h2 class="font-normal mt-1">{userInfo.email}</h2>
       </div>
     </nav>
   );

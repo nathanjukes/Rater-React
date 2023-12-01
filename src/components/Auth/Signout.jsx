@@ -23,13 +23,10 @@ const LogoutButton = () => {
   return (
     <div className="mt-auto flex justify-center items-center">
       <button
-        className="flex justify-between items-center p-4 text-gray-300 bg-transparent hover:border-gray-500 rounded-lg border-2 border-gray-300 transition duration-200 w-10/12"
+        className="p-4 py-3 font-medium text-gray-300 bg-transparent hover:border-gray-500 hover:text-gray-400 rounded-lg border-2 text-center border-gray-300 transition duration-200 w-10/12"
         onClick={logoutUser}
       >
-        <h2 className="flex items-center text-gray-300 font-normal tracking-wider">
-          Sign out
-        </h2>
-        <SignOutSvg className="h-12 w-12"></SignOutSvg>
+        Sign out
       </button>
     </div>
   );

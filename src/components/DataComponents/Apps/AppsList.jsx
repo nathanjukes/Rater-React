@@ -10,7 +10,7 @@ import Loading from "../../Util/Loading";
 
 const APPS_URL = "/apps";
 
-const Applications = ({ onPageChange }) => {
+const AppsList = ({ onPageChange }) => {
   const [apps, setApps] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [newAppName, setNewAppName] = useState("");
@@ -198,4 +198,4 @@ const Applications = ({ onPageChange }) => {
   );
 };
 
-export default Applications;
+export default AppsList;

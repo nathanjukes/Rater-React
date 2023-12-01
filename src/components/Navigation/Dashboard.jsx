@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
-import DashboardDataDisplay from "./DashboardDataDisplay";
-import Applications from "../DataComponents/Apps/AppsList";
+import AppsList from "../DataComponents/Apps/AppsList";
 import Application from "../DataComponents/Apps/Application";
 import AppsDataDisplay from "../DataComponents/Apps/AppsDataDisplay";
 import ServicePage from "../DataComponents/Services/ServicePage";
 import ApiPage from "../DataComponents/Apis/ApiPage";
 import useRequireAuth from "../../hooks/useRequireAuth";
 import Footer from "./Footer";
+import ServicesList from "../DataComponents/Services/ServicesList";
+import ServicesDataDisplay from "../DataComponents/Services/ServicesDataDisplay";
 
 const Dashboard = () => {
   // useRequireAuth();
@@ -25,9 +26,10 @@ const Dashboard = () => {
   };
 
   const componentMap = {
-    DashboardDataDisplay: DashboardDataDisplay,
     AppsDataDisplay: AppsDataDisplay,
-    Applications: Applications,
+    ServicesDataDisplay: ServicesDataDisplay,
+    AppsList: AppsList,
+    ServicesList: ServicesList,
     Application: Application,
     Service: ServicePage,
     Api: ApiPage,
@@ -144,7 +146,7 @@ const Dashboard = () => {
               apiId={apiId}
             />
           ) : (
-            <DashboardDataDisplay />
+            <AppsDataDisplay />
           )}
         </div>
         <Footer />

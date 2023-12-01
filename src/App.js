@@ -4,7 +4,6 @@ import Navbar from "./components/Navigation/Navbar";
 import Signup from "./components/Auth/Signup";
 import Dashboard from "./components/Navigation/Dashboard";
 import Sidebar from "./components/Navigation/Sidebar";
-import DashboardDataDisplay from "./components/Navigation/DashboardDataDisplay";
 import Login from "./components/Auth/Login";
 import User from "./components/Auth/User";
 import Application from "./components/DataComponents/Apps/Application";
