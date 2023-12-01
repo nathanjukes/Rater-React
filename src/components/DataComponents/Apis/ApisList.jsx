@@ -98,7 +98,7 @@ const ApisList = ({ apis, onPageChange, serviceId }) => {
   return (
     <div className="grid grid-cols-4">
       {apisList &&
-        apisList.map((api) => (
+        apisList.map((api, index) => (
           <div key={api.id} className="p-4">
             <div
               onClick={() => handleApiClick(api.id)}

@@ -108,7 +108,7 @@ const Applications = ({ onPageChange }) => {
 
   return (
     <div className="grid grid-cols-4">
-      {apps.map((app) => (
+      {apps.map((app, index) => (
         <div key={app.id} className="p-4 relative">
           <div
             onClick={() => handleAppClick(app.id)}

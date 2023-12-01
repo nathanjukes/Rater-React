@@ -87,7 +87,7 @@ const ServicesList = ({ services, onPageChange, appId }) => {
   return (
     <div className="grid grid-cols-4">
       {servicesList &&
-        servicesList.map((service) => (
+        servicesList.map((service, index) => (
           <div key={service.id} className="p-4 relative">
             <div
               onClick={() => handleServiceClick(service.id)}
