@@ -115,16 +115,30 @@ const AppsList = ({ onPageChange }) => {
             onMouseEnter={() => setHoveredApp(app.id)}
             onMouseLeave={() => setHoveredApp(null)}
           >
-            <div className="bg-buttonPurple border-2 p-3 border-gray-500 rounded-md flex flex-col cursor-pointer">
+            <div className="bg-white border-2 p-3 pb-1 rounded-lg flex flex-col cursor-pointer shadow-md shadow-slate-200 border-gray-300 hover:shadow-lg">
               <h2 className="inline-block p-4 text-center uppercase text-2xl font-semibold leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
                 {app.name}
               </h2>
-              <div className="flex justify-center">
-                <div className="inline-block px-4">
-                  Active Services: {app.services ? app.services.length : 0}
+              <div className="flex justify-center mt-4">
+                <div className="inline-block px-4 text-lg font-semibold">
+                  <div className="text-center border-2 border-gray-600 rounded-md px-2 mb-2">
+                    {app.services ? (
+                      <span className="block text-2xl text-black">
+                        {app.services.length}
+                      </span>
+                    ) : (
+                      <span className="block text-2xl text-black">0</span>
+                    )}
+                    <span className="">Active Services</span>
+                  </div>
                 </div>
-                <div className="inline-block px-4">
-                  Active APIs: {app.apiCount}
+                <div className="inline-block px-4 text-lg font-semibold">
+                  <div className="text-center border-2 border-gray-600 rounded-md px-2 mb-2">
+                    <span className="block text-2xl text-black">
+                      {app.apiCount}
+                    </span>
+                    <span className="text-black">Active APIs</span>
+                  </div>
                 </div>
               </div>
             </div>

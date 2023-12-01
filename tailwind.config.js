@@ -10,6 +10,7 @@ module.exports = {
         navBarWhite: "#ffffff",
         backgroundWhite: "#f9fafb",
         buttonPurple: "#b4b7ee",
+        accentButtonGrey: "#6b7280",
       },
       variants: {
         opacity: ({ after }) => after(["disabled"]),
