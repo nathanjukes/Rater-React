@@ -14,6 +14,8 @@ const Navbar = () => {
   const [orgInfo, setOrgInfo] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
   const axiosPrivate = useAxiosPrivate();
+  const username =
+    userInfo && userInfo.email ? userInfo.email.split("@")[0] : "";
 
   useEffect(() => {
     const getOrgInfo = async () => {
@@ -53,7 +55,7 @@ const Navbar = () => {
       </h1>
       <div class="flex flex-col items-center justify-center text-right">
         <UserSvg class="h-12 w-12"></UserSvg>
-        <h2 class="font-normal mt-1">{userInfo.email}</h2>
+        <h2 class="font-normal mt-1">{username}</h2>
       </div>
     </nav>
   );
