@@ -9,6 +9,7 @@ import ApiPage from "../DataComponents/Apis/ApiPage";
 import useRequireAuth from "../../hooks/useRequireAuth";
 import Footer from "./Footer";
 import ServicesList from "../DataComponents/Services/ServicesList";
+import Overview from "./Overview";
 import ServicesDataDisplay from "../DataComponents/Services/ServicesDataDisplay";
 
 const Dashboard = () => {
@@ -33,6 +34,7 @@ const Dashboard = () => {
     Application: Application,
     Service: ServicePage,
     Api: ApiPage,
+    Overview: Overview,
   };
 
   const SelectedPage = componentMap[page];

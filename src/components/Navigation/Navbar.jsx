@@ -57,7 +57,7 @@ const Navbar = () => {
   return (
     <nav className="bg-navBarWhite border-b border-gray-200 p-6 pb-3 pt-4 text-black text-center shadow-sm flex justify-between items-center">
       <h1 className="text-3xl font-bold leading-9 tracking-tight text-gray-900 sm:text-4xl sm:leading-10 md:text-5xl md:leading-14">
-        {orgInfo.name}
+        <span className="font-light">Dashboard - </span> {orgInfo.name}
       </h1>
       <div className="flex items-center mr-3">
         <button className="rounded-lg p-0.5 transition duration-75 bg-gray-700 bg-opacity-0 hover:bg-opacity-10 mr-2">
@@ -113,7 +113,7 @@ const Navbar = () => {
         )}
         <div className="flex flex-col items-center justify-center text-right hover:cursor-pointer">
           <UserSvg className="h-16 w-20 hover:cursor-pointer text-accentButtonGrey hover:text-gray-700"></UserSvg>
-          <h2 className="font-normal text-lg hover:underline ">{username}</h2>
+          <h2 className="font-normal text-lg hover:underline">{username}</h2>
         </div>
       </div>
     </nav>

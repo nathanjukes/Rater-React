@@ -8,7 +8,7 @@ module.exports = {
         accentDarkTheme: "#242837",
         sideBarPurple: "#3d384e",
         navBarWhite: "#ffffff",
-        backgroundWhite: "#f9fafb",
+        backgroundWhite: "#eeeeee",
         buttonPurple: "#b4b7ee",
         accentButtonGrey: "#6b7280",
       },

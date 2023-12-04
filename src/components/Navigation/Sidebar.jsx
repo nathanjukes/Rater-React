@@ -18,23 +18,20 @@ const Sidebar = ({ onPageChange }) => {
           onClick={() => onPageChange("AppsDataDisplay")}
           class="flex items-center justify-center"
         >
-          <LogoSvg class="h-24 w-24"></LogoSvg>
-          <div class="hidden h-6 text-5xl font-semibold sm:block uppercase">
+          <div class="hidden h-6 my-10 text-5xl font-semibold sm:block uppercase">
             Rater.io
           </div>
         </button>
       </div>
       <ul class="text-xl border-gray-500 border-t pt-4 flex flex-col items-center">
-        <li class="w-full">
-          <button
-            class="w-full sidebar-button rounded-md p-2 py-3 my-1 pl-4 transition duration-75 bg-gray-300 bg-opacity-0 hover:bg-opacity-10"
-            onClick={() => onPageChange("AppsDataDisplay")}
-          >
-            <div class="flex items-center text-gray-300 font-normal tracking-wider">
-              <span>Overview</span>
-            </div>
-          </button>
-        </li>
+        <button
+          class="w-full sidebar-button rounded-md p-2 py-3 my-1 pl-4 transition duration-75 bg-gray-300 bg-opacity-0 hover:bg-opacity-10"
+          onClick={() => onPageChange("Overview")}
+        >
+          <div class="flex items-center text-gray-300 font-normal tracking-wider">
+            <span>Overview</span>
+          </div>
+        </button>
         <button
           class="w-full sidebar-button rounded-md p-2 py-3 my-2 pl-4 transition duration-75 bg-gray-300 bg-opacity-0 hover:bg-opacity-10"
           onClick={() => onPageChange("AppsDataDisplay")}
