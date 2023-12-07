@@ -14,7 +14,7 @@ import ServicesDataDisplay from "../DataComponents/Services/ServicesDataDisplay"
 
 const Dashboard = () => {
   // useRequireAuth();
-  const [page, setPage] = useState("AppsDataDisplay");
+  const [page, setPage] = useState("Overview");
   const [selectedApp, setSelectedApp] = useState(null);
   const [serviceId, setServiceId] = useState(null);
   const [apiId, setApiId] = useState(null);
@@ -148,7 +148,7 @@ const Dashboard = () => {
               apiId={apiId}
             />
           ) : (
-            <AppsDataDisplay />
+            <Overview />
           )}
         </div>
         <Footer />

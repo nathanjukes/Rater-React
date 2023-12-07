@@ -80,7 +80,7 @@ const ServicesList = ({ services, onPageChange, appId }) => {
     onPageChange("Service", appId, serviceId);
   };
 
-  if (!services || services.length == 0) {
+  if (!services) {
     return <Loading />;
   }
 
