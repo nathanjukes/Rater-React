@@ -37,7 +37,7 @@ const ServicePage = ({ onPageChange, selectedApp, serviceId }) => {
         const response = await axiosPrivateRateControl.get(
           `/auth/keys/${serviceId}`
         );
-        setApiKey(response.data);
+        setApiKey(response.data.apiKey);
       } catch (error) {
         console.log("error getting apiKey:", error);
       }
