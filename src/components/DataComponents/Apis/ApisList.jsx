@@ -95,8 +95,11 @@ const ApisList = ({ apis, onPageChange, serviceId }) => {
     onPageChange("Api", serviceId, serviceId, apiId);
   };
 
+  const buttonStyle =
+    "bg-white shadow-lg p-3 pb-1 text-center rounded-xl flex flex-col cursor-pointer border-2 border-gray-200 hover:shadow-xl";
+
   return (
-    <div className="grid grid-cols-4">
+    <div className="grid grid-cols-4 mx-4">
       {apisList &&
         apisList.map((api, index) => (
           <div key={api.id} className="p-4">
@@ -105,21 +108,30 @@ const ApisList = ({ apis, onPageChange, serviceId }) => {
               onMouseEnter={() => setHoveredApi(api.id)}
               onMouseLeave={() => setHoveredApi(null)}
             >
-              <div className="bg-buttonPurple border-2 p-3 border-gray-500 rounded-md flex flex-col cursor-pointer relative">
-                <h2 className="inline-block p-4 text-center uppercase text-2xl font-semibold leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
+              <div className={` ${buttonStyle}`}>
+                <h2 className="inline-block p-4 pt-4 pb-6 text-4xl font-medium leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
                   {api.name}
                 </h2>
-                <div className="flex justify-center">
-                  <div className="inline-block px-4">
-                    Base Limit: {api && api.basicLimit ? api.basicLimit : 0}
+                <div className="flex justify-center mt-4">
+                  <div className="inline-block px-4 text-lg font-semibold">
+                    <div className="text-center border-gray-600 rounded-md px-2 mb-2">
+                      <span className="block text-3xl text-black">
+                        {api && api.basicLimit ? api.basicLimit : 0}rq/m
+                      </span>
+                      <span className="font-light text-2xl">Base Limit</span>
+                    </div>
                   </div>
-                  <div className="inline-block px-4">
-                    Active Custom Rules:{" "}
-                    {api && api.idRules
-                      ? api.idRules.length +
-                        api.ipRules.length +
-                        api.roleRules.length
-                      : 0}
+                  <div className="inline-block px-4 text-lg font-semibold">
+                    <div className="text-center border-gray-600 rounded-md px-2 mb-2">
+                      <span className="block text-3xl text-black">
+                        {api && api.idRules
+                          ? api.idRules.length +
+                            api.ipRules.length +
+                            api.roleRules.length
+                          : 0}
+                      </span>
+                      <span className="font-light text-2xl">Rules Active</span>
+                    </div>
                   </div>
                 </div>
                 {hoveredApi === api.id && (

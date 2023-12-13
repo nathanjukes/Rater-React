@@ -24,15 +24,21 @@ const Application = ({ onPageChange, selectedApp }) => {
     getApp();
   }, []);
 
+  const handleBackClick = () => {
+    onPageChange("AppsDataDisplay");
+  };
+
   if (!app) {
     return <div></div>;
   }
-
   return (
     <div>
       <div class="flex justify-between items-center m-4">
-        <h1 class=" text-4xl font-extralight leading-none tracking-wider text-center text-black md:text-4xl lg:text-5xl underline flex-auto">
-          {app.name}'s Services
+        <button className="text-lg text-gray-900" onClick={handleBackClick}>
+          Back
+        </button>
+        <h1 class="text-3xl font-light leading-9 tracking-tight text-gray-900 text-center sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 flex-auto">
+          {app.name}
         </h1>
       </div>
       <ServicesList

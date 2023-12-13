@@ -12,20 +12,20 @@ import { ReactComponent as DocumentationSvg } from "../../assets/documentation.s
 
 const Sidebar = ({ onPageChange }) => {
   return (
-    <aside class="w-1/6 bg-sideBarPurple p-6 pb-1 text-gray-200 flex flex-col h-full shadow-gray-400 shadow-lg">
-      <div class="flex items-center justify-center mt-2 mb-4">
+    <aside class="w-1/6 bg-sideBarPurple p-6 pb-1 pt-0 text-gray-200 flex flex-col h-full shadow-gray-400 shadow-lg">
+      <div class="flex items-center justify-center mb-4 py-4">
         <button
           onClick={() => onPageChange("AppsDataDisplay")}
-          class="flex items-center justify-center"
+          class="flex items-center justify-center border-gray-400"
         >
-          <div class="hidden h-6 my-10 text-5xl font-semibold sm:block uppercase">
-            Rater.io
+          <div class="hidden p-2 h-6 my-10 text-5xl font-bold sm:block tracking-widest uppercase">
+            RATER.IO
           </div>
         </button>
       </div>
       <ul class="text-xl border-gray-500 border-t pt-4 flex flex-col items-center">
         <button
-          class="w-full sidebar-button rounded-md p-2 py-3 my-1 pl-4 transition duration-75 bg-gray-300 bg-opacity-0 hover:bg-opacity-10"
+          class="w-full sidebar-button rounded-md p-2 py-5 my-1 pl-4 transition duration-75 bg-gray-300 bg-opacity-0 hover:bg-opacity-10"
           onClick={() => onPageChange("Overview")}
         >
           <div class="flex items-center text-gray-300 font-normal tracking-wider">
@@ -33,7 +33,7 @@ const Sidebar = ({ onPageChange }) => {
           </div>
         </button>
         <button
-          class="w-full sidebar-button rounded-md p-2 py-3 my-2 pl-4 transition duration-75 bg-gray-300 bg-opacity-0 hover:bg-opacity-10"
+          class="w-full sidebar-button rounded-md p-2 py-5 my-0 pl-4 transition duration-75 bg-gray-300 bg-opacity-0 hover:bg-opacity-10"
           onClick={() => onPageChange("AppsDataDisplay")}
         >
           <div class="flex items-center text-gray-300 font-normal tracking-wider">
@@ -41,7 +41,7 @@ const Sidebar = ({ onPageChange }) => {
           </div>
         </button>
         <button
-          class="w-full sidebar-button rounded-md p-2 py-3 my-2 pl-4 transition duration-75 bg-gray-300 bg-opacity-0 hover:bg-opacity-10"
+          class="w-full sidebar-button rounded-md p-2 py-5 my-0 pl-4 transition duration-75 bg-gray-300 bg-opacity-0 hover:bg-opacity-10"
           onClick={() => onPageChange("ServicesDataDisplay")}
         >
           <div class="flex items-center text-gray-300 font-normal tracking-wider">
@@ -49,7 +49,7 @@ const Sidebar = ({ onPageChange }) => {
           </div>
         </button>
         <button
-          class="w-full sidebar-button rounded-md p-2 py-3 my-2 pl-4 transition duration-75 bg-gray-300 bg-opacity-0 hover:bg-opacity-10"
+          class="w-full sidebar-button rounded-md p-2 py-5 my-0 pl-4 transition duration-75 bg-gray-300 bg-opacity-0 hover:bg-opacity-10"
           onClick={() => onPageChange("ApisDataDisplay")}
         >
           <div class="flex items-center text-gray-300 font-semibold">
@@ -60,7 +60,7 @@ const Sidebar = ({ onPageChange }) => {
         </button>
 
         <button
-          class="w-full sidebar-button rounded-md p-2 py-3 my-2 pl-4 transition duration-75 bg-gray-300 bg-opacity-0 hover:bg-opacity-10"
+          class="w-full sidebar-button rounded-md p-2 py-5 my-0 pl-4 transition duration-75 bg-gray-300 bg-opacity-0 hover:bg-opacity-10"
           onClick={() => onPageChange("ServicesDataDisplay")}
         >
           <div class="flex items-center text-gray-300 font-normal tracking-wider">
@@ -69,7 +69,7 @@ const Sidebar = ({ onPageChange }) => {
         </button>
         <div class="mt-5 border-gray-500 border-t-2 pt-4 items-center w-full">
           <button
-            class="w-full sidebar-button rounded-md p-2 py-3 my-2 pl-4 transition duration-75 bg-gray-300 bg-opacity-0 hover:bg-opacity-10"
+            class="w-full sidebar-button rounded-md p-2 py-5 my-1 pl-4 transition duration-75 bg-gray-300 bg-opacity-0 hover:bg-opacity-10"
             onClick={() => onPageChange("ApisDataDisplay")}
           >
             <div class="flex items-center text-gray-300 font-semibold">
@@ -79,7 +79,7 @@ const Sidebar = ({ onPageChange }) => {
             </div>
           </button>
           <button
-            class="w-full sidebar-button rounded-md p-2 py-3 my-2 pl-4 transition duration-75 bg-gray-300 bg-opacity-0 hover:bg-opacity-10"
+            class="w-full sidebar-button rounded-md p-2 py-5 my-0 pl-4 transition duration-75 bg-gray-300 bg-opacity-0 hover:bg-opacity-10"
             onClick={() => onPageChange("ApisDataDisplay")}
           >
             <div class="flex items-center text-gray-300 font-semibold">

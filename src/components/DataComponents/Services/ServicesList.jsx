@@ -16,7 +16,10 @@ const ServicesList = ({ services, onPageChange, appId }) => {
 
   useEffect(() => {
     if (services) {
-      setServices(services);
+      const sortedServices = services
+        .slice()
+        .sort((a, b) => a.name.localeCompare(b.name));
+      setServices(sortedServices);
     }
   }, [services]);
 
@@ -85,7 +88,7 @@ const ServicesList = ({ services, onPageChange, appId }) => {
   }
 
   return (
-    <div className="grid grid-cols-4">
+    <div className="grid grid-cols-4 mx-4">
       {servicesList &&
         servicesList.map((service, index) => (
           <div key={service.id} className="p-4 relative">

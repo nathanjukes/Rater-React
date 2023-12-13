@@ -2,7 +2,7 @@ import React from "react";
 
 const Overview = () => {
   const commonClasses =
-    "bg-white shadow-lg p-3 pb-1 text-center rounded-xl flex flex-col cursor-pointer border-gray-300 hover:shadow-lg";
+    "bg-white shadow-lg p-3 pb-1 text-center rounded-xl flex flex-col cursor-pointer border-2 border-gray-200 hover:shadow-lg";
 
   return (
     <div className="grid grid-cols-4 gap-2 m-4">

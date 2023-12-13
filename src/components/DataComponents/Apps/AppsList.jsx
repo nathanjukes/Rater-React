@@ -106,38 +106,41 @@ const AppsList = ({ onPageChange }) => {
     return <Loading />;
   }
 
+  const buttonStyle =
+    "bg-white shadow-lg p-3 pb-1 text-center rounded-xl flex flex-col cursor-pointer border-2 border-gray-200 hover:shadow-xl";
+
   return (
-    <div className="grid grid-cols-4">
+    <div className="grid grid-cols-4 mx-4">
       {apps.map((app, index) => (
-        <div key={app.id} className="p-4 relative">
+        <div key={app.id} className="p-3 relative">
           <div
             onClick={() => handleAppClick(app.id)}
             onMouseEnter={() => setHoveredApp(app.id)}
             onMouseLeave={() => setHoveredApp(null)}
           >
-            <div className="bg-white border-2 p-3 pb-1 rounded-lg flex flex-col cursor-pointer shadow-md shadow-slate-200 border-gray-300 hover:shadow-lg">
-              <h2 className="inline-block p-4 text-center uppercase text-2xl font-semibold leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
+            <div className={` ${buttonStyle}`}>
+              <h2 className="inline-block p-4 pt-4 pb-6 text-4xl font-medium leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
                 {app.name}
               </h2>
               <div className="flex justify-center mt-4">
                 <div className="inline-block px-4 text-lg font-semibold">
-                  <div className="text-center border-2 border-gray-600 rounded-md px-2 mb-2">
+                  <div className="text-center border-gray-600 rounded-md px-2 mb-2">
                     {app.services ? (
-                      <span className="block text-2xl text-black">
+                      <span className="block text-3xl text-black">
                         {app.services.length}
                       </span>
                     ) : (
-                      <span className="block text-2xl text-black">0</span>
+                      <span className="block text-3xl text-black">0</span>
                     )}
-                    <span className="">Active Services</span>
+                    <span className="font-light text-2xl">Services Active</span>
                   </div>
                 </div>
                 <div className="inline-block px-4 text-lg font-semibold">
-                  <div className="text-center border-2 border-gray-600 rounded-md px-2 mb-2">
-                    <span className="block text-2xl text-black">
+                  <div className="text-center border-gray-600 rounded-md px-2 mb-2">
+                    <span className="block text-3xl text-black">
                       {app.apiCount}
                     </span>
-                    <span className="text-black">Active APIs</span>
+                    <span className="font-light text-2xl">APIs Active</span>
                   </div>
                 </div>
               </div>
