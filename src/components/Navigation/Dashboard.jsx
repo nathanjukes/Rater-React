@@ -11,6 +11,8 @@ import Footer from "./Footer";
 import ServicesList from "../DataComponents/Services/ServicesList";
 import Overview from "./Overview";
 import ServicesDataDisplay from "../DataComponents/Services/ServicesDataDisplay";
+import UserManagement from "../DataComponents/Other/UserManagement";
+import ApiDocumentation from "../DataComponents/Other/ApiDocumentation";
 
 const Dashboard = () => {
   // useRequireAuth();
@@ -35,6 +37,8 @@ const Dashboard = () => {
     Service: ServicePage,
     Api: ApiPage,
     Overview: Overview,
+    Users: UserManagement,
+    ApiDocumentation: ApiDocumentation,
   };
 
   const SelectedPage = componentMap[page];

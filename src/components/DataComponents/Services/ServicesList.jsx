@@ -9,7 +9,7 @@ const SERVICES_URL = "/services";
 const ServicesList = ({ services, onPageChange, appId }) => {
   const [showModal, setShowModal] = useState(false);
   const [newServiceName, setNewServiceName] = useState("");
-  const [servicesList, setServices] = useState([]);
+  const [servicesList, setServices] = useState(null);
   const [hoveredService, setHoveredService] = useState(null);
 
   const axiosPrivate = useAxiosPrivate();
@@ -83,8 +83,63 @@ const ServicesList = ({ services, onPageChange, appId }) => {
     onPageChange("Service", appId, serviceId);
   };
 
-  if (!services) {
+  if (!servicesList) {
     return <Loading />;
+  }
+
+  if (servicesList.length === 0) {
+    return (
+      <div className="flex ml-4">
+        <div className="">
+          <button
+            onClick={openModal}
+            className="py-16 px-10 m-4 mt-6 items-center justify-center bg-sideBarPurple border-2 border-gray-500 hover:border-gray-400 hover:underline hover:bg-buttonPurple text-white font-semibold rounded-md transition-colors"
+          >
+            <p className="text-gray-300 font-normal tracking-wider text-2xl items-center px-24">
+              New Service
+            </p>
+          </button>
+          {showModal && (
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+              <div className="bg-white p-8 rounded-md">
+                <h2 className="text-2xl font-semibold mb-4 text-center">
+                  New Service
+                </h2>
+                <div className="mb-4">
+                  <label
+                    htmlFor="serviceName"
+                    className="block font-semibold mb-2"
+                  >
+                    Name:
+                  </label>
+                  <input
+                    type="text"
+                    id="serviceName"
+                    value={newServiceName}
+                    onChange={handleServiceNameChange}
+                    className="border border-gray-400 p-2 rounded-md w-full"
+                  />
+                </div>
+                <div className="flex justify-between">
+                  <button
+                    onClick={closeModal}
+                    className="px-4 py-2 bg-zinc-600 rounded-md text-white"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={handleCreate}
+                    className="px-4 py-2 bg-sideBarPurple rounded-md text-white"
+                  >
+                    Create
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    );
   }
 
   return (

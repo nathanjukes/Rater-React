@@ -10,7 +10,7 @@ const ApisList = ({ selectedApp, apis, onPageChange, serviceId }) => {
   const [newApiName, setNewApiName] = useState("");
   const [newBaseLimit, setNewBaseLimit] = useState("");
   const [newHttpMethod, setNewHttpMethod] = useState("GET");
-  const [apisList, setApis] = useState([]);
+  const [apisList, setApis] = useState(null);
   const [hoveredApi, setHoveredApi] = useState(null);
 
   const axiosPrivate = useAxiosPrivate();
@@ -95,6 +95,99 @@ const ApisList = ({ selectedApp, apis, onPageChange, serviceId }) => {
     onPageChange("Api", selectedApp, serviceId, apiId);
   };
 
+  if (!apisList) {
+    return <Loading />;
+  }
+
+  if (apisList.length === 0) {
+    return (
+      <div className="flex mx-4">
+        <button
+          onClick={openModal}
+          className="px-16 py-20 m-4 my-4 rounded-lg items-center justify-center bg-sideBarPurple border-2 border-gray-500 hover:border-gray-400 hover:underline hover:bg-buttonPurple text-white font-semibold transition-colors"
+        >
+          <p className="text-gray-300 font-normal tracking-wider text-2xl items-center px-24">
+            New API
+          </p>
+        </button>
+
+        {showModal && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white p-8 rounded-md">
+              <h2 className="text-2xl font-semibold mb-4 text-center">
+                New API
+              </h2>
+              <div className="mb-4">
+                <label htmlFor="apiName" className="block font-semibold mb-2">
+                  Address:
+                </label>
+                <input
+                  type="text"
+                  id="apiName"
+                  value={newApiName}
+                  onChange={handleApiNameChange}
+                  className="border border-gray-400 p-2 rounded-md w-full"
+                  placeholder="users"
+                />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="baseLimit" className="block font-semibold mb-2">
+                  Base Limit:
+                </label>
+                <input
+                  type="text"
+                  id="baseLimit"
+                  value={newBaseLimit}
+                  onChange={handleBaseLimitChange}
+                  className="border border-gray-400 p-2 rounded-md w-full"
+                  placeholder="20"
+                />
+              </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="httpMethod"
+                  className="block font-semibold mb-2"
+                >
+                  HTTP Method:
+                </label>
+                <select
+                  id="httpMethod"
+                  value={newHttpMethod}
+                  onChange={handleHttpMethodChange}
+                  className="border border-gray-400 p-2 rounded-md w-full"
+                >
+                  <option value="GET">GET</option>
+                  <option value="POST">POST</option>
+                  <option value="PUT">PUT</option>
+                  <option value="PATCH">PATCH</option>
+                  <option value="DELETE">DELETE</option>
+                  <option value="HEAD">HEAD</option>
+                  <option value="OPTIONS">OPTIONS</option>
+                  <option value="CONNECT">CONNECT</option>
+                  <option value="TRACE">TRACE</option>
+                </select>
+              </div>
+              <div className="flex justify-between">
+                <button
+                  onClick={closeModal}
+                  className="px-4 py-2 bg-zinc-600 rounded-md text-white"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleCreate}
+                  className="px-4 py-2 bg-sideBarPurple rounded-md text-white"
+                >
+                  Create
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
+
   const buttonStyle =
     "bg-white shadow-lg p-3 pb-1 text-center rounded-xl flex flex-col cursor-pointer border-2 border-gray-200 hover:shadow-xl";
 
@@ -119,7 +212,7 @@ const ApisList = ({ selectedApp, apis, onPageChange, serviceId }) => {
                   <div className="inline-block px-4 text-lg font-semibold">
                     <div className="text-center border-gray-600 rounded-md px-2 mb-2">
                       <span className="block text-3xl text-black">
-                        {api && api.basicLimit ? api.basicLimit : 0}rq/m
+                        {api && api.basicLimit ? api.basicLimit : 0} rq/m
                       </span>
                       <span className="font-light text-2xl">Base Limit</span>
                     </div>
@@ -133,7 +226,7 @@ const ApisList = ({ selectedApp, apis, onPageChange, serviceId }) => {
                             api.roleRules.length
                           : 0}
                       </span>
-                      <span className="font-light text-2xl">Rules Active</span>
+                      <span className="font-light text-2xl">Custom Rules</span>
                     </div>
                   </div>
                 </div>

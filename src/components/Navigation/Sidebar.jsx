@@ -58,7 +58,6 @@ const Sidebar = ({ onPageChange }) => {
             </div>
           </div>
         </button>
-
         <button
           class="w-full sidebar-button rounded-md p-2 py-5 my-0 pl-4 transition duration-75 bg-gray-300 bg-opacity-0 hover:bg-opacity-10"
           onClick={() => onPageChange("ServicesDataDisplay")}
@@ -67,14 +66,22 @@ const Sidebar = ({ onPageChange }) => {
             <span>Metrics</span>
           </div>
         </button>
+        <button
+          class="w-full sidebar-button rounded-md p-2 py-5 my-0 pl-4 transition duration-75 bg-gray-300 bg-opacity-0 hover:bg-opacity-10"
+          onClick={() => onPageChange("Users")}
+        >
+          <div class="flex items-center text-gray-300 font-normal tracking-wider">
+            <span>User Management</span>
+          </div>
+        </button>
         <div class="mt-5 border-gray-500 border-t-2 pt-4 items-center w-full">
           <button
             class="w-full sidebar-button rounded-md p-2 py-5 my-1 pl-4 transition duration-75 bg-gray-300 bg-opacity-0 hover:bg-opacity-10"
-            onClick={() => onPageChange("ApisDataDisplay")}
+            onClick={() => onPageChange("ApiDocumentation")}
           >
             <div class="flex items-center text-gray-300 font-semibold">
               <div class="flex items-center text-gray-300 font-normal tracking-wider">
-                <span>Documentation</span>
+                <span>API Documentation</span>
               </div>
             </div>
           </button>

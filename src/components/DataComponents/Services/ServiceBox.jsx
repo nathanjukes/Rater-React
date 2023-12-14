@@ -18,7 +18,7 @@ const ServiceBox = ({ service }) => {
         <div className="inline-block px-4 text-lg font-semibold">
           <div className="text-center border-gray-600 rounded-md px-2 mb-2">
             <span className="block text-3xl text-black">{activeAPIsCount}</span>
-            <span className="font-light text-2xl">Services Active</span>
+            <span className="font-light text-2xl">APIs Active</span>
           </div>
         </div>
       </div>

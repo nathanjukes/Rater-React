@@ -40,7 +40,7 @@ const Application = ({ onPageChange, selectedApp }) => {
     <div>
       <div class="flex justify-between items-center m-4">
         <button
-          className={`${buttonStyle} ml-4 mt-4 px-5 p-4 pb-3 pt-3 bg-sideBarPurple text-gray-300 font-normal tracking-wider hover:bg-buttonPurple hover:und`}
+          className={`${buttonStyle} ml-4 mt-4 px-5 p-4 pb-3 pt-3 bg-sideBarPurple text-gray-300 font-normal tracking-wider hover:bg-buttonPurple hover:underline`}
           onClick={handleBackClick}
         >
           Back
