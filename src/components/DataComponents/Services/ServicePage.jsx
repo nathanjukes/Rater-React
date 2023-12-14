@@ -15,6 +15,9 @@ const API_KEY_URL = "/auth";
 const ServicePage = ({ onPageChange, selectedApp, serviceId }) => {
   const [service, setService] = useState(serviceId);
   const [apiKey, setApiKey] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [isKeyCopied, setIsCopied] = useState(false);
+  const apiKeyRef = useRef(null);
   const axiosPrivate = useAxiosPrivate();
   const axiosPrivateRateControl = useAxiosPrivateRateControl();
 
@@ -61,6 +64,26 @@ const ServicePage = ({ onPageChange, selectedApp, serviceId }) => {
     onPageChange("Application", selectedApp);
   };
 
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setIsCopied(false);
+  };
+
+  const handleCopyClick = () => {
+    const range = document.createRange();
+    range.selectNode(apiKeyRef.current);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+    document.execCommand("copy");
+    window.getSelection().removeAllRanges();
+
+    setIsCopied(true);
+  };
+
   if (!service || !service.name) {
     return <Loading />;
   }
@@ -82,7 +105,7 @@ const ServicePage = ({ onPageChange, selectedApp, serviceId }) => {
         </h1>
         <button
           className={`shadow-lg text-center rounded-xl flex flex-col border-2 border-gray-200 ml-4 mt-4 px-5 p-4 pb-3 pt-3 bg-sideBarPurple text-gray-300 font-normal tracking-wider hover:bg-buttonPurple hover:underline`}
-          onClick={handleBackClick}
+          onClick={openModal}
         >
           Api Key
         </button>
@@ -93,9 +116,41 @@ const ServicePage = ({ onPageChange, selectedApp, serviceId }) => {
         onPageChange={onPageChange}
         serviceId={service.id}
       />
-      <h2 class="mt-2 text-2xl font-extralight leading-none tracking-wider text-center text-black md:text-2xl lg:text-2xl flex-auto">
-        Api Key: {apiKey}
-      </h2>
+      {showModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-8 rounded-md">
+            <h2 className="text-2xl font-semibold mb-4 text-center">API Key</h2>
+            <div className="mb-4">
+              <h1
+                ref={apiKeyRef}
+                className="border-2 shadow-lg border-gray-500 p-2 rounded-md w-full text-center text-black font-light tracking-wider hover:cursor-pointer"
+                onClick={handleCopyClick}
+              >
+                {apiKey}
+              </h1>
+              {isKeyCopied && (
+                <h2 className="text-center mt-4 text-gray-900 font-semibold">
+                  API Key Copied!
+                </h2>
+              )}
+            </div>
+            <div className="flex justify-between">
+              <button
+                onClick={closeModal}
+                className="px-4 py-2 bg-zinc-600 rounded-md text-gray-300 font-normal tracking-wider"
+              >
+                Close
+              </button>
+              <button
+                onClick={closeModal}
+                className="px-4 py-2 bg-sideBarPurple rounded-md text-gray-300 font-normal tracking-wider"
+              >
+                Regenerate
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
