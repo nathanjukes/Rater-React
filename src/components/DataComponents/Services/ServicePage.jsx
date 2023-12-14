@@ -137,13 +137,13 @@ const ServicePage = ({ onPageChange, selectedApp, serviceId }) => {
             <div className="flex justify-between">
               <button
                 onClick={closeModal}
-                className="px-4 py-2 bg-zinc-600 rounded-md text-gray-300 font-normal tracking-wider"
+                className="px-4 py-2 bg-zinc-600 rounded-md text-white"
               >
                 Close
               </button>
               <button
                 onClick={closeModal}
-                className="px-4 py-2 bg-sideBarPurple rounded-md text-gray-300 font-normal tracking-wider"
+                className="px-4 py-2 bg-sideBarPurple rounded-md text-white"
               >
                 Regenerate
               </button>
