@@ -57,18 +57,38 @@ const ServicePage = ({ onPageChange, selectedApp, serviceId }) => {
     getApiKey();
   }, []);
 
+  const handleBackClick = () => {
+    onPageChange("Application", selectedApp);
+  };
+
   if (!service || !service.name) {
     return <Loading />;
   }
 
+  const buttonStyle =
+    "shadow-lg p-3 pb-1 text-center rounded-xl flex flex-col cursor-pointer border-2 border-gray-200 hover:shadow-xl";
+
   return (
     <div>
       <div class="flex justify-between items-center m-4">
+        <button
+          className={`${buttonStyle} ml-4 mt-4 px-5 p-4 pb-3 pt-3 bg-sideBarPurple text-gray-300 font-normal tracking-wider hover:bg-buttonPurple hover:underline`}
+          onClick={handleBackClick}
+        >
+          Back
+        </button>
         <h1 class="text-3xl font-light leading-9 tracking-tight text-gray-900 text-center sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 flex-auto">
           {service.name}
         </h1>
+        <button
+          className={`shadow-lg text-center rounded-xl flex flex-col border-2 border-gray-200 ml-4 mt-4 px-5 p-4 pb-3 pt-3 bg-sideBarPurple text-gray-300 font-normal tracking-wider hover:bg-buttonPurple hover:underline`}
+          onClick={handleBackClick}
+        >
+          Api Key
+        </button>
       </div>
       <ApisList
+        selectedApp={selectedApp}
         apis={service.apis}
         onPageChange={onPageChange}
         serviceId={service.id}

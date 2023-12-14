@@ -9,7 +9,7 @@ module.exports = {
         sideBarPurple: "#3d384e",
         navBarWhite: "#ffffff",
         backgroundWhite: "#eeeeee",
-        buttonPurple: "#b4b7ee",
+        buttonPurple: "#524d63",
         accentButtonGrey: "#6b7280",
       },
       variants: {

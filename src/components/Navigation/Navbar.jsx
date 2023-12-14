@@ -61,13 +61,13 @@ const Navbar = () => {
       </h1>
       <div className="flex items-center mr-3">
         <button className="rounded-lg p-0.5 transition duration-75 bg-gray-700 bg-opacity-0 hover:bg-opacity-10 mr-2">
-          <BellSvg className="h-10 w-12 hover:cursor-pointer text-accentButtonGrey hover:text-gray-700"></BellSvg>
+          <BellSvg className="h-10 w-12 hover:cursor-pointer text-sideBarPurple hover:text-buttonPurple"></BellSvg>
         </button>
         <button
           className="rounded-lg p-0.5 transition duration-75 bg-gray-700 bg-opacity-0 hover:bg-opacity-10 mr-3"
           onClick={toggleDropdown}
         >
-          <AppSvg className="h-10 w-12 hover:cursor-pointer text-accentButtonGrey hover:text-gray-700"></AppSvg>
+          <AppSvg className="h-10 w-12 hover:cursor-pointer text-sideBarPurple hover:text-buttonPurple"></AppSvg>
         </button>
         {isDropdownOpen && (
           <div className="absolute right-0 mt-60 mx-16 w-48 bg-white border border-gray-200 rounded shadow-lg z-10">
@@ -96,7 +96,7 @@ const Navbar = () => {
                   className="rounded-lg p-0.5 transition duration-75 bg-gray-700 bg-opacity-0 hover:bg-opacity-10 mr-3"
                   onClick={toggleDropdown}
                 >
-                  <AppSvg className="h-10 w-12 hover:cursor-pointer text-accentButtonGrey hover:text-gray-700"></AppSvg>
+                  <AppSvg className="h-10 w-12 hover:cursor-pointer text-accentButtonGrey hover:text-buttonPurple"></AppSvg>
                 </button>
               </div>
               <div>
@@ -104,7 +104,7 @@ const Navbar = () => {
                   className="rounded-lg p-0.5 transition duration-75 bg-gray-700 bg-opacity-0 hover:bg-opacity-10 mr-3"
                   onClick={toggleDropdown}
                 >
-                  <AppSvg className="h-10 w-12 hover:cursor-pointer text-accentButtonGrey hover:text-gray-700"></AppSvg>
+                  <AppSvg className="h-10 w-12 hover:cursor-pointer text-accentButtonGrey hover:text-buttonPurple"></AppSvg>
                   <h2>Applications</h2>
                 </button>
               </div>
@@ -112,8 +112,10 @@ const Navbar = () => {
           </div>
         )}
         <div className="flex flex-col items-center justify-center text-right hover:cursor-pointer">
-          <UserSvg className="h-16 w-20 hover:cursor-pointer text-accentButtonGrey hover:text-gray-700"></UserSvg>
-          <h2 className="font-normal text-lg hover:underline">{username}</h2>
+          <UserSvg className="h-16 w-20 hover:cursor-pointer text-sideBarPurple hover:text-buttonPurple"></UserSvg>
+          <h2 className="font-normal text-lg hover:underline text-sideBarPurple hover:text-buttonPurple">
+            {username}
+          </h2>
         </div>
       </div>
     </nav>

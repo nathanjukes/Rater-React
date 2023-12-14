@@ -5,7 +5,7 @@ import Loading from "../../Util/Loading";
 
 const APIS_URL = "/apis";
 
-const ApisList = ({ apis, onPageChange, serviceId }) => {
+const ApisList = ({ selectedApp, apis, onPageChange, serviceId }) => {
   const [showModal, setShowModal] = useState(false);
   const [newApiName, setNewApiName] = useState("");
   const [newBaseLimit, setNewBaseLimit] = useState("");
@@ -91,8 +91,8 @@ const ApisList = ({ apis, onPageChange, serviceId }) => {
   };
 
   const handleApiClick = (apiId) => {
-    console.log("Going to api page:", apiId);
-    onPageChange("Api", serviceId, serviceId, apiId);
+    console.log("Going to api page:", selectedApp, serviceId, apiId);
+    onPageChange("Api", selectedApp, serviceId, apiId);
   };
 
   const buttonStyle =
@@ -102,7 +102,7 @@ const ApisList = ({ apis, onPageChange, serviceId }) => {
     <div className="grid grid-cols-4 mx-4">
       {apisList &&
         apisList.map((api, index) => (
-          <div key={api.id} className="p-4">
+          <div key={api.id} className="p-4 relative">
             <div
               onClick={() => handleApiClick(api.id)}
               onMouseEnter={() => setHoveredApi(api.id)}
@@ -110,7 +110,10 @@ const ApisList = ({ apis, onPageChange, serviceId }) => {
             >
               <div className={` ${buttonStyle}`}>
                 <h2 className="inline-block p-4 pt-4 pb-6 text-4xl font-medium leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
-                  {api.name}
+                  <span className="bg-sideBarPurple rounded-md px-2 py-0.5 mr-2 text-backgroundWhite">
+                    {api.httpMethod}:
+                  </span>
+                  /{api.name}
                 </h2>
                 <div className="flex justify-center mt-4">
                   <div className="inline-block px-4 text-lg font-semibold">
@@ -136,7 +139,7 @@ const ApisList = ({ apis, onPageChange, serviceId }) => {
                 </div>
                 {hoveredApi === api.id && (
                   <button
-                    className="absolute top-0 right-0 mt-2 mr-2 bg-zinc-700 hover:bg-zinc-900 text-white font-bold py-1 px-2 rounded-full opacity-100 transition duration-300 ease-in-out z-20 flex items-center justify-center"
+                    className="absolute top-0 right-0 mt-6 mr-6 bg-sideBarPurple hover:bg-buttonPurple text-white font-bold p-2 px-3 rounded-full opacity-100 transition duration-300 ease-in-out z-20"
                     onClick={(e) => {
                       e.stopPropagation();
                       deleteApi(api.id);
@@ -144,7 +147,7 @@ const ApisList = ({ apis, onPageChange, serviceId }) => {
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4"
+                      className="h-5 w-5"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     >
@@ -160,21 +163,22 @@ const ApisList = ({ apis, onPageChange, serviceId }) => {
             </div>
           </div>
         ))}
-
       <button
         onClick={openModal}
-        className="m-4 flex items-center justify-center bg-purple-400 border-2 border-gray-500 hover:border-gray-400 text-white font-semibold rounded-md transition-colors duration-100"
+        className="m-4 flex items-center justify-center bg-sideBarPurple border-2 border-gray-500 hover:border-gray-400 hover:underline hover:bg-buttonPurple text-white font-semibold rounded-md transition-colors"
       >
-        <p className="text-black text-xl">Add API</p>
+        <p className="text-gray-300 font-normal tracking-wider text-2xl">
+          New API
+        </p>
       </button>
 
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-8 rounded-md">
-            <h2 className="text-2xl font-semibold mb-4">Add API</h2>
+            <h2 className="text-2xl font-semibold mb-4 text-center">New API</h2>
             <div className="mb-4">
               <label htmlFor="apiName" className="block font-semibold mb-2">
-                API Name:
+                Address:
               </label>
               <input
                 type="text"
@@ -182,6 +186,7 @@ const ApisList = ({ apis, onPageChange, serviceId }) => {
                 value={newApiName}
                 onChange={handleApiNameChange}
                 className="border border-gray-400 p-2 rounded-md w-full"
+                placeholder="users"
               />
             </div>
             <div className="mb-4">
@@ -194,6 +199,7 @@ const ApisList = ({ apis, onPageChange, serviceId }) => {
                 value={newBaseLimit}
                 onChange={handleBaseLimitChange}
                 className="border border-gray-400 p-2 rounded-md w-full"
+                placeholder="20"
               />
             </div>
             <div className="mb-4">
@@ -220,13 +226,13 @@ const ApisList = ({ apis, onPageChange, serviceId }) => {
             <div className="flex justify-between">
               <button
                 onClick={closeModal}
-                className="px-4 py-2 bg-gray-500 rounded-md text-white"
+                className="px-4 py-2 bg-zinc-600 rounded-md text-white"
               >
                 Cancel
               </button>
               <button
                 onClick={handleCreate}
-                className="px-4 py-2 bg-purple-500 rounded-md text-white"
+                className="px-4 py-2 bg-sideBarPurple rounded-md text-white"
               >
                 Create
               </button>

@@ -1,6 +1,29 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import Loading from "../Util/Loading";
 
 const Overview = () => {
+  const [metric, setMetric] = useState(null);
+  const axiosPrivate = useAxiosPrivate();
+
+  useEffect(() => {
+    const getMetrics = async () => {
+      try {
+        const response = await axiosPrivate.get(`/metrics/orgs`);
+        setMetric(response.data);
+      } catch (error) {
+        console.error("Error getting metrics:", error);
+      }
+    };
+
+    getMetrics();
+  }, []);
+
+  if (!metric) {
+    return <Loading />;
+  }
+
   const commonClasses =
     "bg-white shadow-lg p-3 pb-1 text-center rounded-xl flex flex-col cursor-pointer border-2 border-gray-200 hover:shadow-lg";
 
@@ -12,7 +35,7 @@ const Overview = () => {
         </h2>
         <div className="flex justify-center">
           <div className="inline-block px-4 py-2 pb-1 text-4xl font-bold">
-            4
+            {metric.appCount}
           </div>
         </div>
       </div>
@@ -22,7 +45,7 @@ const Overview = () => {
         </h2>
         <div className="flex justify-center">
           <div className="inline-block px-4 py-2 pb-1 text-4xl font-bold">
-            20
+            {metric.serviceCount}
           </div>
         </div>
       </div>
@@ -32,7 +55,7 @@ const Overview = () => {
         </h2>
         <div className="flex justify-center">
           <div className="inline-block px-4 py-2 pb-1 text-4xl font-bold">
-            67
+            {metric.apiCount}
           </div>
         </div>
       </div>
@@ -42,7 +65,7 @@ const Overview = () => {
         </h2>
         <div className="flex justify-center">
           <div className="inline-block px-4 py-2 pb-1 text-4xl font-bold">
-            14
+            {metric.uniqueRules}
           </div>
         </div>
       </div>

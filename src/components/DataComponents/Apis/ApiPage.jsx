@@ -76,6 +76,11 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
     closeModal();
   };
 
+  const handleBackClick = () => {
+    console.log("going back", selectedApp, serviceId);
+    onPageChange("Service", selectedApp, serviceId);
+  };
+
   if (!api || !api.idRules || !api.ipRules || !api.roleRules) {
     return <Loading />;
   }
@@ -85,7 +90,13 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
 
   return (
     <div>
-      <div className="flex justify-between items-center m-4 pt-4">
+      <div className="flex justify-between items-center m-4 pt-4 mt-1">
+        <button
+          className={`shadow-lg text-center rounded-xl flex flex-col border-2 border-gray-200 ml-4 mt-4 px-5 p-4 pb-3 pt-3 bg-sideBarPurple text-gray-300 font-normal tracking-wider hover:bg-buttonPurple hover:underline`}
+          onClick={handleBackClick}
+        >
+          Back
+        </button>
         <h1 className="text-4xl font-extralight leading-none tracking-wider text-center text-black md:text-4xl lg:text-5xl flex-auto">
           <span className="bg-sideBarPurple rounded-md px-2 py-0.5 mr-4 text-backgroundWhite">
             {api.httpMethod}:
@@ -396,6 +407,7 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
                         value={newUserId}
                         onChange={handleNewUserId}
                         className="border border-gray-400 p-2 rounded-md w-full"
+                        placeholder="Admin"
                       />
                     </div>
                     <div className="mb-4">
@@ -411,12 +423,13 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
                         value={newApiLimit}
                         onChange={handleNewApiLimit}
                         className="border border-gray-400 p-2 rounded-md w-full"
+                        placeholder="25"
                       />
                     </div>
                     <div className="flex justify-between">
                       <button
                         onClick={closeModal}
-                        className="px-4 py-2 bg-gray-500 rounded-md text-white"
+                        className="px-4 py-2 bg-zinc-600 rounded-md text-white"
                       >
                         Cancel
                       </button>
