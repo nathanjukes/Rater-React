@@ -87,7 +87,7 @@ const Sidebar = ({ onPageChange }) => {
           </button>
           <button
             class="w-full sidebar-button rounded-md p-2 py-5 my-0 pl-4 transition duration-75 bg-gray-300 bg-opacity-0 hover:bg-opacity-10"
-            onClick={() => onPageChange("ApisDataDisplay")}
+            onClick={() => onPageChange("Settings")}
           >
             <div class="flex items-center text-gray-300 font-semibold">
               <div class="flex items-center text-gray-300 font-normal tracking-wider">

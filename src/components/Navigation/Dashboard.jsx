@@ -13,6 +13,7 @@ import Overview from "./Overview";
 import ServicesDataDisplay from "../DataComponents/Services/ServicesDataDisplay";
 import UserManagement from "../DataComponents/Other/UserManagement";
 import ApiDocumentation from "../DataComponents/Other/ApiDocumentation";
+import Settings from "../DataComponents/Other/Settings";
 
 const Dashboard = () => {
   // useRequireAuth();
@@ -39,6 +40,7 @@ const Dashboard = () => {
     Overview: Overview,
     Users: UserManagement,
     ApiDocumentation: ApiDocumentation,
+    Settings: Settings,
   };
 
   const SelectedPage = componentMap[page];
