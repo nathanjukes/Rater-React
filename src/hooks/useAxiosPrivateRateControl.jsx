@@ -36,6 +36,8 @@ const useAxiosPrivateRateControl = () => {
             setAuth({ ...auth, accessToken });
             return axiosPrivateRateControl(newConfig);
           } catch (refreshError) {
+            localStorage.removeItem("token");
+            setAuth({ ...auth, accessToken: null });
             navigate("/login");
           }
         }

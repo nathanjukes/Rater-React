@@ -88,11 +88,6 @@ const Sidebar = ({ onPageChange }) => {
               <span>User Management</span>
             </div>
           </button>
-          <button className={buttonStyle} onClick={() => onPageChange("Users")}>
-            <div class="flex items-center text-gray-300 font-normal tracking-wider">
-              <span>API Keys</span>
-            </div>
-          </button>
           <button
             className={buttonStyle}
             onClick={() => onPageChange("ApiDocumentation")}

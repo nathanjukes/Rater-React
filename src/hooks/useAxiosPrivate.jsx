@@ -37,6 +37,8 @@ const useAxiosPrivate = () => {
             setAuth({ ...auth, accessToken });
             return axiosPrivate(newConfig);
           } catch (refreshError) {
+            localStorage.removeItem("token");
+            setAuth({ ...auth, accessToken: null });
             navigate("/login");
           }
         }
