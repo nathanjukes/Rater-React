@@ -61,6 +61,10 @@ const ServicePage = ({ onPageChange, selectedApp, serviceId }) => {
   }, []);
 
   const handleBackClick = () => {
+    if (!selectedApp) {
+      onPageChange("ServicesDataDisplay");
+      return;
+    }
     onPageChange("Application", selectedApp);
   };
 

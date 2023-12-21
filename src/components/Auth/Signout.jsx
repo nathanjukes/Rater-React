@@ -23,7 +23,7 @@ const LogoutButton = () => {
   return (
     <div className="mt-auto flex justify-center items-center">
       <button
-        className="p-4 py-4 font-medium text-gray-300 bg-transparent hover:border-gray-500 hover:text-gray-400 rounded-lg border-2 text-center border-gray-300 transition duration-200 w-10/12"
+        className="p-2 py-2 font-thin text-gray-300 bg-transparent hover:border-gray-500 hover:text-gray-400 rounded-lg border-2 text-center border-gray-300 transition duration-200 w-10/12"
         onClick={logoutUser}
       >
         Sign out

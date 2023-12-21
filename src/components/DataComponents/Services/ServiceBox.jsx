@@ -2,9 +2,6 @@ import React from "react";
 
 const ServiceBox = ({ service }) => {
   const activeAPIsCount = service && service.apis ? service.apis.length : 0;
-  const parentApp = service.flatStructure
-    ? service.flatStructure.split("/")[1]
-    : "";
 
   const buttonStyle =
     "bg-white shadow-lg p-3 pb-1 text-center rounded-xl flex flex-col cursor-pointer border-2 border-gray-200 hover:shadow-xl";

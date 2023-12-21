@@ -3,7 +3,6 @@ import ServicesList from "./ServicesList";
 import { useState } from "react";
 import { useEffect } from "react";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
-import Loading from "../../Util/Loading";
 
 const SERVICES_URL = "/services";
 
@@ -24,10 +23,6 @@ const ServicesDataDisplay = ({ onPageChange }) => {
     getServices();
   }, []);
 
-  if (!services) {
-    return <Loading />;
-  }
-
   return (
     <div>
       <div class="flex justify-between items-center m-4 mt-2 pt-4">
@@ -39,7 +34,6 @@ const ServicesDataDisplay = ({ onPageChange }) => {
         services={services}
         onPageChange={onPageChange}
         appId={null}
-        group={true}
       />
     </div>
   );

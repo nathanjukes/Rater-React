@@ -53,6 +53,7 @@ const Application = ({ onPageChange, selectedApp }) => {
         services={app.services}
         onPageChange={onPageChange}
         appId={app.id}
+        group={false}
       />
     </div>
   );
