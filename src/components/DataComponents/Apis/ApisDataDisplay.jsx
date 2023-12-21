@@ -1,42 +1,49 @@
 import React from "react";
-import ServicesList from "./ServicesList";
 import { useState } from "react";
 import { useEffect } from "react";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
+import ApisList from "../Apis/ApisList";
+import Loading from "../../Util/Loading";
 
-const SERVICES_URL = "/services";
+const APIS_URL = "/apis";
 
-const ServicesDataDisplay = ({ onPageChange }) => {
-  const [services, setServices] = useState([]);
+const ApisDataDisplay = ({ onPageChange }) => {
+  const [apis, setApis] = useState([]);
   const axiosPrivate = useAxiosPrivate();
 
   useEffect(() => {
-    const getServices = async () => {
+    const getApis = async () => {
       try {
-        const response = await axiosPrivate.get(SERVICES_URL);
-        setServices(response.data);
+        const response = await axiosPrivate.get(APIS_URL);
+        setApis(response.data);
       } catch (error) {
-        console.error("Error getting service:", error);
+        console.error("Error getting apis:", error);
       }
     };
 
-    getServices();
+    getApis();
   }, []);
+
+  if (!apis) {
+    return <Loading />;
+  }
 
   return (
     <div>
       <div class="flex justify-between items-center m-4 mt-2 pt-4">
         <h1 class="text-3xl font-light leading-9 tracking-tight text-gray-900 text-center sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 flex-auto">
-          Services
+          APIs
         </h1>
       </div>
-      <ServicesList
-        services={services}
+      <ApisList
+        selectedApp={null}
+        apis={apis}
         onPageChange={onPageChange}
-        appId={null}
+        serviceId={null}
+        group={true}
       />
     </div>
   );
 };
 
-export default ServicesDataDisplay;
+export default ApisDataDisplay;

@@ -77,7 +77,10 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
   };
 
   const handleBackClick = () => {
-    console.log("going back", selectedApp, serviceId);
+    if (!selectedApp) {
+      onPageChange("ApisDataDisplay");
+      return;
+    }
     onPageChange("Service", selectedApp, serviceId);
   };
 

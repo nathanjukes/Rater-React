@@ -19,7 +19,7 @@ const Sidebar = ({ onPageChange }) => {
       <div class="flex items-center justify-center mb-2 py-4">
         <button
           onClick={() => onPageChange("AppsDataDisplay")}
-          class="flex items-center justify-center bg-gray-950 bg-opacity-40 rounded-lg"
+          class="flex items-center justify-center bg-gray-950 bg-opacity-30 rounded-lg"
         >
           <div class="py-1 px-4 my-4 text-5xl font-normal sm:block tracking-widest uppercase text-gray-300">
             RATER.IO
