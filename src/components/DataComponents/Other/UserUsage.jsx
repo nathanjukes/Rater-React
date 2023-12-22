@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { axiosPrivate } from "../../../api/axios";
 import Loading from "../../Util/Loading";
 
-const USERS_URL = "/users";
+const USERS_URL = "/metrics/users";
 
 const UserUsage = () => {
   const [users, setUsers] = useState(null);
@@ -19,6 +19,26 @@ const UserUsage = () => {
 
     getUserMetrics();
   }, []);
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const month = date.toLocaleString(undefined, { month: "long" });
+    const day = date.toLocaleString(undefined, { day: "numeric" });
+    const hour = date.toLocaleString(undefined, {
+      hour: "numeric",
+      hour12: false,
+    });
+    const minute = date.toLocaleString(undefined, {
+      minute: "numeric",
+      minimumIntegerDigits: 2,
+    });
+
+    if (minute.length === 1) {
+      return `${day} ${month} ${hour}:0${minute}`;
+    }
+
+    return `${day} ${month} ${hour}:${minute}`;
+  };
 
   if (!users) {
     return <Loading />;
@@ -39,13 +59,13 @@ const UserUsage = () => {
               <tr class="bg-sideBarPurple text-gray-300 text-lg">
                 <th class="px-6 py-3 font-normal tracking-wider">Id / Ip</th>
                 <th class="px-6 py-3 font-normal tracking-wider">
-                  Latest Request (Time)
+                  Latest Request
                 </th>
                 <th class="px-6 py-3 font-normal tracking-wider">
                   Requests (Accepted / Denied)
                 </th>
                 <th class="px-6 py-3 font-normal tracking-wider">
-                  Avg Requests per Hour
+                  Avg Requests / Day
                 </th>
                 <th class="px-6 py-3 font-normal tracking-wider">
                   First Request
@@ -56,18 +76,28 @@ const UserUsage = () => {
               </tr>
             </thead>
             <tbody>
-              {users.map((user, index) => (
+              {users.map((metric, index) => (
                 <tr
                   key={index}
                   className={`${
                     index % 2 === 0 ? "bg-gray-100" : "bg-white"
                   } border-b text-center text-base`}
                 >
-                  <td className="px-6 py-4">{user.email}</td>
+                  <td className="px-6 py-4 overflow-hidden overflow-ellipsis whitespace-nowrap max-w-fit">
+                    {metric.data}
+                  </td>
+                  <td className="px-6 py-4 overflow-hidden overflow-ellipsis whitespace-nowrap max-w-fit">
+                    {formatDate(metric.latestRequestTime)}
+                  </td>
                   <td className="px-6 py-4">
-                    {user.role
-                      ? user.role.charAt(0).toUpperCase() + user.role.slice(1)
-                      : ""}
+                    {metric.acceptedRequestCount} / {metric.deniedRequestCount}
+                  </td>
+                  <td className="px-6 py-4">{metric.avgRequests}</td>
+                  <td className="px-6 py-4 overflow-hidden overflow-ellipsis whitespace-nowrap max-w-fit">
+                    {formatDate(metric.firstRequestTime)}
+                  </td>
+                  <td className="px-6 py-4 overflow-hidden overflow-ellipsis whitespace-nowrap max-w-fit">
+                    {metric.lastRequestedApi}
                   </td>
                 </tr>
               ))}
