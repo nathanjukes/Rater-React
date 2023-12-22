@@ -104,7 +104,7 @@ const ServicesList = ({ services, onPageChange, appId, group }) => {
     onPageChange("Service", appId, serviceId);
   };
 
-  if (!servicesList || servicesList.length === 0) {
+  if (!servicesList) {
     return <Loading />;
   }
 

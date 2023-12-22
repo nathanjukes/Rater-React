@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import Loading from "../Util/Loading";
 
-const Overview = () => {
+const Overview = ({ onPageChange }) => {
   const [metric, setMetric] = useState(null);
   const axiosPrivate = useAxiosPrivate();
 
@@ -25,11 +25,14 @@ const Overview = () => {
   }
 
   const commonClasses =
-    "bg-white shadow-lg p-3 pb-1 text-center rounded-xl flex flex-col border-2 border-gray-200 hover:shadow-lg";
+    "bg-white shadow-lg p-3 pb-1 text-center items-center rounded-xl flex flex-col border-2 border-gray-200 hover:shadow-lg";
 
   return (
     <div className="grid grid-cols-4 gap-2 m-4">
-      <div className={` ${commonClasses} m-2 pb-4`}>
+      <button
+        onClick={() => onPageChange("AppsDataDisplay")}
+        className={` ${commonClasses} m-2 pb-4`}
+      >
         <h2 className="inline-block p-4 pb-2 pt-1 text-4xl font-medium leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
           Apps
         </h2>
@@ -38,8 +41,11 @@ const Overview = () => {
             {metric.appCount}
           </div>
         </div>
-      </div>
-      <div className={` ${commonClasses} m-2 pb-4`}>
+      </button>
+      <button
+        onClick={() => onPageChange("ServicesDataDisplay")}
+        className={` ${commonClasses} m-2 pb-4`}
+      >
         <h2 className="inline-block p-4 pb-2 pt-1 text-4xl font-medium leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
           Services
         </h2>
@@ -48,8 +54,11 @@ const Overview = () => {
             {metric.serviceCount}
           </div>
         </div>
-      </div>
-      <div className={` ${commonClasses} m-2 pb-4`}>
+      </button>
+      <button
+        onClick={() => onPageChange("ApisDataDisplay")}
+        className={` ${commonClasses} m-2 pb-4`}
+      >
         <h2 className="inline-block p-4 pb-2 pt-1 text-4xl font-medium leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
           APIs
         </h2>
@@ -58,7 +67,7 @@ const Overview = () => {
             {metric.apiCount}
           </div>
         </div>
-      </div>
+      </button>
       <div className={` ${commonClasses} m-2 pb-4`}>
         <h2 className="inline-block p-4 pb-2 pt-1 text-4xl font-medium leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
           Unique Rules

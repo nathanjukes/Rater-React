@@ -124,7 +124,7 @@ const ApisList = ({ selectedApp, apis, onPageChange, serviceId, group }) => {
     onPageChange("Api", selectedApp, serviceId, apiId);
   };
 
-  if (!apisList || apisList.length === 0) {
+  if (!apisList) {
     return <Loading />;
   }
 

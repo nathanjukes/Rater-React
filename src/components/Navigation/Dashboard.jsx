@@ -15,6 +15,8 @@ import UserManagement from "../DataComponents/Other/UserManagement";
 import ApiDocumentation from "../DataComponents/Other/ApiDocumentation";
 import Settings from "../DataComponents/Other/Settings";
 import ApisDataDisplay from "../DataComponents/Apis/ApisDataDisplay";
+import UserUsage from "../DataComponents/Other/UserUsage";
+import Alerts from "../DataComponents/Other/Alerts";
 
 const Dashboard = () => {
   // useRequireAuth();
@@ -43,6 +45,8 @@ const Dashboard = () => {
     ApiDocumentation: ApiDocumentation,
     Settings: Settings,
     ApisDataDisplay: ApisDataDisplay,
+    UsagePage: UserUsage,
+    Alerts: Alerts,
   };
 
   const SelectedPage = componentMap[page];

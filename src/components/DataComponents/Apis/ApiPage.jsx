@@ -15,7 +15,11 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
   const [api, setApi] = useState(apiId);
   const [newApiLimit, setNewApiLimit] = useState("");
   const [newUserId, setNewUserId] = useState("");
-  const [showModal, setShowModal] = useState(false);
+  const [newUserIp, setNewUserIp] = useState("");
+  const [newUserRole, setNewUserRole] = useState("");
+  const [showModalId, setShowModalId] = useState(false);
+  const [showModalIp, setShowModalIp] = useState(false);
+  const [showModalRole, setShowModalRole] = useState(false);
   const axiosPrivate = useAxiosPrivate();
 
   useEffect(() => {
@@ -29,9 +33,9 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
     };
 
     getApi();
-  }, []);
+  }, [apiId]);
 
-  const createRule = async () => {
+  const createIdRule = async () => {
     try {
       const response = await axiosPrivate.post(RULES_URL, {
         userId: newUserId,
@@ -52,6 +56,48 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
     }
   };
 
+  const createIpRule = async () => {
+    try {
+      const response = await axiosPrivate.post(RULES_URL, {
+        userIp: newUserIp,
+        limit: newApiLimit,
+        apiId: apiId,
+      });
+      const createdRule = response.data;
+
+      const currentIpRules = [...api.ipRules];
+      currentIpRules.push(createdRule);
+
+      setApi({
+        ...api,
+        ipRules: currentIpRules,
+      });
+    } catch (error) {
+      console.error("Error creating rule:", error);
+    }
+  };
+
+  const createRoleRule = async () => {
+    try {
+      const response = await axiosPrivate.post(RULES_URL, {
+        role: newUserRole,
+        limit: newApiLimit,
+        apiId: apiId,
+      });
+      const createdRule = response.data;
+
+      const currentRoleRules = [...api.roleRules];
+      currentRoleRules.push(createdRule);
+
+      setApi({
+        ...api,
+        roleRules: currentRoleRules,
+      });
+    } catch (error) {
+      console.error("Error creating rule:", error);
+    }
+  };
+
   const handleNewApiLimit = (event) => {
     setNewApiLimit(event.target.value);
   };
@@ -60,19 +106,37 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
     setNewUserId(event.target.value);
   };
 
-  const openModal = () => {
-    setShowModal(true);
+  const openModal = (type) => {
+    if (type === "id") {
+      setShowModalId(true);
+    } else if (type === "ip") {
+      setShowModalIp(true);
+    } else if (type === "role") {
+      setShowModalRole(true);
+    }
   };
 
   const closeModal = () => {
-    setShowModal(false);
+    setShowModalId(false);
+    setShowModalIp(false);
+    setShowModalRole(false);
     setNewApiLimit("");
     setNewUserId("");
+    setNewUserIp("");
+    setNewUserRole("");
   };
 
-  const handleCreateRule = () => {
-    console.log("Creating new rule:", newUserId);
-    createRule();
+  const handleCreateRule = (type) => {
+    if (type === "id") {
+      console.log("Creating new rule:", newUserId);
+      createIdRule();
+    } else if (type === "ip") {
+      console.log("Creating new rule:", newUserIp);
+      createIpRule();
+    } else if (type === "role") {
+      console.log("Creating new rule:", newUserRole);
+      createRoleRule();
+    }
     closeModal();
   };
 
@@ -151,14 +215,14 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
                 </table>
               </div>
               <button
-                onClick={openModal}
+                onClick={() => openModal("id")}
                 className="m-4 p-4  flex items-center justify-center bg-sideBarPurple border-2 border-gray-500 hover:border-gray-400 hover:shadow-lg text-white font-semibold rounded-md transition-colors duration-100"
               >
                 <p className="text-gray-300 font-normal tracking-wider text-xl">
                   Create Rule
                 </p>
               </button>
-              {showModal && (
+              {showModalId && (
                 <div className="fixed inset-0 flex items-center text-left justify-center bg-black bg-opacity-50">
                   <div className="bg-white p-8 rounded-md">
                     <h2 className="text-2xl font-semibold mb-4 text-center">
@@ -202,7 +266,7 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
                         Cancel
                       </button>
                       <button
-                        onClick={handleCreateRule}
+                        onClick={() => handleCreateRule("id")}
                         className="px-4 py-2 bg-sideBarPurple rounded-md text-white"
                       >
                         Create
@@ -261,7 +325,7 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
                           index % 2 === 0 ? "bg-gray-100" : "bg-white"
                         } border-b text-center text-base`}
                       >
-                        <td class="px-6 py-4">{rule.userId}</td>
+                        <td class="px-6 py-4">{rule.userIp}</td>
                         <td class="px-6 py-4">{rule.useLimit}</td>
                         <td class="px-6 py-4">
                           <a
@@ -277,14 +341,14 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
                 </table>
               </div>
               <button
-                onClick={openModal}
+                onClick={() => openModal("ip")}
                 className="m-4 p-4  flex items-center justify-center bg-sideBarPurple border-2 border-gray-500 hover:border-gray-400 hover:shadow-lg text-white font-semibold rounded-md transition-colors duration-100"
               >
                 <p className="text-gray-300 font-normal tracking-wider text-xl">
                   Create Rule
                 </p>
               </button>
-              {showModal && (
+              {showModalIp && (
                 <div className="fixed inset-0 flex items-center text-left justify-center bg-black bg-opacity-50">
                   <div className="bg-white p-8 rounded-md">
                     <h2 className="text-2xl font-semibold mb-4 text-center">
@@ -292,14 +356,14 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
                     </h2>
                     <div className="mb-4">
                       <label
-                        htmlFor="userId"
+                        htmlFor="userIp"
                         className="block font-semibold mb-2"
                       >
                         User Ip:
                       </label>
                       <input
                         type="text"
-                        id="userId"
+                        id="userIp"
                         value={newUserId}
                         onChange={handleNewUserId}
                         className="border border-gray-400 p-2 rounded-md w-full"
@@ -328,7 +392,7 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
                         Cancel
                       </button>
                       <button
-                        onClick={handleCreateRule}
+                        onClick={() => handleCreateRule("ip")}
                         className="px-4 py-2 bg-sideBarPurple rounded-md text-white"
                       >
                         Create
@@ -346,7 +410,6 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
               <h2 className="underline p-4 pt-4 pb-6 text-4xl font-medium leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
                 Role Rules
               </h2>
-
               <div class="relative overflow-x-auto shadow-lg sm:rounded-lg border-2 my-2 mt-1">
                 <table class="table-auto w-full text-sm rtl:text-right">
                   <thead>
@@ -384,14 +447,14 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
                 </table>
               </div>
               <button
-                onClick={openModal}
+                onClick={() => openModal("role")}
                 className="m-4 p-4  flex items-center justify-center bg-sideBarPurple border-2 border-gray-500 hover:border-gray-400 hover:shadow-lg text-white font-semibold rounded-md transition-colors duration-100"
               >
                 <p className="text-gray-300 font-normal tracking-wider text-xl">
                   Create Rule
                 </p>
               </button>
-              {showModal && (
+              {showModalRole && (
                 <div className="fixed inset-0 flex items-center text-left justify-center bg-black bg-opacity-50">
                   <div className="bg-white p-8 rounded-md">
                     <h2 className="text-2xl font-semibold mb-4 text-center">
@@ -399,14 +462,14 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
                     </h2>
                     <div className="mb-4">
                       <label
-                        htmlFor="userId"
+                        htmlFor="userRole"
                         className="block font-semibold mb-2"
                       >
                         User Role:
                       </label>
                       <input
                         type="text"
-                        id="userId"
+                        id="userRole"
                         value={newUserId}
                         onChange={handleNewUserId}
                         className="border border-gray-400 p-2 rounded-md w-full"
@@ -437,7 +500,7 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
                         Cancel
                       </button>
                       <button
-                        onClick={handleCreateRule}
+                        onClick={() => handleCreateRule("role")}
                         className="px-4 py-2 bg-sideBarPurple rounded-md text-white"
                       >
                         Create

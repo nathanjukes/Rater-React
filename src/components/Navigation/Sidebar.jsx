@@ -18,15 +18,15 @@ const Sidebar = ({ onPageChange }) => {
     <aside class="w-1/6 bg-sideBarPurple p-6 pb-1 pt-0 text-gray-200 flex flex-col h-full shadow-gray-400 shadow-lg">
       <div class="flex items-center justify-center mb-2 py-4">
         <button
-          onClick={() => onPageChange("AppsDataDisplay")}
-          class="flex items-center justify-center bg-gray-950 bg-opacity-30 rounded-lg"
+          onClick={() => onPageChange("Overview")}
+          class="flex items-center justify-center bg-gray-950 bg-opacity-30 rounded-2xl"
         >
           <div class="py-1 px-4 my-4 text-5xl font-normal sm:block tracking-widest uppercase text-gray-300">
             RATER.IO
           </div>
         </button>
       </div>
-      <ul class="text-xl border-gray-500 border-t pt-4 flex flex-col items-center">
+      <ul class="text-lg tracking-widest border-gray-500 border-t pt-4 flex flex-col items-center">
         <button
           className={buttonStyle}
           onClick={() => onPageChange("Overview")}
@@ -71,13 +71,13 @@ const Sidebar = ({ onPageChange }) => {
         </button>
         <button
           className={buttonStyle}
-          onClick={() => onPageChange("ServicesDataDisplay")}
+          onClick={() => onPageChange("UsagePage")}
         >
           <div class="flex items-center text-gray-300 font-normal tracking-wider">
-            <span>Usage</span>
+            <span>User Usage</span>
           </div>
         </button>
-        <button className={buttonStyle} onClick={() => onPageChange("Users")}>
+        <button className={buttonStyle} onClick={() => onPageChange("Alerts")}>
           <div class="flex items-center text-gray-300 font-normal tracking-wider">
             <span>Alerts</span>
           </div>
@@ -85,7 +85,7 @@ const Sidebar = ({ onPageChange }) => {
         <div class="mt-5 border-gray-500 border-t pt-4 items-center w-full">
           <button className={buttonStyle} onClick={() => onPageChange("Users")}>
             <div class="flex items-center text-gray-300 font-normal tracking-wider">
-              <span>User Management</span>
+              <span>Accounts</span>
             </div>
           </button>
           <button
