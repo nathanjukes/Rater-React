@@ -5,7 +5,7 @@ import Loading from "../../Util/Loading";
 
 const USERS_URL = "/metrics/users";
 
-const UserUsage = () => {
+const UserUsage = ({ onPageChange }) => {
   const [users, setUsers] = useState(null);
   useEffect(() => {
     const getUserMetrics = async () => {
@@ -13,7 +13,7 @@ const UserUsage = () => {
         const response = await axiosPrivate.get(USERS_URL);
         setUsers(response.data);
       } catch (error) {
-        console.error("Error getting user netrics:", error);
+        console.error("Error getting user metrics:", error);
       }
     };
 
@@ -79,9 +79,10 @@ const UserUsage = () => {
               {users.map((metric, index) => (
                 <tr
                   key={index}
+                  onClick={() => onPageChange("UserMetric", metric.data)}
                   className={`${
                     index % 2 === 0 ? "bg-gray-100" : "bg-white"
-                  } border-b text-center text-base`}
+                  } border-b text-center text-base cursor-pointer hover:bg-zinc-200 hover:bg-opacity-5`}
                 >
                   <td className="px-6 py-4 overflow-hidden overflow-ellipsis whitespace-nowrap max-w-fit">
                     {metric.data}

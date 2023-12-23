@@ -28,6 +28,7 @@ const useAxiosPrivate = () => {
         const prev = error.config;
         if (error.response && error.response.status === 401 && !prev._retry) {
           prev._retry = true;
+          console.log("Token Expired");
 
           try {
             const accessToken = await refresh();
