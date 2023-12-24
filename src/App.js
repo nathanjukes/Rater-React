@@ -9,13 +9,14 @@ import User from "./components/Auth/User";
 import Application from "./components/DataComponents/Apps/Application";
 import useAxiosPrivate from "./hooks/useAxiosPrivate";
 import { axiosPrivate } from "./api/axios";
+import Homepage from "./components/Public/Homepage";
 
 function App() {
   return (
     <div>
       <Router>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<Homepage />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
