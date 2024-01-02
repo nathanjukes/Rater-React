@@ -122,6 +122,10 @@ const Signup = () => {
     }
   };
 
+  const handleBackClick = () => {
+    navigate("/");
+  };
+
   return (
     <div class="flex flex-col items-center justify-center px-6 py-4 mx-auto md:h-screen lg:py-0 bg-purple-900 absolute top-0 left-0 bg-gradient-to-b from-gray-900 via-gray-900 bottom-0 leading-15 h-full w-full">
       <div class="flex items-center">
@@ -232,6 +236,12 @@ const Signup = () => {
           </div>
         </form>
       </div>
+      <button
+        className={`shadow-lg border border-gray-600 text-center rounded-xl flex flex-col ml-4 mt-4 px-5 p-4 pb-3 pt-3 bg-mainDarkTheme text-gray-300 font-normal tracking-wider hover:underline`}
+        onClick={handleBackClick}
+      >
+        Return to Dashboard
+      </button>
     </div>
   );
 };

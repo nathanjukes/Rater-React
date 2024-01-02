@@ -18,6 +18,7 @@ import ApisDataDisplay from "../DataComponents/Apis/ApisDataDisplay";
 import UserUsage from "../DataComponents/Metrics/UserUsage";
 import Alerts from "../DataComponents/Metrics/Alerts";
 import UserMetrics from "../DataComponents/Metrics/UserMetrics";
+import Homepage from "../Public/Homepage";
 
 const Dashboard = () => {
   // useRequireAuth();
@@ -49,6 +50,7 @@ const Dashboard = () => {
     UsagePage: UserUsage,
     Alerts: Alerts,
     UserMetric: UserMetrics,
+    Index: Homepage,
   };
 
   const SelectedPage = componentMap[page];

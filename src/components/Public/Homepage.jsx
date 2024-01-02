@@ -2,6 +2,7 @@ import React from "react";
 import LogoPng from "../../assets/icon.png";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Footer from "../Navigation/Footer";
 
 const Homepage = () => {
   const navigate = useNavigate();
@@ -19,8 +20,8 @@ const Homepage = () => {
   };
 
   return (
-    <div className="bg-backgroundWhite h-screen">
-      <nav className="bg-navBarWhite shadow-sm">
+    <div className="bg-backgroundWhite flex flex-col min-h-screen">
+      <nav className="bg-navBarWhite border-b-2 border-gray-200">
         <div className="items-center text-center mx-64 pb-3 pt-4 text-black flex justify-between">
           <div className="py-2 text-black text-center shadow-sm flex justify-center items-center">
             <div className="hover:cursor-pointer flex justify-center items-center border-gray-700 rounded-2xl p-2">
@@ -92,14 +93,14 @@ const Homepage = () => {
               </button>
             </div>
             <div className="relative inline-block text-left">
-              <button className={buttonStyle} onClick={handleButtonClick}>
-                Github
-              </button>
+              <a href="https://github.com/nathanjukes" className={buttonStyle}>
+                GitHub
+              </a>
             </div>
           </div>
           <div className="relative inline-block text-left">
             <button
-              className={`${buttonStyle} text-white bg-black hover:bg-opacity-80 hover:bg-black`}
+              className={`mx-4 text-xl tracking-wider font-normal py-2 px-4 rounded-lg text-white bg-black hover:bg-opacity-75`}
               onClick={handleSignInClick}
             >
               Sign In
@@ -107,7 +108,7 @@ const Homepage = () => {
           </div>
         </div>
       </nav>
-      <div className="mx-64 mt-12 items-center text-center">
+      <div className="flex-1 mx-64 mt-12 items-center text-center">
         <div className="p-12 mx-4">
           <h2 className="text-6xl leading-normal font-sans font-semibold">
             The{" "}
@@ -121,6 +122,9 @@ const Homepage = () => {
             </span>
           </h2>
         </div>
+      </div>
+      <div className="mx-48">
+        <Footer />
       </div>
     </div>
   );

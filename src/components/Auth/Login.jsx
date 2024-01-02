@@ -4,6 +4,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import AuthContext from "../../context/AuthProvider";
+import Footer from "../Navigation/Footer";
 
 const LOGIN_PATH = "/auth/login";
 
@@ -72,6 +73,10 @@ const Login = () => {
         setErrorMsg("Please try again later");
       }
     }
+  };
+
+  const handleBackClick = () => {
+    navigate("/");
   };
 
   return (
@@ -161,7 +166,7 @@ const Login = () => {
               <div class="sign-in-button">
                 <button
                   type="submit"
-                  class="w-full flex justify-center bg-purple-800 hover-bg-purple-700 text-gray-300 p-4 rounded-lg tracking-wide font-medium cursor-pointer transition ease-in duration-500 brightness-125 disabled:opacity-30"
+                  class="w-full flex justify-center bg-purple-800 hover:bg-opacity-80 text-gray-300 p-4 rounded-lg tracking-wide font-medium cursor-pointer brightness-125 disabled:opacity-30"
                   disabled={loadingState}
                 >
                   <h1>Log in!</h1>
@@ -171,6 +176,12 @@ const Login = () => {
           </div>
         </form>
       </div>
+      <button
+        className={`shadow-lg border border-gray-600 text-center rounded-xl flex flex-col ml-4 mt-4 px-5 p-4 pb-3 pt-3 bg-mainDarkTheme text-gray-300 font-normal tracking-wider hover:underline`}
+        onClick={handleBackClick}
+      >
+        Return to Dashboard
+      </button>
     </div>
   );
 };

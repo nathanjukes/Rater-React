@@ -17,7 +17,7 @@ const LogoutButton = () => {
       console.error(error);
     }
     localStorage.removeItem("token");
-    navigate("/login");
+    navigate("/");
   };
 
   return (

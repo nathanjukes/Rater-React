@@ -112,7 +112,7 @@ const Sidebar = ({ onPageChange }) => {
       </ul>
       <Signout />
       <p class="text-center text-sm text-gray-500 mt-2">
-        &copy; 2023{" "}
+        &copy; 2024{" "}
         <a
           href="https://github.com/nathanjukes"
           class="hover:underline"
