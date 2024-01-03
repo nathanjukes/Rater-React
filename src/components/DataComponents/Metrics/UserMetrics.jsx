@@ -82,7 +82,7 @@ const UserMetrics = ({ onPageChange, selectedApp }) => {
                   key={index}
                   className={`${
                     index % 2 === 0 ? "bg-gray-100" : "bg-white"
-                  } border-b text-center text-base cursor-pointer hover:bg-zinc-200 hover:bg-opacity-5`}
+                  } border-b text-center text-base hover:bg-zinc-200 hover:bg-opacity-5`}
                 >
                   <td className="px-6 py-4 overflow-hidden overflow-ellipsis whitespace-nowrap max-w-fit">
                     {metric.api}

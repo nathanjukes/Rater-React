@@ -61,10 +61,7 @@ const Sidebar = ({ onPageChange }) => {
             </div>
           </div>
         </button>
-        <button
-          className={buttonStyle}
-          onClick={() => onPageChange("ServicesDataDisplay")}
-        >
+        <button className={buttonStyle} onClick={() => onPageChange("Metrics")}>
           <div class="flex items-center text-gray-300 font-normal tracking-wider">
             <span>Metrics</span>
           </div>

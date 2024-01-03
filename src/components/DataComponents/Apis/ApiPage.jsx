@@ -9,10 +9,12 @@ import ServicesList from "../Services/ServicesList";
 import ApisList from "../Apis/ApisList";
 import Loading from "../../Util/Loading";
 
-const RULES_URL = "/apis/rules/create";
+const RULES_URL = "/apis/rules";
+const METRICS_URL = "/metrics/apis";
 
 const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
   const [api, setApi] = useState(apiId);
+  const [metrics, setMetrics] = useState("");
   const [newApiLimit, setNewApiLimit] = useState("");
   const [newUserId, setNewUserId] = useState("");
   const [newUserIp, setNewUserIp] = useState("");
@@ -32,12 +34,22 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
       }
     };
 
+    const getMetrics = async () => {
+      try {
+        const response = await axiosPrivate.get(METRICS_URL + "/" + apiId);
+        setMetrics(response.data);
+      } catch (error) {
+        console.error("Error getting metrics:", error);
+      }
+    };
+
     getApi();
+    getMetrics();
   }, [apiId]);
 
   const createIdRule = async () => {
     try {
-      const response = await axiosPrivate.post(RULES_URL, {
+      const response = await axiosPrivate.post(RULES_URL + "/create", {
         userId: newUserId,
         limit: newApiLimit,
         apiId: apiId,
@@ -58,7 +70,7 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
 
   const createIpRule = async () => {
     try {
-      const response = await axiosPrivate.post(RULES_URL, {
+      const response = await axiosPrivate.post(RULES_URL + "/create", {
         userIp: newUserIp,
         limit: newApiLimit,
         apiId: apiId,
@@ -79,7 +91,7 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
 
   const createRoleRule = async () => {
     try {
-      const response = await axiosPrivate.post(RULES_URL, {
+      const response = await axiosPrivate.post(RULES_URL + "/create", {
         role: newUserRole,
         limit: newApiLimit,
         apiId: apiId,
@@ -98,12 +110,44 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
     }
   };
 
+  const deleteRule = async (ruleId) => {
+    try {
+      const confirmDelete = window.confirm(
+        "Are you sure you want to delete this API Rule?"
+      );
+      if (!confirmDelete) {
+        return;
+      }
+
+      const response = await axiosPrivate.delete(RULES_URL + "/" + ruleId);
+
+      console.log("Deleted api rule:", ruleId);
+
+      setApi((prevApi) => ({
+        ...prevApi,
+        idRules: prevApi.idRules.filter((r) => r.id !== ruleId),
+        ipRules: prevApi.ipRules.filter((r) => r.id !== ruleId),
+        roleRules: prevApi.roleRules.filter((r) => r.id !== ruleId),
+      }));
+    } catch (error) {
+      console.error("Error deleting api:", error);
+    }
+  };
+
   const handleNewApiLimit = (event) => {
     setNewApiLimit(event.target.value);
   };
 
   const handleNewUserId = (event) => {
     setNewUserId(event.target.value);
+  };
+
+  const handleNewUserIp = (event) => {
+    setNewUserIp(event.target.value);
+  };
+
+  const handleNewUserRole = (event) => {
+    setNewUserRole(event.target.value);
   };
 
   const openModal = (type) => {
@@ -128,13 +172,13 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
 
   const handleCreateRule = (type) => {
     if (type === "id") {
-      console.log("Creating new rule:", newUserId);
+      console.log("Creating new id rule:", newUserId);
       createIdRule();
     } else if (type === "ip") {
-      console.log("Creating new rule:", newUserIp);
+      console.log("Creating new ip rule:", newUserIp);
       createIpRule();
     } else if (type === "role") {
-      console.log("Creating new rule:", newUserRole);
+      console.log("Creating new role rule:", newUserRole);
       createRoleRule();
     }
     closeModal();
@@ -148,7 +192,7 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
     onPageChange("Service", selectedApp, serviceId);
   };
 
-  if (!api || !api.idRules || !api.ipRules || !api.roleRules) {
+  if (!api || !api.idRules || !api.ipRules || !api.roleRules || !metrics) {
     return <Loading />;
   }
 
@@ -189,6 +233,7 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
                         Use Limit
                       </th>
                       <th class="px-6 py-3 font-normal tracking-wider"></th>
+                      <th class="px-6 py-3 font-normal tracking-wider"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -207,6 +252,18 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
                             class="font-medium text-black hover:underline"
                           >
                             Edit
+                          </a>
+                        </td>
+                        <td class="px-6 py-4">
+                          <a
+                            href="#"
+                            class="font-medium text-black hover:underline"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              deleteRule(rule.id);
+                            }}
+                          >
+                            Delete
                           </a>
                         </td>
                       </tr>
@@ -278,28 +335,48 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
             </div>
           )}
         </div>
-        <div className={` ${buttonStyle} col-span-1`}>
-          <h2 className="inline-block p-4 pb-2 pt-1 text-4xl font-medium leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
-            1x1
+        <div className={` ${buttonStyle} col-span-1 flex flex-col`}>
+          <h2 className="inline-block p-4 pt-4 text-4xl font-medium leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
+            Accepted Requests
           </h2>
+          <div className="flex justify-center items-center py-12">
+            <div className="inline-block px-4 pt-2 text-4xl font-bold">
+              {metrics.acceptedCount}
+            </div>
+          </div>
         </div>
-        <div className={` ${buttonStyle} col-span-1`}>
-          <h2 className="inline-block p-4 pb-2 pt-1 text-4xl font-medium leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
-            1x1
+        <div className={` ${buttonStyle} col-span-1 flex flex-col`}>
+          <h2 className="inline-block p-4 pt-4 text-4xl font-medium leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
+            Denied Requests
           </h2>
+          <div className="flex justify-center items-center py-12">
+            <div className="inline-block px-4 pt-2 text-4xl font-bold">
+              {metrics.deniedCount}
+            </div>
+          </div>
         </div>
-        <div className={` ${buttonStyle} col-span-1`}>
-          <h2 className="inline-block p-4 pb-2 pt-1 text-4xl font-medium leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
-            1x1
+        <div className={` ${buttonStyle} col-span-1 flex flex-col`}>
+          <h2 className="inline-block p-4 pt-4 text-4xl font-medium leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
+            Base Limit
           </h2>
+          <div className="flex justify-center items-center py-12">
+            <div className="inline-block px-4 pt-2 text-4xl font-bold">
+              {api.basicLimit} requests / minute
+            </div>
+          </div>
         </div>
-        <div className={` ${buttonStyle} col-span-1`}>
-          <h2 className="inline-block p-4 pb-2 pt-1 text-4xl font-medium leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
-            1x1
+        <div className={` ${buttonStyle} col-span-1 flex flex-col`}>
+          <h2 className="inline-block p-4 pt-4 text-4xl font-medium leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
+            Custom Rules
           </h2>
+          <div className="flex justify-center items-center py-12">
+            <div className="inline-block px-4 pt-2 text-4xl font-bold">
+              {api.idRules.length + api.ipRules.length + api.roleRules.length}
+            </div>
+          </div>
         </div>
         <div className="col-span-2">
-          {api && api.idRules && (
+          {api && api.ipRules && (
             <div className={` ${buttonStyle}`}>
               <h2 className="underline p-4 pt-4 pb-6 text-4xl font-medium leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
                 IP Rules
@@ -315,10 +392,11 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
                         Use Limit
                       </th>
                       <th class="px-6 py-3 font-normal tracking-wider"></th>
+                      <th class="px-6 py-3 font-normal tracking-wider"></th>
                     </tr>
                   </thead>
                   <tbody>
-                    {api.idRules.map((rule, index) => (
+                    {api.ipRules.map((rule, index) => (
                       <tr
                         key={index}
                         class={`${
@@ -333,6 +411,18 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
                             class="font-medium text-black hover:underline"
                           >
                             Edit
+                          </a>
+                        </td>
+                        <td class="px-6 py-4">
+                          <a
+                            href="#"
+                            class="font-medium text-black hover:underline"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              deleteRule(rule.id);
+                            }}
+                          >
+                            Delete
                           </a>
                         </td>
                       </tr>
@@ -364,8 +454,8 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
                       <input
                         type="text"
                         id="userIp"
-                        value={newUserId}
-                        onChange={handleNewUserId}
+                        value={newUserIp}
+                        onChange={handleNewUserIp}
                         className="border border-gray-400 p-2 rounded-md w-full"
                       />
                     </div>
@@ -421,17 +511,18 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
                         Use Limit
                       </th>
                       <th class="px-6 py-3 font-normal tracking-wider"></th>
+                      <th class="px-6 py-3 font-normal tracking-wider"></th>
                     </tr>
                   </thead>
                   <tbody>
-                    {api.idRules.map((rule, index) => (
+                    {api.roleRules.map((rule, index) => (
                       <tr
                         key={index}
                         class={`${
                           index % 2 === 0 ? "bg-gray-100" : "bg-white"
                         } border-b text-center text-base`}
                       >
-                        <td class="px-6 py-4">{rule.userId}</td>
+                        <td class="px-6 py-4">{rule.role}</td>
                         <td class="px-6 py-4">{rule.useLimit}</td>
                         <td class="px-6 py-4">
                           <a
@@ -441,6 +532,18 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
                             Edit
                           </a>
                         </td>
+                        <td class="px-6 py-4">
+                          <a
+                            href="#"
+                            class="font-medium text-black hover:underline"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              deleteRule(rule.id);
+                            }}
+                          >
+                            Delete
+                          </a>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -448,7 +551,7 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
               </div>
               <button
                 onClick={() => openModal("role")}
-                className="m-4 p-4  flex items-center justify-center bg-sideBarPurple border-2 border-gray-500 hover:border-gray-400 hover:shadow-lg text-white font-semibold rounded-md transition-colors duration-100"
+                className="m-4 p-4 flex items-center justify-center bg-sideBarPurple border-2 border-gray-500 hover:border-gray-400 hover:shadow-lg text-white font-semibold rounded-md transition-colors duration-100"
               >
                 <p className="text-gray-300 font-normal tracking-wider text-xl">
                   Create Rule
@@ -470,8 +573,8 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
                       <input
                         type="text"
                         id="userRole"
-                        value={newUserId}
-                        onChange={handleNewUserId}
+                        value={newUserRole}
+                        onChange={handleNewUserRole}
                         className="border border-gray-400 p-2 rounded-md w-full"
                         placeholder="Admin"
                       />
@@ -511,6 +614,16 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
               )}
             </div>
           )}
+        </div>
+        <div className={` ${buttonStyle} col-span-1 flex flex-col`}>
+          <h2 className="inline-block p-4 pt-4 text-4xl font-medium leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
+            Total Throughput
+          </h2>
+          <div className="flex justify-center items-center py-12">
+            <div className="inline-block px-4 pt-2 text-4xl font-bold">
+              {metrics.totalThroughput}
+            </div>
+          </div>
         </div>
       </div>
     </div>

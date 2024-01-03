@@ -88,6 +88,22 @@ const ServicePage = ({ onPageChange, selectedApp, serviceId }) => {
     setIsCopied(true);
   };
 
+  const handleApiKeyRegenerate = async () => {
+    try {
+      const confirmDelete = window.confirm(
+        "Are you sure you want to delete and regenerate this API key?"
+      );
+      if (!confirmDelete) {
+        return;
+      }
+
+      // const response = await axiosPrivate.delete(APIS_URL + "/" + apiId);
+    } catch (error) {
+      console.error("Error regenerating api key:", error);
+    }
+    closeModal();
+  };
+
   if (!service || !service.name) {
     return <Loading />;
   }
@@ -141,13 +157,13 @@ const ServicePage = ({ onPageChange, selectedApp, serviceId }) => {
             <div className="flex justify-between">
               <button
                 onClick={closeModal}
-                className="px-4 py-2 bg-zinc-600 rounded-md text-white"
+                className="px-4 py-2 bg-zinc-600 rounded-md text-white hover:underline"
               >
                 Close
               </button>
               <button
-                onClick={closeModal}
-                className="px-4 py-2 bg-sideBarPurple rounded-md text-white"
+                onClick={handleApiKeyRegenerate}
+                className="px-4 py-2 bg-sideBarPurple rounded-md text-white hover:underline"
               >
                 Regenerate
               </button>

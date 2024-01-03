@@ -19,10 +19,11 @@ import UserUsage from "../DataComponents/Metrics/UserUsage";
 import Alerts from "../DataComponents/Metrics/Alerts";
 import UserMetrics from "../DataComponents/Metrics/UserMetrics";
 import Homepage from "../Public/Homepage";
+import Metrics from "../DataComponents/Metrics/Metrics";
 
-const Dashboard = () => {
+const Dashboard = (startPage) => {
   // useRequireAuth();
-  const [page, setPage] = useState("Overview");
+  const [page, setPage] = useState(startPage);
   const [selectedApp, setSelectedApp] = useState(null);
   const [serviceId, setServiceId] = useState(null);
   const [apiId, setApiId] = useState(null);
@@ -51,6 +52,7 @@ const Dashboard = () => {
     Alerts: Alerts,
     UserMetric: UserMetrics,
     Index: Homepage,
+    Metrics: Metrics,
   };
 
   const SelectedPage = componentMap[page];
@@ -59,7 +61,7 @@ const Dashboard = () => {
     <div className="flex flex-col md:flex-row h-screen bg-backgroundWhite">
       <Sidebar onPageChange={handlePageChange} />
       <main className="w-screen flex flex-col">
-        <Navbar />
+        <Navbar onPageChange={handlePageChange} />
 
         <div className="overflow-auto flex-grow no-scrollbar">
           {SelectedPage ? (
