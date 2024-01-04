@@ -97,11 +97,16 @@ const ServicePage = ({ onPageChange, selectedApp, serviceId }) => {
         return;
       }
 
-      // const response = await axiosPrivate.delete(APIS_URL + "/" + apiId);
+      await axiosPrivateRateControl.delete(API_KEY_URL + "/" + apiKey);
+
+      const response = await axiosPrivateRateControl.post(API_KEY_URL, {
+        serviceId: serviceId,
+      });
+      setApiKey(response.data.apiKey);
     } catch (error) {
       console.error("Error regenerating api key:", error);
     }
-    closeModal();
+    //closeModal();
   };
 
   if (!service || !service.name) {
