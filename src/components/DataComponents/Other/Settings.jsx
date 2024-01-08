@@ -78,8 +78,7 @@ const Settings = () => {
                 </p>
               </button>
               <h1 className="ml-16 mt-6 text-2xl font-light leading-9 mr-20 tracking-tight text-gray-900 md:leading-14 flex-auto">
-                This enables a public health page for your organisation, which
-                can
+                Enables a public health page for your organisation, which can
                 <br /> be publicly accessed to view your organisation's health
                 status, stating <br /> uptime and health. No sensitive
                 information will be displayed and it can be <br />
@@ -98,8 +97,8 @@ const Settings = () => {
                 </p>
               </button>
               <h1 className="ml-16 mt-6 text-2xl font-light leading-9 mr-20 tracking-tight text-gray-900 md:leading-14 flex-auto">
-                This disables the public health page for your <br />{" "}
-                organisation, it may be turned on again at any time.
+                Disables the public health page for your <br /> organisation, it
+                may be turned on again at any time.
               </h1>
             </div>
           )}
