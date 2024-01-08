@@ -97,6 +97,11 @@ const Homepage = () => {
                 GitHub
               </a>
             </div>
+            <div className="relative inline-block text-left">
+              <a href="https://github.com/nathanjukes" className={buttonStyle}>
+                Health Check
+              </a>
+            </div>
           </div>
           <div className="relative inline-block text-left">
             <button
