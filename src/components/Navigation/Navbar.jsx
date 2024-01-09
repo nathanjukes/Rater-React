@@ -45,11 +45,15 @@ const Navbar = ({ onPageChange }) => {
   }, []);
 
   const handleAppClick = () => {
-    onPageChange("AppsList");
+    onPageChange("AppsDataDisplay");
   };
 
   const handleAlertsClick = () => {
     onPageChange("Alerts");
+  };
+
+  const handleAccountClick = () => {
+    onPageChange("Users");
   };
 
   if (!orgInfo || !userInfo) {
@@ -78,7 +82,10 @@ const Navbar = ({ onPageChange }) => {
         >
           <AppSvg className="h-10 w-12 hover:cursor-pointer text-sideBarPurple hover:text-buttonPurple"></AppSvg>
         </button>
-        <div className="flex flex-col items-center justify-center text-right hover:cursor-pointer">
+        <div
+          className="flex flex-col items-center justify-center text-right hover:cursor-pointer"
+          onClick={handleAccountClick}
+        >
           <UserSvg className="h-16 w-20 hover:cursor-pointer text-sideBarPurple hover:text-buttonPurple"></UserSvg>
           <h2 className="font-normal text-lg hover:underline text-sideBarPurple hover:text-buttonPurple">
             {username}

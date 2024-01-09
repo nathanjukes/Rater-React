@@ -114,7 +114,7 @@ const PublicNavbar = () => {
         </div>
         <div className="relative inline-block text-left">
           <button
-            className={`mx-4 text-xl tracking-wider font-normal py-2 px-4 rounded-lg text-white bg-black hover:bg-opacity-75`}
+            className={`mx-4 text-xl tracking-wider font-normal py-2 px-8 rounded-lg text-white bg-sideBarPurple hover:bg-opacity-75`}
             onClick={handleSignInClick}
           >
             Sign In
