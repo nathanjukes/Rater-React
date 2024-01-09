@@ -10,6 +10,7 @@ import Application from "./components/DataComponents/Apps/Application";
 import useAxiosPrivate from "./hooks/useAxiosPrivate";
 import { axiosPrivate } from "./api/axios";
 import Homepage from "./components/Public/Homepage";
+import HealthPage from "./components/Public/HealthPage";
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
           <Route path="/" element={<Homepage />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/health" element={<HealthPage />} />
+
           <Route
             path="/dashboard"
             element={<Dashboard startPage="Overview" />}
