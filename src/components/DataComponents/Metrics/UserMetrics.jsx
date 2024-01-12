@@ -5,7 +5,7 @@ import Loading from "../../Util/Loading";
 
 const USERS_URL = "/metrics/users";
 
-const UserMetrics = ({ onPageChange, selectedApp }) => {
+const UserMetrics = ({ onPageChange, selectedApp, serviceId }) => {
   const [metrics, setMetrics] = useState(null);
 
   useEffect(() => {
@@ -46,7 +46,11 @@ const UserMetrics = ({ onPageChange, selectedApp }) => {
   }
 
   const handleBackClick = () => {
-    onPageChange("UsagePage");
+    if (serviceId === "usage") {
+      onPageChange("UsagePage");
+    } else {
+      onPageChange("Alerts");
+    }
   };
 
   return (

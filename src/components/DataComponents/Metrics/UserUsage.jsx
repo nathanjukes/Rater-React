@@ -79,7 +79,9 @@ const UserUsage = ({ onPageChange }) => {
               {users.map((metric, index) => (
                 <tr
                   key={index}
-                  onClick={() => onPageChange("UserMetric", metric.data)}
+                  onClick={() =>
+                    onPageChange("UserMetric", metric.data, "usage")
+                  }
                   className={`${
                     index % 2 === 0 ? "bg-gray-100" : "bg-white"
                   } border-b text-center text-base cursor-pointer hover:bg-zinc-200 hover:bg-opacity-5`}
