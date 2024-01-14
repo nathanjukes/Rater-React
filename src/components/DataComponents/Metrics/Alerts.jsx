@@ -50,6 +50,24 @@ const Alerts = ({ onPageChange }) => {
     }
   };
 
+  const removeUserToTrack = async (userData) => {
+    try {
+      const confirmDelete = window.confirm(
+        "Are you sure you want to stop tracking this user?"
+      );
+      if (!confirmDelete) {
+        return;
+      }
+
+      const response = await axiosPrivate.delete(
+        ALERTS_URL + "/users/" + userData
+      );
+      getUserAlerts();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getUserAlerts = async () => {
     try {
       const response = await axiosPrivate.get(ALERTS_URL + "/users");
@@ -269,10 +287,10 @@ const Alerts = ({ onPageChange }) => {
                   <th class="px-6 py-3 font-normal tracking-wider">
                     No. of Denied Requests
                   </th>
-
                   <th class="px-6 py-3 font-normal tracking-wider">
                     Total Request Count
                   </th>
+                  <th class="px-6 py-3 font-normal tracking-wider"></th>
                 </tr>
               </thead>
               <tbody>
@@ -290,6 +308,18 @@ const Alerts = ({ onPageChange }) => {
                     <td class="px-6 py-4">
                       {u.acceptedRequestCount + u.deniedRequestCount}
                     </td>
+                    <td class="px-6 py-4">
+                      <a
+                        href="#"
+                        class="font-light text-sm text-black hover:underline"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          removeUserToTrack(u.data);
+                        }}
+                      >
+                        Remove
+                      </a>
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -305,8 +335,8 @@ const Alerts = ({ onPageChange }) => {
           </button>
           {showNewUserTrackModal && (
             <div className="fixed inset-0 flex items-center text-left justify-center bg-black bg-opacity-50">
-              <div className="bg-white p-8 rounded-md">
-                <h2 className="text-2xl font-semibold mb-4 text-center">
+              <div className="bg-white p-8 rounded-md px-8">
+                <h2 className="text-2xl px-24 font-semibold mb-8 text-center">
                   Add User to Track
                 </h2>
                 <div className="mb-4">

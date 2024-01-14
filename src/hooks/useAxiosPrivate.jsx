@@ -33,10 +33,17 @@ const useAxiosPrivate = () => {
           try {
             const accessToken = await refresh();
             const newConfig = { ...prev };
-            newConfig.headers["Authorization"] = "Bearer " + accessToken;
-            localStorage.setItem("token", accessToken);
-            setAuth({ ...auth, accessToken });
-            return axiosPrivate(newConfig);
+            if (accessToken) {
+              newConfig.headers["Authorization"] = "Bearer " + accessToken;
+              localStorage.setItem("token", accessToken);
+              setAuth({ ...auth, accessToken });
+              return axiosPrivate(newConfig);
+            } else {
+              // Handle case where refresh didn't provide a new token
+              localStorage.removeItem("token");
+              setAuth({ ...auth, accessToken: null });
+              navigate("/login");
+            }
           } catch (refreshError) {
             localStorage.removeItem("token");
             setAuth({ ...auth, accessToken: null });
