@@ -9,7 +9,9 @@ const Alerts = ({ onPageChange }) => {
   const [userData, setUserData] = useState(null);
   const [apiData, setApiData] = useState(null);
   const [newUserData, setNewUserData] = useState(null);
+  const [newSurgeData, setNewSurgeData] = useState(null);
   const [showNewUserTrackModal, setShowNewUserTrackModal] = useState(false);
+  const [showNewSurgeTrack, setShowNewSurgeTrack] = useState(false);
   const axiosPrivate = useAxiosPrivate();
 
   const openNewUserTrackModal = () => {
@@ -24,6 +26,19 @@ const Alerts = ({ onPageChange }) => {
   const handleNewUserTrack = async () => {
     addUserToTrack(newUserData);
     closeNewUserTrackModal();
+  };
+
+  const openNewSurgeTrack = () => {
+    setShowNewSurgeTrack(true);
+  };
+
+  const closeNewSurgeTrack = () => {
+    setShowNewSurgeTrack(false);
+    setNewSurgeData(null);
+  };
+
+  const handleNewSurgeTrack = async () => {
+    closeNewSurgeTrack();
   };
 
   useEffect(() => {
@@ -98,7 +113,10 @@ const Alerts = ({ onPageChange }) => {
             User Denial Alerts{" "}
             <span className="text-2xl">
               - 100+ denied requests p/m{" "}
-              <span className="font-bold text-xl hover:cursor-pointer">
+              <span
+                className="font-bold text-xl hover:cursor-pointer"
+                onClick={() => openNewSurgeTrack()}
+              >
                 (Configure Here)
               </span>
             </span>
@@ -136,7 +154,10 @@ const Alerts = ({ onPageChange }) => {
             User Surge Alerts{" "}
             <span className="text-2xl">
               - 125+ requests p/m{" "}
-              <span className="font-bold text-xl hover:cursor-pointer">
+              <span
+                className="font-bold text-xl hover:cursor-pointer"
+                onClick={() => openNewSurgeTrack()}
+              >
                 (Configure Here)
               </span>
             </span>
@@ -176,7 +197,10 @@ const Alerts = ({ onPageChange }) => {
             API Denial Alerts{" "}
             <span className="text-2xl">
               - 125+ requests p/m{" "}
-              <span className="font-bold text-xl hover:cursor-pointer">
+              <span
+                className="font-bold text-xl hover:cursor-pointer"
+                onClick={() => openNewSurgeTrack()}
+              >
                 (Configure Here)
               </span>
             </span>
@@ -216,7 +240,10 @@ const Alerts = ({ onPageChange }) => {
             API Surge Alerts{" "}
             <span className="text-2xl">
               - 125+ requests per minute{" "}
-              <span className="font-bold text-xl hover:cursor-pointer">
+              <span
+                className="font-bold text-xl hover:cursor-pointer"
+                onClick={() => openNewSurgeTrack()}
+              >
                 (Configure Here)
               </span>
             </span>
@@ -253,6 +280,7 @@ const Alerts = ({ onPageChange }) => {
         </div>{" "}
         <button
           className={`shadow-lg shadow-gray-400 rounded-xl flex flex-col border-gray-200 col-span-1 bg-sideBarPurple text-center items-center text-3xl p-10 pb-10 text-gray-100 font-medium tracking-wider border-0 hover:shadow-xl hover:shadow-gray-400 hover:underline`}
+          onClick={openNewSurgeTrack}
         >
           Setup Denial Alert
         </button>
@@ -263,6 +291,7 @@ const Alerts = ({ onPageChange }) => {
         </button>{" "}
         <button
           className={`shadow-lg shadow-gray-400 rounded-xl flex flex-col border-gray-200 col-span-1 bg-sideBarPurple text-center items-center text-3xl p-10 pb-10 text-gray-100 font-medium tracking-wider border-0 hover:shadow-xl hover:shadow-gray-400 hover:underline`}
+          onClick={openNewSurgeTrack}
         >
           Setup Surge Alert
         </button>{" "}
@@ -333,6 +362,46 @@ const Alerts = ({ onPageChange }) => {
               Add User id
             </p>
           </button>
+          {showNewSurgeTrack && (
+            <div className="fixed inset-0 flex items-center text-left justify-center bg-black bg-opacity-50">
+              <div className="bg-white p-8 rounded-md px-8">
+                <h2 className="text-2xl px-24 font-semibold mb-8 text-center">
+                  Add Limit for Surge
+                </h2>
+                <div className="mb-4">
+                  <div className="mb-4">
+                    <label
+                      htmlFor="userData"
+                      className="block font-semibold mb-2"
+                    >
+                      User Data (Id / Ip):
+                    </label>
+                    <input
+                      type="text"
+                      id="userData"
+                      value={newUserData}
+                      onChange={(e) => setNewSurgeData(e.target.value)}
+                      className="border border-gray-400 p-2 rounded-md w-full"
+                    />
+                  </div>
+                </div>
+                <div className="flex justify-between">
+                  <button
+                    onClick={closeNewSurgeTrack}
+                    className="px-4 py-2 mr-2 bg-gray-500 rounded-md text-white"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={handleNewSurgeTrack}
+                    className="px-4 py-2 bg-sideBarPurple rounded-md text-white"
+                  >
+                    Add
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
           {showNewUserTrackModal && (
             <div className="fixed inset-0 flex items-center text-left justify-center bg-black bg-opacity-50">
               <div className="bg-white p-8 rounded-md px-8">
