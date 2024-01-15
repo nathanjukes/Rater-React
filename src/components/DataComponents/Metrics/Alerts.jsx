@@ -137,6 +137,10 @@ const Alerts = ({ onPageChange }) => {
     }
   };
 
+  const handleApiClick = (apiId) => {
+    onPageChange("Api", null, null, apiId);
+  };
+
   const buttonStyle =
     "shadow-lg shadow-gray-400 p-3 pb-1 text-center rounded-xl flex flex-col border-2 border-gray-200";
 
@@ -325,7 +329,7 @@ const Alerts = ({ onPageChange }) => {
         </button>
         <button
           className={`shadow-lg shadow-gray-400 rounded-xl flex flex-col border-gray-200 col-span-1 bg-sideBarPurple text-center items-center text-3xl p-10 pb-10 text-gray-100 font-medium tracking-wider border-0 hover:shadow-xl hover:shadow-gray-400 hover:underline`}
-          onClick={() => openNewSurgeTrack("userBlock")}
+          onClick={() => openNewSurgeTrack("limitApi")}
         >
           Block / Limit User
         </button>{" "}
@@ -446,6 +450,12 @@ const Alerts = ({ onPageChange }) => {
                               Denied Requests Threshold
                             </h2>
                           );
+                        case "limitApi":
+                          return (
+                            <h2 className="text-2xl px-18 font-semibold mb-8 text-center">
+                              Limit API
+                            </h2>
+                          );
                         default:
                           return null;
                       }
@@ -512,6 +522,15 @@ const Alerts = ({ onPageChange }) => {
                                   Threshold
                                 </label>
                               );
+                            case "limitApi":
+                              return (
+                                <label
+                                  htmlFor="userData"
+                                  className="block font-semibold mb-2"
+                                >
+                                  API Id
+                                </label>
+                              );
                             default:
                               return null;
                           }
@@ -534,12 +553,32 @@ const Alerts = ({ onPageChange }) => {
                   >
                     Cancel
                   </button>
-                  <button
-                    onClick={handleNewSurgeTrack}
-                    className="px-4 py-2 bg-sideBarPurple rounded-md text-white"
-                  >
-                    Add
-                  </button>
+                  {modalType && (
+                    <div>
+                      {(() => {
+                        switch (modalType) {
+                          case "limitApi":
+                            return (
+                              <button
+                                onClick={() => handleApiClick(newSurgeData)}
+                                className="px-4 py-2 bg-sideBarPurple rounded-md text-white"
+                              >
+                                Setup Limit
+                              </button>
+                            );
+                          default:
+                            return (
+                              <button
+                                onClick={handleNewSurgeTrack}
+                                className="px-4 py-2 bg-sideBarPurple rounded-md text-white"
+                              >
+                                Add
+                              </button>
+                            );
+                        }
+                      })()}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
