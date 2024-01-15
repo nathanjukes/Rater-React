@@ -215,6 +215,12 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
           /{api.name}
         </h1>
       </div>
+      <h1 className="text-xl font-normal leading-none tracking-wider text-center text-black flex-auto">
+        <span className="bg-sideBarPurple font-light rounded-md px-2 py-0.5 mr-1 text-backgroundWhite">
+          API Id:
+        </span>
+        {api.id}
+      </h1>
       <div className="grid grid-cols-4 gap-4 p-4 mx-4">
         <div className="col-span-2">
           {api && api.idRules && (

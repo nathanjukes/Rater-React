@@ -8,10 +8,12 @@ const ALERTS_URL = "/alerts";
 const Alerts = ({ onPageChange }) => {
   const [userData, setUserData] = useState(null);
   const [apiData, setApiData] = useState(null);
+  const [orgAlertSettings, setOrgAlertSettings] = useState(null);
   const [newUserData, setNewUserData] = useState(null);
   const [newSurgeData, setNewSurgeData] = useState(null);
   const [showNewUserTrackModal, setShowNewUserTrackModal] = useState(false);
   const [showNewSurgeTrack, setShowNewSurgeTrack] = useState(false);
+  const [modalType, setModalType] = useState(null);
   const axiosPrivate = useAxiosPrivate();
 
   const openNewUserTrackModal = () => {
@@ -28,16 +30,19 @@ const Alerts = ({ onPageChange }) => {
     closeNewUserTrackModal();
   };
 
-  const openNewSurgeTrack = () => {
+  const openNewSurgeTrack = (modalType) => {
+    setModalType(modalType);
     setShowNewSurgeTrack(true);
   };
 
   const closeNewSurgeTrack = () => {
     setShowNewSurgeTrack(false);
     setNewSurgeData(null);
+    setModalType(null);
   };
 
   const handleNewSurgeTrack = async () => {
+    updateOrgAlertSettings();
     closeNewSurgeTrack();
   };
 
@@ -51,6 +56,7 @@ const Alerts = ({ onPageChange }) => {
       }
     };
     getUserAlerts();
+    getOrgAlertSettings();
     //getApiAlerts();
   }, []);
 
@@ -92,6 +98,45 @@ const Alerts = ({ onPageChange }) => {
     }
   };
 
+  const getOrgAlertSettings = async () => {
+    try {
+      const response = await axiosPrivate.get(ALERTS_URL + "/settings");
+      setOrgAlertSettings(response.data);
+    } catch (error) {
+      console.error("Error getting org alert data:", error);
+    }
+  };
+
+  const updateOrgAlertSettings = async () => {
+    try {
+      switch (modalType) {
+        case "userDenial":
+          await axiosPrivate.post(ALERTS_URL + "/settings", {
+            userDenialThreshold: newSurgeData,
+          });
+          break;
+        case "apiDenial":
+          await axiosPrivate.post(ALERTS_URL + "/settings", {
+            apiDenialThreshold: newSurgeData,
+          });
+          break;
+        case "userSurge":
+          await axiosPrivate.post(ALERTS_URL + "/settings", {
+            userSurgeThreshold: newSurgeData,
+          });
+          break;
+        case "apiSurge":
+          await axiosPrivate.post(ALERTS_URL + "/settings", {
+            apiSurgeThreshold: newSurgeData,
+          });
+          break;
+      }
+      getOrgAlertSettings();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const buttonStyle =
     "shadow-lg shadow-gray-400 p-3 pb-1 text-center rounded-xl flex flex-col border-2 border-gray-200";
 
@@ -112,10 +157,10 @@ const Alerts = ({ onPageChange }) => {
           <h2 className="text-left p-4 pt-4 pb-3 text-4xl font-medium leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
             User Denial Alerts{" "}
             <span className="text-2xl">
-              - 100+ denied requests p/m{" "}
+              - {orgAlertSettings.userDenialThreshold}+ denied requests p/m{" "}
               <span
                 className="font-bold text-xl hover:cursor-pointer"
-                onClick={() => openNewSurgeTrack()}
+                onClick={() => openNewSurgeTrack("userDenial")}
               >
                 (Configure Here)
               </span>
@@ -153,10 +198,10 @@ const Alerts = ({ onPageChange }) => {
           <h2 className="text-left p-4 pt-4 pb-3 text-4xl font-medium leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
             User Surge Alerts{" "}
             <span className="text-2xl">
-              - 125+ requests p/m{" "}
+              - {orgAlertSettings.userSurgeThreshold}+ requests p/m{" "}
               <span
                 className="font-bold text-xl hover:cursor-pointer"
-                onClick={() => openNewSurgeTrack()}
+                onClick={() => openNewSurgeTrack("userSurge")}
               >
                 (Configure Here)
               </span>
@@ -167,7 +212,6 @@ const Alerts = ({ onPageChange }) => {
               <thead>
                 <tr class="bg-sideBarPurple text-gray-300 text-lg">
                   <th class="px-6 py-3 font-normal tracking-wider">User Id</th>
-                  <th class="px-6 py-3 font-normal tracking-wider">API</th>
                   <th class="px-6 py-3 font-normal tracking-wider">
                     No. of Denied Requests
                   </th>
@@ -183,7 +227,6 @@ const Alerts = ({ onPageChange }) => {
                     1 % 2 === 0 ? "bg-gray-100" : "bg-white"
                   } border-b text-center text-base`}
                 >
-                  <td class="px-6 py-4">{1}</td>
                   <td class="px-6 py-4">{1}</td>
                   <td class="px-6 py-4">124</td>
                   <td class="px-6 py-4">10th Jan 15:33 - 15:43</td>
@@ -196,10 +239,10 @@ const Alerts = ({ onPageChange }) => {
           <h2 className="text-left p-4 pt-4 pb-3 text-4xl font-medium leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
             API Denial Alerts{" "}
             <span className="text-2xl">
-              - 125+ requests p/m{" "}
+              - {orgAlertSettings.apiDenialThreshold}+ requests p/m{" "}
               <span
                 className="font-bold text-xl hover:cursor-pointer"
-                onClick={() => openNewSurgeTrack()}
+                onClick={() => openNewSurgeTrack("apiDenial")}
               >
                 (Configure Here)
               </span>
@@ -209,8 +252,7 @@ const Alerts = ({ onPageChange }) => {
             <table class="table-auto w-full text-sm rtl:text-right">
               <thead>
                 <tr class="bg-sideBarPurple text-gray-300 text-lg">
-                  <th class="px-6 py-3 font-normal tracking-wider">User Id</th>
-                  <th class="px-6 py-3 font-normal tracking-wider">API</th>
+                  <th class="px-6 py-3 font-normal tracking-wider">API Id</th>
                   <th class="px-6 py-3 font-normal tracking-wider">
                     No. of Denied Requests
                   </th>
@@ -226,7 +268,6 @@ const Alerts = ({ onPageChange }) => {
                     1 % 2 === 0 ? "bg-gray-100" : "bg-white"
                   } border-b text-center text-base`}
                 >
-                  <td class="px-6 py-4">{1}</td>
                   <td class="px-6 py-4">{1}</td>
                   <td class="px-6 py-4">124</td>
                   <td class="px-6 py-4">10th Jan 15:33 - 15:43</td>
@@ -239,10 +280,10 @@ const Alerts = ({ onPageChange }) => {
           <h2 className="text-left p-4 pt-4 pb-3 text-4xl font-medium leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
             API Surge Alerts{" "}
             <span className="text-2xl">
-              - 125+ requests per minute{" "}
+              - {orgAlertSettings.apiSurgeThreshold}+ requests per minute{" "}
               <span
                 className="font-bold text-xl hover:cursor-pointer"
-                onClick={() => openNewSurgeTrack()}
+                onClick={() => openNewSurgeTrack("apiSurge")}
               >
                 (Configure Here)
               </span>
@@ -252,8 +293,7 @@ const Alerts = ({ onPageChange }) => {
             <table class="table-auto w-full text-sm rtl:text-right">
               <thead>
                 <tr class="bg-sideBarPurple text-gray-300 text-lg">
-                  <th class="px-6 py-3 font-normal tracking-wider">User Id</th>
-                  <th class="px-6 py-3 font-normal tracking-wider">API</th>
+                  <th class="px-6 py-3 font-normal tracking-wider">API Id</th>
                   <th class="px-6 py-3 font-normal tracking-wider">
                     No. of Denied Requests
                   </th>
@@ -270,7 +310,6 @@ const Alerts = ({ onPageChange }) => {
                   } border-b text-center text-base`}
                 >
                   <td class="px-6 py-4">{1}</td>
-                  <td class="px-6 py-4">{1}</td>
                   <td class="px-6 py-4">124</td>
                   <td class="px-6 py-4">10th Jan 15:33 - 15:43</td>
                 </tr>
@@ -280,23 +319,25 @@ const Alerts = ({ onPageChange }) => {
         </div>{" "}
         <button
           className={`shadow-lg shadow-gray-400 rounded-xl flex flex-col border-gray-200 col-span-1 bg-sideBarPurple text-center items-center text-3xl p-10 pb-10 text-gray-100 font-medium tracking-wider border-0 hover:shadow-xl hover:shadow-gray-400 hover:underline`}
-          onClick={openNewSurgeTrack}
+          onClick={() => openNewSurgeTrack("denial")}
         >
           Setup Denial Alert
         </button>
         <button
           className={`shadow-lg shadow-gray-400 rounded-xl flex flex-col border-gray-200 col-span-1 bg-sideBarPurple text-center items-center text-3xl p-10 pb-10 text-gray-100 font-medium tracking-wider border-0 hover:shadow-xl hover:shadow-gray-400 hover:underline`}
+          onClick={() => openNewSurgeTrack("userBlock")}
         >
           Block / Limit User
         </button>{" "}
         <button
           className={`shadow-lg shadow-gray-400 rounded-xl flex flex-col border-gray-200 col-span-1 bg-sideBarPurple text-center items-center text-3xl p-10 pb-10 text-gray-100 font-medium tracking-wider border-0 hover:shadow-xl hover:shadow-gray-400 hover:underline`}
-          onClick={openNewSurgeTrack}
+          onClick={() => openNewSurgeTrack("surge")}
         >
           Setup Surge Alert
         </button>{" "}
         <button
           className={`shadow-lg shadow-gray-400 rounded-xl flex flex-col border-gray-200 col-span-1 bg-sideBarPurple text-center items-center text-3xl p-10 pb-10 text-gray-100 font-medium tracking-wider border-0 hover:shadow-xl hover:shadow-gray-400 hover:underline`}
+          onClick={() => openNewSurgeTrack("limitApi")}
         >
           Limit API
         </button>
@@ -365,17 +406,118 @@ const Alerts = ({ onPageChange }) => {
           {showNewSurgeTrack && (
             <div className="fixed inset-0 flex items-center text-left justify-center bg-black bg-opacity-50">
               <div className="bg-white p-8 rounded-md px-8">
-                <h2 className="text-2xl px-24 font-semibold mb-8 text-center">
-                  Add Limit for Surge
-                </h2>
+                {modalType && (
+                  <div>
+                    {(() => {
+                      switch (modalType) {
+                        case "userSurge":
+                          return (
+                            <h2 className="text-2xl px-18 font-semibold mb-8 text-center">
+                              User Surge Request Threshold
+                            </h2>
+                          );
+                        case "apiSurge":
+                          return (
+                            <h2 className="text-2xl px-18 font-semibold mb-8 text-center">
+                              API Surge Request Threshold
+                            </h2>
+                          );
+                        case "surge":
+                          return (
+                            <h2 className="text-2xl px-18 font-semibold mb-8 text-center">
+                              Surge Requests Threshold
+                            </h2>
+                          );
+                        case "userDenial":
+                          return (
+                            <h2 className="text-2xl px-18 font-semibold mb-8 text-center">
+                              User Denied Requests Threshold
+                            </h2>
+                          );
+                        case "apiDenial":
+                          return (
+                            <h2 className="text-2xl px-18 font-semibold mb-8 text-center">
+                              API Denied Requests Threshold
+                            </h2>
+                          );
+                        case "denial":
+                          return (
+                            <h2 className="text-2xl px-18 font-semibold mb-8 text-center">
+                              Denied Requests Threshold
+                            </h2>
+                          );
+                        default:
+                          return null;
+                      }
+                    })()}
+                  </div>
+                )}
                 <div className="mb-4">
                   <div className="mb-4">
-                    <label
-                      htmlFor="userData"
-                      className="block font-semibold mb-2"
-                    >
-                      User Data (Id / Ip):
-                    </label>
+                    {modalType && (
+                      <div>
+                        {(() => {
+                          switch (modalType) {
+                            case "userSurge":
+                              return (
+                                <label
+                                  htmlFor="userData"
+                                  className="block font-semibold mb-2"
+                                >
+                                  Threshold Value
+                                </label>
+                              );
+                            case "apiSurge":
+                              return (
+                                <label
+                                  htmlFor="userData"
+                                  className="block font-semibold mb-2"
+                                >
+                                  Threshold
+                                </label>
+                              );
+                            case "surge":
+                              return (
+                                <label
+                                  htmlFor="userData"
+                                  className="block font-semibold mb-2"
+                                >
+                                  Threshold
+                                </label>
+                              );
+                            case "userDenial":
+                              return (
+                                <label
+                                  htmlFor="userData"
+                                  className="block font-semibold mb-2"
+                                >
+                                  Threshold
+                                </label>
+                              );
+                            case "apiDenial":
+                              return (
+                                <label
+                                  htmlFor="userData"
+                                  className="block font-semibold mb-2"
+                                >
+                                  Threshold
+                                </label>
+                              );
+                            case "denial":
+                              return (
+                                <label
+                                  htmlFor="userData"
+                                  className="block font-semibold mb-2"
+                                >
+                                  Threshold
+                                </label>
+                              );
+                            default:
+                              return null;
+                          }
+                        })()}
+                      </div>
+                    )}
                     <input
                       type="text"
                       id="userData"
