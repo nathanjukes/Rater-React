@@ -404,7 +404,7 @@ const Alerts = ({ onPageChange }) => {
             className="w-1/3 ml-auto mr-auto m-4 p-4 flex items-center justify-center bg-sideBarPurple border-2 border-gray-500 hover:border-gray-400 hover:shadow-lg text-white font-semibold rounded-md transition-colors duration-100"
           >
             <p className="text-gray-300 font-normal tracking-wider text-xl">
-              Add User id
+              Add User+
             </p>
           </button>
           {showNewSurgeTrack && (
