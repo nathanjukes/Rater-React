@@ -12,6 +12,8 @@ import { axiosPrivate } from "./api/axios";
 import Homepage from "./components/Public/Homepage";
 import HealthPage from "./components/Public/HealthPage";
 import Pricing from "./components/Public/Pricing";
+import SignInPublic from "./components/Public/SignInPublic";
+import SignUpPublic from "./components/Public/SignUpPublic";
 
 function App() {
   return (
@@ -19,8 +21,8 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUpPublic />} />
+          <Route path="/login" element={<SignInPublic />} />
           <Route path="/health" element={<HealthPage />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route

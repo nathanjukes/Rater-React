@@ -80,18 +80,18 @@ const Login = () => {
   };
 
   return (
-    <div class="flex flex-col items-center justify-center px-6 py-4 mx-auto md:h-screen lg:py-0 bg-purple-900 absolute top-0 left-0 bg-gradient-to-b from-gray-900 via-gray-900 bottom-0 leading-15 h-full w-full">
+    <div class="flex flex-col items-center px-6 mx-auto leading-15 w-full">
       <div class="flex items-center">
-        <h1 class="mb-4 text-4xl font-extralight leading-none tracking-wider text-white md:text-5xl lg:text-7xl  uppercase">
+        <h1 class="mb-4 text-4xl font-extralight leading-none tracking-wider text-gray-800 md:text-5xl lg:text-7xl  uppercase">
           Rater.io
         </h1>
       </div>
       <div class="flex items-center">
-        <h1 class="text-xl font-extrabold leading-none tracking-wide text-center text-gray-900 md:text-3xl lg:text-3xl dark:text-white">
+        <h1 class="text-xl font-extrabold leading-none tracking-wide text-center text-gray-900 md:text-3xl lg:text-3xl dark:text-gray-800">
           Reclaim your APIs and Rule your
         </h1>
         <Typed
-          className="m-2 text-xl font-extrabold leading-none tracking-wide text-center md:text-3xl lg:text-3xl text-purple-600 inline-block"
+          className="m-2 text-xl font-extrabold leading-none tracking-wide text-center md:text-3xl lg:text-3xl text-purple-800 inline-block"
           strings={[
             "Data Flow",
             "User Management",
@@ -103,23 +103,23 @@ const Login = () => {
           loop
         />
       </div>
-      <h1 class="mb-10 text-xl font-extrabold leading-none tracking-wide text-center text-gray-900 md:text-3xl lg:text-3xl dark:text-white">
-        with <span class="text-purple-600">the World's #1</span> Rate Control
+      <h1 class="mb-10 text-xl font-extrabold leading-none tracking-wide text-center text-gray-900 md:text-3xl lg:text-3xl dark:text-gray-800">
+        with <span class="text-purple-800">the World's #1</span> Rate Control
         Service
       </h1>
-      <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-mainDarkTheme dark:border-gray-600">
+      <div class="w-full bg-backgroundWhite rounded-lg dark:border md:mt-0 sm:max-w-md xl:p-0 drop-shadow-xl shadow-gray-800">
         <form class="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
           <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
             <div>
-              <h1 class="text-xl font-bold tracking-wide text-gray-200 md:text-2xl text-center pb-4">
+              <h1 class="text-xl font-bold tracking-wide text-gray-800 md:text-2xl text-center pb-4">
                 Sign in to your account!
               </h1>
               <div class="mb-7 text-center text-md tracking-wide">
-                <p class="text-gray-400">
+                <p class="text-gray-800">
                   Don't have an account?
                   <Link
                     to="/signup"
-                    class="m-1 font-semibold text-purple-600 hover:text-purple-500"
+                    class="m-1 font-semibold text-purple-800 hover:text-purple-900"
                   >
                     Sign Up!
                   </Link>
@@ -129,7 +129,7 @@ const Login = () => {
             <div class="space-y-6">
               <div class="input-container">
                 <input
-                  class="w-full text-sm px-4 py-3 bg-gray-200 focus:bg-gray-100 border-2 border-gray-200 rounded-lg focus:outline-none hover:border-purple-700 focus:border-purple-700 placeholder-gray-500 transition duration-200"
+                  class="w-full text-sm px-4 py-3 bg-gray-200 focus:bg-gray-100 border-2 border-gray-200 rounded-lg focus:outline-none hover:border-purple-700 focus:border-purple-800 placeholder-gray-500 transition duration-200"
                   type="text"
                   placeholder="Email"
                   id="email"
@@ -144,7 +144,7 @@ const Login = () => {
                 <input
                   type="password"
                   placeholder="Password"
-                  class="text-sm px-4 py-3 rounded-lg w-full bg-gray-200 focus:bg-gray-100 border-2 border-gray-200 focus:outline-none hover:border-purple-700 focus:border-purple-700 placeholder-gray-500 transition duration-200"
+                  class="text-sm px-4 py-3 rounded-lg w-full bg-gray-200 focus:bg-gray-100 border-2 border-gray-200 focus:outline-none hover:border-purple-700 focus:border-purple-800 placeholder-gray-500 transition duration-200"
                   id="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -166,7 +166,7 @@ const Login = () => {
               <div class="sign-in-button">
                 <button
                   type="submit"
-                  class="w-full flex justify-center bg-purple-800 hover:bg-opacity-80 text-gray-300 p-4 rounded-lg tracking-wide font-medium cursor-pointer brightness-125 disabled:opacity-30"
+                  class="w-full flex justify-center bg-sideBarPurple hover:bg-opacity-80 text-gray-300 p-4 rounded-lg tracking-wide font-medium cursor-pointer brightness-125 disabled:opacity-30"
                   disabled={loadingState}
                 >
                   <h1>Log in!</h1>

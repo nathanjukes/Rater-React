@@ -136,7 +136,7 @@ const ApisList = ({ selectedApp, apis, onPageChange, serviceId, group }) => {
           className="px-16 py-20 m-4 my-4 rounded-lg items-center justify-center bg-sideBarPurple border-2 border-gray-500 hover:border-gray-400 hover:underline hover:bg-buttonPurple text-white font-semibold transition-colors"
         >
           <p className="text-gray-300 font-normal tracking-wider text-2xl items-center px-24">
-            New API
+            New API+
           </p>
         </button>
 
@@ -374,7 +374,7 @@ const ApisList = ({ selectedApp, apis, onPageChange, serviceId, group }) => {
           className="m-4 flex items-center justify-center bg-sideBarPurple border-2 border-gray-500 hover:border-gray-400 hover:underline hover:bg-buttonPurple text-white font-semibold rounded-md transition-colors"
         >
           <p className="text-gray-300 font-normal tracking-wider text-2xl">
-            New API
+            New API+
           </p>
         </button>
 
