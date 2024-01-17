@@ -239,7 +239,6 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
                         Use Limit
                       </th>
                       <th class="px-6 py-3 font-normal tracking-wider"></th>
-                      <th class="px-6 py-3 font-normal tracking-wider"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -252,14 +251,6 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
                       >
                         <td class="px-6 py-4">{rule.userId}</td>
                         <td class="px-6 py-4">{rule.useLimit}</td>
-                        <td class="px-6 py-4">
-                          <a
-                            href="#"
-                            class="font-medium text-black hover:underline"
-                          >
-                            Edit
-                          </a>
-                        </td>
                         <td class="px-6 py-4">
                           <a
                             href="#"
@@ -398,7 +389,6 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
                         Use Limit
                       </th>
                       <th class="px-6 py-3 font-normal tracking-wider"></th>
-                      <th class="px-6 py-3 font-normal tracking-wider"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -411,14 +401,6 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
                       >
                         <td class="px-6 py-4">{rule.userIp}</td>
                         <td class="px-6 py-4">{rule.useLimit}</td>
-                        <td class="px-6 py-4">
-                          <a
-                            href="#"
-                            class="font-medium text-black hover:underline"
-                          >
-                            Edit
-                          </a>
-                        </td>
                         <td class="px-6 py-4">
                           <a
                             href="#"
@@ -517,7 +499,6 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
                         Use Limit
                       </th>
                       <th class="px-6 py-3 font-normal tracking-wider"></th>
-                      <th class="px-6 py-3 font-normal tracking-wider"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -530,14 +511,6 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
                       >
                         <td class="px-6 py-4">{rule.role}</td>
                         <td class="px-6 py-4">{rule.useLimit}</td>
-                        <td class="px-6 py-4">
-                          <a
-                            href="#"
-                            class="font-medium text-black hover:underline"
-                          >
-                            Edit
-                          </a>
-                        </td>
                         <td class="px-6 py-4">
                           <a
                             href="#"

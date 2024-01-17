@@ -61,6 +61,11 @@ const Sidebar = ({ onPageChange }) => {
             </div>
           </div>
         </button>
+        <button className={buttonStyle} onClick={() => onPageChange("Alerts")}>
+          <div class="flex items-center text-gray-300 font-normal tracking-wider">
+            <span>Alerts</span>
+          </div>
+        </button>
         <button className={buttonStyle} onClick={() => onPageChange("Metrics")}>
           <div class="flex items-center text-gray-300 font-normal tracking-wider">
             <span>Metrics</span>
@@ -72,11 +77,6 @@ const Sidebar = ({ onPageChange }) => {
         >
           <div class="flex items-center text-gray-300 font-normal tracking-wider">
             <span>User Usage</span>
-          </div>
-        </button>
-        <button className={buttonStyle} onClick={() => onPageChange("Alerts")}>
-          <div class="flex items-center text-gray-300 font-normal tracking-wider">
-            <span>Alerts</span>
           </div>
         </button>
         <div class="mt-5 border-gray-500 border-t pt-4 items-center w-full">
