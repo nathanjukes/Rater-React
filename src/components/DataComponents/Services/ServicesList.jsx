@@ -117,7 +117,7 @@ const ServicesList = ({ services, onPageChange, appId, group }) => {
             className="py-16 px-10 m-4 mt-6 items-center justify-center bg-sideBarPurple border-2 border-gray-500 hover:border-gray-400 hover:underline hover:bg-buttonPurple text-white font-semibold rounded-md transition-colors"
           >
             <p className="text-gray-300 font-normal tracking-wider text-2xl items-center px-24">
-              New Service+
+              New Service
             </p>
           </button>
           {showModal && (
@@ -302,7 +302,7 @@ const ServicesList = ({ services, onPageChange, appId, group }) => {
           className="m-4 flex items-center justify-center bg-sideBarPurple border-2 border-gray-500 hover:border-gray-400 hover:underline hover:bg-buttonPurple text-white font-semibold rounded-md transition-colors"
         >
           <p className="text-gray-300 font-normal tracking-wider text-2xl">
-            New Service+
+            New Service
           </p>
         </button>
 
