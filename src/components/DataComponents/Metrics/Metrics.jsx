@@ -3,8 +3,14 @@ import { useState, useEffect } from "react";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import Loading from "../../Util/Loading";
 
+const ORGS_URL = "/orgs";
+
 const Metrics = ({ onPageChange }) => {
   const [metric, setMetric] = useState(null);
+  const [org, setOrg] = useState(null);
+  const [selectedOption, setSelectedOption] = useState("org");
+  const [selectedApp, setSelectedApp] = useState(null);
+  const [showAppModal, setShowAppModal] = useState(false);
   const axiosPrivate = useAxiosPrivate();
 
   useEffect(() => {
@@ -16,11 +22,59 @@ const Metrics = ({ onPageChange }) => {
         console.error("Error getting metrics:", error);
       }
     };
+    const getOrg = async () => {
+      try {
+        const response = await axiosPrivate.get(ORGS_URL + "/me");
+        setOrg(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
     getMetrics();
+    getOrg();
   }, []);
 
-  if (!metric) {
+  const handleOptionChange = (event) => {
+    const newOption = event.target.value;
+    setSelectedOption(newOption);
+
+    switch (newOption) {
+      case "org":
+        console.log("Org selected");
+        break;
+      case "app":
+        console.log("App selected");
+        setShowAppModal(true);
+        break;
+      case "service":
+        console.log("Service selected");
+        break;
+      case "api":
+        console.log("API selected");
+        break;
+      default:
+        console.log("Invalid option selected");
+    }
+  };
+
+  const handleAppChange = (event) => {
+    const app = event.target.value;
+    setSelectedApp(app);
+    console.log(app);
+  };
+
+  const handleConfirmClick = () => {
+    setShowAppModal(false);
+    setSelectedOption("app");
+  };
+
+  const handleExitClick = () => {
+    setShowAppModal(false);
+    setSelectedOption("org");
+  };
+
+  if (!metric || !org) {
     return <Loading />;
   }
 
@@ -30,11 +84,15 @@ const Metrics = ({ onPageChange }) => {
   return (
     <div>
       <div className="flex justify-between items-center m-4 mt-2 pt-4 ml-6">
-        <select className="border-2 border-gray-200 rounded-md shadow-lg flex flex-col text-xl px-6 py-4 bg-sideBarPurple text-gray-300 font-normal tracking-wider hover:bg-buttonPurple hover:underline pr-0 mr-0">
-          <option value="Org">Org</option>
-          <option value="App">App</option>
-          <option value="Service">Service</option>
-          <option value="API">API</option>
+        <select
+          onChange={handleOptionChange}
+          value={selectedOption}
+          className="border-2 border-gray-200 rounded-md shadow-lg flex flex-col text-xl px-3 pl-2 py-4 bg-sideBarPurple text-gray-300 font-normal tracking-wider hover:bg-buttonPurple hover:underline mr-0"
+        >
+          <option value="org">Org</option>
+          <option value="app">App</option>
+          <option value="service">Service</option>
+          <option value="api">API</option>
         </select>
         <h1 className="text-3xl font-light leading-9 tracking-tight text-gray-900 text-center sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 flex-auto">
           Metrics
@@ -132,6 +190,44 @@ const Metrics = ({ onPageChange }) => {
           </h2>
         </div>
       </div>
+      {showAppModal && (
+        <div className="fixed inset-0 flex items-center text-left justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-8 pb-4 rounded-md items-center mx-auto">
+            <h2 className="text-2xl font-semibold mb-4 text-center">
+              Select App to View
+            </h2>
+            <div className="mb-2 flex items-center justify-center">
+              <select
+                onChange={handleAppChange}
+                value={selectedApp}
+                className="border-2 border-gray-200 rounded-md shadow-lg text-xl px-3 pl-2 py-4 bg-sideBarPurple text-gray-300 font-normal tracking-wider hover:bg-buttonPurple hover:underline mx-auto"
+              >
+                {org.apps && org.apps.length > 0 ? (
+                  org.apps.map((app) => (
+                    <option value={app.id}>{app.name}</option>
+                  ))
+                ) : (
+                  <option value="App">No Apps</option>
+                )}
+              </select>
+            </div>
+            <div className="mb-0 flex justify-between mt-4">
+              <button
+                className="px-4 py-2 bg-gray-600 rounded-md text-white ml-0"
+                onClick={() => handleExitClick()}
+              >
+                Exit
+              </button>
+              <button
+                className="px-4 py-2 mx-10 bg-sideBarPurple rounded-md text-white mr-0"
+                onClick={() => handleConfirmClick()}
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
