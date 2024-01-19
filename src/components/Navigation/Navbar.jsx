@@ -9,14 +9,17 @@ import { ReactComponent as AppSvg } from "../../assets/appDropdown.svg";
 import { ReactComponent as BellSvg } from "../../assets/bell.svg";
 import { Route } from "react-router-dom";
 import Dashboard from "./Dashboard";
+import { useNavigate } from "react-router-dom";
 
 const ORGS_URL = "/orgs/me";
 const USER_URL = "/users/me";
+const LOGOUT_PATH = "/auth/logout";
 
 const Navbar = ({ onPageChange }) => {
   const [orgInfo, setOrgInfo] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State to manage dropdown visibility
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const navigate = useNavigate();
   const axiosPrivate = useAxiosPrivate();
   const username =
     userInfo && userInfo.email ? userInfo.email.split("@")[0] : "";
@@ -37,6 +40,14 @@ const Navbar = ({ onPageChange }) => {
         setUserInfo(response.data);
       } catch (error) {
         console.error("Error getting user info:", error);
+        try {
+          console.log("Logging out");
+          await axiosPrivate.post(LOGOUT_PATH);
+        } catch (error) {
+          console.error(error);
+        }
+        localStorage.removeItem("token");
+        navigate("/");
       }
     };
 
