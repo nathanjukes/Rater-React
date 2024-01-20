@@ -144,7 +144,7 @@ const Alerts = ({ onPageChange }) => {
   const buttonStyle =
     "shadow-lg shadow-gray-400 p-3 pb-1 text-center rounded-xl flex flex-col border-2 border-gray-200";
 
-  if (!userData) {
+  if (!userData || !orgAlertSettings) {
     return (
       <div>
         <Loading />

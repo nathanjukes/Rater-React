@@ -47,7 +47,7 @@ const Navbar = ({ onPageChange }) => {
           console.error(error);
         }
         localStorage.removeItem("token");
-        navigate("/");
+        navigate("/login");
       }
     };
 
