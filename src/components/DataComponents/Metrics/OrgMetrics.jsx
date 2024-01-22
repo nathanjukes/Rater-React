@@ -99,7 +99,10 @@ const OrgMetrics = ({ onPageChange }) => {
               >
                 {a[2]}:
               </span>
-              {a[3].split("/")[2] + "/" + a[3].split("/")[3]} - {a[4]} requests
+              <span className="text-md">
+                {a[3].split("/")[2] + "/" + a[3].split("/")[3]} - {a[4]}{" "}
+                requests
+              </span>
             </div>
           ))}
         </div>
@@ -165,12 +168,12 @@ const OrgMetrics = ({ onPageChange }) => {
         </h2>
         <div className="flex flex-grow justify-center items-center">
           <div className="flex justify-center flex-col rounded-xl mt-0 py-4 px-2 border-2 border-gray-300 shadow-lg text-left drop-shadow-lg">
-            {metric.lowestAcceptedAPIs.map((a, index) => (
+            {metric.topUsers.map((u, index) => (
               <span
                 className="bg-opacity-100 rounded-md px-1 py-1 text-black text-xl my-1 border-2 border-gray-300 hover:cursor-pointer hover:shadow-sm hover:shadow-gray-400"
-                onClick={() => onPageChange("UserMetric", a[0])}
+                onClick={() => onPageChange("UserMetric", u[0])}
               >
-                {index + 1} - {a[0]}
+                {index + 1}. {u[0]} - {u[1]} requests
               </span>
             ))}
           </div>
