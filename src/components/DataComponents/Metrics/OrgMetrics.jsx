@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import Loading from "../../Util/Loading";
+import UsageGraph from "./UsageGraph";
 
 const OrgMetrics = ({ onPageChange }) => {
   const [metric, setMetric] = useState(null);
@@ -200,37 +201,15 @@ const OrgMetrics = ({ onPageChange }) => {
         </div>
       </div>
       <div
-        className={` ${commonClasses} m-2 pb-4 col-span-4 flex flex-col justify-start items-center`}
+        className={` ${commonClasses} m-2 col-span-4 flex flex-col justify-start items-center`}
       >
         <h2 className="inline-block p-4 pb-2 pt-1 text-4xl font-medium leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
           User Requests <span className="text-xl">(Last 24 Hours)</span>
         </h2>
-        <div className="flex flex-grow justify-center items-center">
-          <div className="inline-block px-2 py-2  text-4xl font-bold">
-            735 rq/m
-          </div>
+        <div className="flex flex-grow">
+          <UsageGraph data={metric.requestList} />
         </div>
       </div>
-      <button
-        className={`shadow-lg mx-2 shadow-gray-400 rounded-xl flex flex-col border-gray-200 col-span-1 bg-sideBarPurple text-center items-center text-3xl p-10 pb-10 text-gray-100 font-medium tracking-wider border-0 hover:shadow-xl hover:shadow-gray-400 hover:underline`}
-      >
-        Setup Denial Alert
-      </button>
-      <button
-        className={`shadow-lg mx-2 shadow-gray-400 rounded-xl flex flex-col border-gray-200 col-span-1 bg-sideBarPurple text-center items-center text-3xl p-10 pb-10 text-gray-100 font-medium tracking-wider border-0 hover:shadow-xl hover:shadow-gray-400 hover:underline`}
-      >
-        Block / Limit User
-      </button>{" "}
-      <button
-        className={`shadow-lg mx-2 shadow-gray-400 rounded-xl flex flex-col border-gray-200 col-span-1 bg-sideBarPurple text-center items-center text-3xl p-10 pb-10 text-gray-100 font-medium tracking-wider border-0 hover:shadow-xl hover:shadow-gray-400 hover:underline`}
-      >
-        Setup Surge Alert
-      </button>{" "}
-      <button
-        className={`shadow-lg mx-2 shadow-gray-400 rounded-xl flex flex-col border-gray-200 col-span-1 bg-sideBarPurple text-center items-center text-3xl p-10 pb-10 text-gray-100 font-medium tracking-wider border-0 hover:shadow-xl hover:shadow-gray-400 hover:underline`}
-      >
-        Limit API
-      </button>
     </div>
   );
 };
