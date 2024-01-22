@@ -72,7 +72,7 @@ const Dashboard = (startPage) => {
               apiId={apiId}
             />
           ) : (
-            <Overview />
+            <Overview onPageChange={handlePageChange} />
           )}
         </div>
         <Footer />
