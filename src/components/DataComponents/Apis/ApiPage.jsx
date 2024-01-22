@@ -604,6 +604,18 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
             </div>
           </div>
         </div>
+        <div className={` ${buttonStyle} col-span-1 flex flex-col`}>
+          <h2 className="inline-block p-4 pt-4 text-4xl font-medium leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
+            Success Rate
+          </h2>
+          <div className="flex justify-center items-center py-12">
+            <div className="inline-block px-4 pt-2 text-4xl font-bold">
+              {metrics.successRate === "NaN"
+                ? "100%"
+                : (metrics.successRate * 100).toFixed(1) + "%"}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
