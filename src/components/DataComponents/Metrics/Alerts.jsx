@@ -10,7 +10,9 @@ const Alerts = ({ onPageChange }) => {
   const [apiData, setApiData] = useState(null);
   const [orgAlertSettings, setOrgAlertSettings] = useState(null);
   const [newUserData, setNewUserData] = useState(null);
+  const [newUserData2, setNewUserData2] = useState(null);
   const [newSurgeData, setNewSurgeData] = useState(null);
+  const [newSurgeData2, setNewSurgeData2] = useState(null);
   const [showNewUserTrackModal, setShowNewUserTrackModal] = useState(false);
   const [showNewSurgeTrack, setShowNewSurgeTrack] = useState(false);
   const [modalType, setModalType] = useState(null);
@@ -38,11 +40,16 @@ const Alerts = ({ onPageChange }) => {
   const closeNewSurgeTrack = () => {
     setShowNewSurgeTrack(false);
     setNewSurgeData(null);
+    setNewSurgeData2(null);
     setModalType(null);
   };
 
   const handleNewSurgeTrack = async () => {
-    updateOrgAlertSettings();
+    if (newSurgeData2) {
+      updateBulkOrgAlertSettings();
+    } else {
+      updateOrgAlertSettings();
+    }
     closeNewSurgeTrack();
   };
 
@@ -134,6 +141,34 @@ const Alerts = ({ onPageChange }) => {
       getOrgAlertSettings();
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const updateBulkOrgAlertSettings = async () => {
+    try {
+      switch (modalType) {
+        case "denial":
+          console.log("denial: " + newSurgeData + " : " + newSurgeData2);
+          await axiosPrivate.post(ALERTS_URL + "/settings", {
+            userDenialThreshold: newSurgeData,
+          });
+          await axiosPrivate.post(ALERTS_URL + "/settings", {
+            apiDenialThreshold: newSurgeData2,
+          });
+          break;
+        case "surge":
+          console.log("surge: " + newSurgeData + " : " + newSurgeData2);
+          await axiosPrivate.post(ALERTS_URL + "/settings", {
+            userSurgeThreshold: newSurgeData,
+          });
+          await axiosPrivate.post(ALERTS_URL + "/settings", {
+            apiSurgeThreshold: newSurgeData2,
+          });
+          break;
+      }
+      getOrgAlertSettings();
+    } catch (error) {
+      console.log("Error bulk updating org settings: " + error);
     }
   };
 
@@ -329,7 +364,7 @@ const Alerts = ({ onPageChange }) => {
         </button>
         <button
           className={`shadow-lg shadow-gray-400 rounded-xl flex flex-col border-gray-200 col-span-1 bg-sideBarPurple text-center items-center text-3xl p-10 pb-10 text-gray-100 font-medium tracking-wider border-0 hover:shadow-xl hover:shadow-gray-400 hover:underline`}
-          onClick={() => openNewSurgeTrack("limitApi")}
+          onClick={() => openNewSurgeTrack("limitUser")}
         >
           Block / Limit User
         </button>{" "}
@@ -456,6 +491,12 @@ const Alerts = ({ onPageChange }) => {
                               Limit API
                             </h2>
                           );
+                        case "limitUser":
+                          return (
+                            <h2 className="text-2xl px-18 font-semibold mb-8 text-center">
+                              Limit User
+                            </h2>
+                          );
                         default:
                           return null;
                       }
@@ -492,7 +533,7 @@ const Alerts = ({ onPageChange }) => {
                                   htmlFor="userData"
                                   className="block font-semibold mb-2"
                                 >
-                                  Threshold
+                                  User Surge Threshold
                                 </label>
                               );
                             case "userDenial":
@@ -519,7 +560,7 @@ const Alerts = ({ onPageChange }) => {
                                   htmlFor="userData"
                                   className="block font-semibold mb-2"
                                 >
-                                  Threshold
+                                  User Denial Threshold
                                 </label>
                               );
                             case "limitApi":
@@ -529,6 +570,15 @@ const Alerts = ({ onPageChange }) => {
                                   className="block font-semibold mb-2"
                                 >
                                   API Id
+                                </label>
+                              );
+                            case "limitUser":
+                              return (
+                                <label
+                                  htmlFor="userData"
+                                  className="block font-semibold mb-2"
+                                >
+                                  API Id (To limit user on)
                                 </label>
                               );
                             default:
@@ -546,6 +596,44 @@ const Alerts = ({ onPageChange }) => {
                     />
                   </div>
                 </div>
+                <div className="mb-4">
+                  <div className="mb-4">
+                    {modalType &&
+                      (modalType === "denial" ? (
+                        <div>
+                          <label
+                            htmlFor="userData2"
+                            className="block font-semibold mb-2"
+                          >
+                            API Denial Threshold
+                          </label>
+                          <input
+                            type="text"
+                            id="userData2"
+                            value={newUserData2}
+                            onChange={(e) => setNewSurgeData2(e.target.value)}
+                            className="border border-gray-400 p-2 rounded-md w-full"
+                          />
+                        </div>
+                      ) : modalType === "surge" ? (
+                        <div>
+                          <label
+                            htmlFor="userData2"
+                            className="block font-semibold mb-2"
+                          >
+                            API Surge Threshold
+                          </label>
+                          <input
+                            type="text"
+                            id="userData2"
+                            value={newUserData2}
+                            onChange={(e) => setNewSurgeData2(e.target.value)}
+                            className="border border-gray-400 p-2 rounded-md w-full"
+                          />
+                        </div>
+                      ) : null)}
+                  </div>
+                </div>
                 <div className="flex justify-between">
                   <button
                     onClick={closeNewSurgeTrack}
@@ -558,6 +646,15 @@ const Alerts = ({ onPageChange }) => {
                       {(() => {
                         switch (modalType) {
                           case "limitApi":
+                            return (
+                              <button
+                                onClick={() => handleApiClick(newSurgeData)}
+                                className="px-4 py-2 bg-sideBarPurple rounded-md text-white"
+                              >
+                                Setup Limit
+                              </button>
+                            );
+                          case "limit":
                             return (
                               <button
                                 onClick={() => handleApiClick(newSurgeData)}

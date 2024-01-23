@@ -57,7 +57,7 @@ const HealthPage = () => {
           </button>
         </div>
         {healthData && (
-          <div className="flex-1 mx-64 mt-12 items-center text-center border-2 border-gray-700 rounded-3xl">
+          <div className="flex-1 mx-64 mt-4 items-center text-center border-2 border-gray-500 bg-navBarWhite drop-shadow-lg rounded-3xl">
             <div className="p-12 mx-4">
               {healthData === "error" && (
                 <h2 className="text-4xl leading-normal font-semibold">
