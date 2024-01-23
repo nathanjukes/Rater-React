@@ -41,7 +41,7 @@ const HealthPage = () => {
                 type="text"
                 id="orgName"
                 name="orgName"
-                placeholder="Microsoft"
+                placeholder="Org Name"
                 class="mt-6 mb-0 p-4 text-2xl w-full border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sideBarPurple rounded-2xl"
               />
             </div>
@@ -66,7 +66,9 @@ const HealthPage = () => {
               )}
               {healthData !== "error" && (
                 <div>
-                  <h2 className="text-4xl leading-normal font-semibold">Org</h2>
+                  <h2 className="text-5xl leading-normal font-semibold">
+                    {healthData.name}
+                  </h2>
                   <h2 className="text-3xl mt-6 leading-normal font-normal">
                     Health Status - <span className="text-green-700">Good</span>
                   </h2>
