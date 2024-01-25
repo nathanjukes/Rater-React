@@ -5,9 +5,11 @@ import Loading from "../../Util/Loading";
 import UsageGraph from "./UsageGraph";
 
 const METRICS_URL = "/metrics/apps";
+const APPS_URL = "/apps";
 
 const AppMetrics = ({ onPageChange, selectedApp }) => {
   const [metric, setMetric] = useState(null);
+  const [app, setApp] = useState(null);
   const axiosPrivate = useAxiosPrivate();
 
   useEffect(() => {
@@ -22,10 +24,20 @@ const AppMetrics = ({ onPageChange, selectedApp }) => {
       }
     };
 
+    const getApp = async () => {
+      try {
+        const response = await axiosPrivate.get(APPS_URL + "/" + selectedApp);
+        setApp(response.data);
+      } catch (error) {
+        console.error("Error getting service:", error);
+      }
+    };
+
     getMetrics();
+    getApp();
   }, []);
 
-  if (!metric) {
+  if (!metric || !app) {
     return <Loading />;
   }
 
@@ -34,13 +46,10 @@ const AppMetrics = ({ onPageChange, selectedApp }) => {
 
   return (
     <div className="grid grid-cols-4 gap-2 m-4">
-      <button
-        onClick={() => onPageChange("AppsDataDisplay")}
-        className={` ${commonClasses} m-2 pb-4`}
-      >
+      <button className={` ${commonClasses} m-2 pb-4`}>
         <div className="flex justify-center items-center my-auto">
           <div className="inline-block px-4 py-2 pb-1 text-5xl font-medium">
-            Webex
+            {app.name}
           </div>
         </div>
       </button>

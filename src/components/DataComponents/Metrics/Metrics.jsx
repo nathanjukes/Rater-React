@@ -159,7 +159,7 @@ const Metrics = ({ onPageChange }) => {
           {(() => {
             switch (selectedOption) {
               case "app":
-                if (!selectedApp) {
+                if (!selectedApp || showAppModal) {
                   return <Loading />;
                 } else {
                   return (
@@ -170,7 +170,7 @@ const Metrics = ({ onPageChange }) => {
                   );
                 }
               case "service":
-                if (!selectedService) {
+                if (!selectedService || showServiceModal) {
                   return <Loading />;
                 } else {
                   return (
@@ -181,7 +181,7 @@ const Metrics = ({ onPageChange }) => {
                   );
                 }
               case "api":
-                if (!selectedApi) {
+                if (!selectedApi || showApiModal) {
                   return <Loading />;
                 } else {
                   return (
