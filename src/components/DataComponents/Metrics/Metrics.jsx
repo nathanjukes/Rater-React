@@ -296,6 +296,9 @@ const Metrics = ({ onPageChange }) => {
                         " - " +
                         a.flatStructure.split("/")[2] +
                         " - " +
+                        a.httpMethod +
+                        ":" +
+                        " /" +
                         a.flatStructure.split("/")[3]}
                     </option>
                   ))
