@@ -88,23 +88,32 @@ const OrgMetrics = ({ onPageChange }) => {
           </span>
         </h2>
         <div className="flex justify-center flex-col rounded-xl mt-2 py-4 px-32 border-2 border-gray-300 shadow-lg text-left drop-shadow-lg">
-          {metric.highestAcceptedAPIs.map((a) => (
-            <div
-              className="px-4 text-2xl border-2 border-gray-400 rounded-lg py-3 my-1 hover:cursor-pointer hover:shadow-sm hover:shadow-gray-400"
-              onClick={() => onPageChange("Api", null, null, a[0])}
-            >
-              <span
-                className="bg-sideBarPurple bg-opacity-100 rounded-md px-2 py-0.5 mr-1 text-backgroundWhite"
+          {metric.highestAcceptedAPIs &&
+          metric.highestAcceptedAPIs.length != 0 ? (
+            metric.highestAcceptedAPIs.map((a) => (
+              <div
+                className="px-4 text-2xl border-2 border-gray-400 rounded-lg py-3 my-1 hover:cursor-pointer hover:shadow-sm hover:shadow-gray-400"
                 onClick={() => onPageChange("Api", null, null, a[0])}
               >
-                {a[2]}:
-              </span>
-              <span className="text-md">
-                {a[3].split("/")[2] + "/" + a[3].split("/")[3]} - {a[4]}{" "}
-                requests
-              </span>
+                <span
+                  className="bg-sideBarPurple bg-opacity-100 rounded-md px-2 py-0.5 mr-1 text-backgroundWhite"
+                  onClick={() => onPageChange("Api", null, null, a[0])}
+                >
+                  {a[2]}:
+                </span>
+                <span className="text-md">
+                  {a[3].split("/")[2] + "/" + a[3].split("/")[3]} - {a[4]}{" "}
+                  requests
+                </span>
+              </div>
+            ))
+          ) : (
+            <div>
+              <h2 className="text-4xl p-10 py-4 font-bold">
+                No data available
+              </h2>
             </div>
-          ))}
+          )}
         </div>
       </div>
       <div
@@ -168,14 +177,22 @@ const OrgMetrics = ({ onPageChange }) => {
         </h2>
         <div className="flex flex-grow justify-center items-center">
           <div className="flex justify-center flex-col rounded-xl mt-0 py-4 px-2 border-2 border-gray-300 shadow-lg text-left drop-shadow-lg">
-            {metric.topUsers.map((u, index) => (
-              <span
-                className="bg-opacity-100 rounded-md px-1 py-1 text-black text-xl my-1 border-2 border-gray-300 hover:cursor-pointer hover:shadow-sm hover:shadow-gray-400"
-                onClick={() => onPageChange("UserMetric", u[0])}
-              >
-                {index + 1}. {u[0]} - {u[1]} requests
-              </span>
-            ))}
+            {metric.topUsers && metric.topUsers.length != 0 ? (
+              metric.topUsers.map((u, index) => (
+                <span
+                  className="bg-opacity-100 rounded-md px-1 py-1 text-black text-xl my-1 border-2 border-gray-300 hover:cursor-pointer hover:shadow-sm hover:shadow-gray-400"
+                  onClick={() => onPageChange("UserMetric", u[0])}
+                >
+                  {index + 1}. {u[0]} - {u[1]} requests
+                </span>
+              ))
+            ) : (
+              <div>
+                <h2 className="text-4xl p-10 py-4 font-bold">
+                  No data available
+                </h2>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -190,17 +207,27 @@ const OrgMetrics = ({ onPageChange }) => {
           </span>
         </h2>
         <div className="flex justify-center flex-col rounded-xl mt-2 py-4 px-32 border-2 border-gray-300 shadow-lg text-left drop-shadow-lg">
-          {metric.lowestAcceptedAPIs.map((a) => (
-            <div
-              className="px-4 text-2xl border-2 border-gray-400 rounded-lg py-3 my-1 hover:cursor-pointer hover:shadow-sm hover:shadow-gray-400"
-              onClick={() => onPageChange("Api", null, null, a[0])}
-            >
-              <span className="bg-sideBarPurple bg-opacity-100 rounded-md px-2 py-0.5 mr-1 text-backgroundWhite">
-                {a[2]}:
-              </span>
-              {a[3].split("/")[2] + "/" + a[3].split("/")[3]} - {a[4]} requests
+          {metric.lowestAcceptedAPIs &&
+          metric.lowestAcceptedAPIs.length != 0 ? (
+            metric.lowestAcceptedAPIs.map((a) => (
+              <div
+                className="px-4 text-2xl border-2 border-gray-400 rounded-lg py-3 my-1 hover:cursor-pointer hover:shadow-sm hover:shadow-gray-400"
+                onClick={() => onPageChange("Api", null, null, a[0])}
+              >
+                <span className="bg-sideBarPurple bg-opacity-100 rounded-md px-2 py-0.5 mr-1 text-backgroundWhite">
+                  {a[2]}:
+                </span>
+                {a[3].split("/")[2] + "/" + a[3].split("/")[3]} - {a[4]}{" "}
+                requests
+              </div>
+            ))
+          ) : (
+            <div>
+              <h2 className="text-4xl p-10 py-4 font-bold">
+                No data available
+              </h2>
             </div>
-          ))}
+          )}
         </div>
       </div>
       <div
