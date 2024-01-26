@@ -47,10 +47,13 @@ const ServiceMetrics = ({ onPageChange, selectedApp }) => {
 
   return (
     <div className="grid grid-cols-4 gap-2 m-4">
-      <button className={` ${commonClasses} m-2 pb-4`}>
-        <div className="flex justify-center items-center my-auto">
+      <button className={` ${commonClasses} m-2 pb-4 cursor-default`}>
+        <div className="justify-center items-center my-auto">
           <div className="inline-block px-4 py-2 pb-1 text-5xl font-medium">
             {service.name}
+          </div>
+          <div className="px-4 py-2 pb-0 mt-2 text-2xl font-medium">
+            App: {service.flatStructure.split("/")[1]}
           </div>
         </div>
       </button>
@@ -62,7 +65,7 @@ const ServiceMetrics = ({ onPageChange, selectedApp }) => {
           APIs
         </h2>
         <div className="flex justify-center">
-          <div className="inline-block px-4 py-2 pb-1 mt-6 text-6xl font-bold">
+          <div className="inline-block px-4 py-2 pb-1 mt-6 text-5xl font-bold">
             {metric.apiCount}
           </div>
         </div>
@@ -72,7 +75,7 @@ const ServiceMetrics = ({ onPageChange, selectedApp }) => {
           Unique Rules
         </h2>
         <div className="flex justify-center">
-          <div className="inline-block px-4 py-2 pb-1 mt-6 text-6xl font-bold">
+          <div className="inline-block px-4 py-2 pb-1 mt-6 text-5xl font-bold">
             {metric.uniqueRules}
           </div>
         </div>
@@ -89,8 +92,12 @@ const ServiceMetrics = ({ onPageChange, selectedApp }) => {
         </h2>
         <div className="flex flex-grow justify-center items-center">
           <div className="inline-block px-2 py-2 pt-4 text-4xl font-bold">
-            <span className="text-6xl ml-8">
-              {((metric.acceptedRequests / metric.throughput) * 100).toFixed(2)}
+            <span className="text-5xl ml-8">
+              {metric.throughput !== 0
+                ? ((metric.acceptedRequests / metric.throughput) * 100).toFixed(
+                    2
+                  )
+                : 100}
               %
             </span>
           </div>

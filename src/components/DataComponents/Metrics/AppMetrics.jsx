@@ -29,7 +29,7 @@ const AppMetrics = ({ onPageChange, selectedApp }) => {
         const response = await axiosPrivate.get(APPS_URL + "/" + selectedApp);
         setApp(response.data);
       } catch (error) {
-        console.error("Error getting service:", error);
+        console.error("Error getting app:", error);
       }
     };
 
@@ -46,7 +46,7 @@ const AppMetrics = ({ onPageChange, selectedApp }) => {
 
   return (
     <div className="grid grid-cols-4 gap-2 m-4">
-      <button className={` ${commonClasses} m-2 pb-4`}>
+      <button className={` ${commonClasses} m-2 pb-4 cursor-default`}>
         <div className="flex justify-center items-center my-auto">
           <div className="inline-block px-4 py-2 pb-1 text-5xl font-medium">
             {app.name}

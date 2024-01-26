@@ -17,9 +17,9 @@ const Metrics = ({ onPageChange }) => {
   const [services, setServices] = useState(null);
   const [apis, setApis] = useState(null);
   const [selectedOption, setSelectedOption] = useState("org");
-  const [selectedApp, setSelectedApp] = useState(null);
-  const [selectedService, setSelectedService] = useState(null);
-  const [selectedApi, setSelectedApi] = useState(null);
+  const [selectedApp, setSelectedApp] = useState("default");
+  const [selectedService, setSelectedService] = useState("default");
+  const [selectedApi, setSelectedApi] = useState("default");
   const [showAppModal, setShowAppModal] = useState(false);
   const [showServiceModal, setShowServiceModal] = useState(false);
   const [showApiModal, setShowApiModal] = useState(false);
@@ -67,6 +67,11 @@ const Metrics = ({ onPageChange }) => {
 
   const handleOptionChange = (event) => {
     const newOption = event.target.value;
+    if (newOption === null) {
+      setSelectedOption("org");
+      return;
+    }
+
     setSelectedOption(newOption);
 
     switch (newOption) {
@@ -209,6 +214,9 @@ const Metrics = ({ onPageChange }) => {
                 value={selectedApp}
                 className="border-2 border-gray-200 rounded-md shadow-lg text-xl px-3 pl-2 py-4 bg-sideBarPurple text-gray-300 font-normal tracking-wider hover:bg-buttonPurple hover:underline mx-auto"
               >
+                <option value="default" disabled>
+                  Select:
+                </option>
                 {org.apps && org.apps.length > 0 ? (
                   org.apps.map((app) => (
                     <option value={app.id}>{app.name}</option>
@@ -247,6 +255,9 @@ const Metrics = ({ onPageChange }) => {
                 value={selectedService}
                 className="border-2 border-gray-200 rounded-md shadow-lg text-xl px-3 pl-2 py-4 bg-sideBarPurple text-gray-300 font-normal tracking-wider hover:bg-buttonPurple hover:underline mx-auto"
               >
+                <option value="default" disabled>
+                  Select:
+                </option>
                 {services && services.length > 0 ? (
                   services.map((s) => (
                     <option value={s.id}>
@@ -289,6 +300,9 @@ const Metrics = ({ onPageChange }) => {
                 value={selectedApi}
                 className="border-2 border-gray-200 rounded-md shadow-lg text-xl px-3 pl-2 py-4 bg-sideBarPurple text-gray-300 font-normal tracking-wider hover:bg-buttonPurple hover:underline mx-auto"
               >
+                <option value="default" disabled>
+                  Select:
+                </option>
                 {apis && apis.length > 0 ? (
                   apis.map((a) => (
                     <option value={a.id}>
