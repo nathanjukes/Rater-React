@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Route } from "react-router-dom";
 import ServicesList from "../Services/ServicesList";
 import Loading from "../../Util/Loading";
+import AppMetrics from "../Metrics/AppMetrics";
 
 const Application = ({ onPageChange, selectedApp }) => {
   const [app, setApp] = useState(selectedApp);
@@ -55,6 +56,12 @@ const Application = ({ onPageChange, selectedApp }) => {
         appId={app.id}
         group={false}
       />
+      <div className="border-2 border-sideBarPurple m-8 pb-4 rounded-lg drop-shadow-lg">
+        <h1 class="text-3xl font-light leading-9 tracking-tight text-gray-900 text-center sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 flex-auto ml-28 pt-4">
+          Metrics
+        </h1>
+        <AppMetrics onPageChange={onPageChange} selectedApp={app.id} />
+      </div>
     </div>
   );
 };

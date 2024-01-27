@@ -9,6 +9,7 @@ import ServicesList from "../Services/ServicesList";
 import ApisList from "../Apis/ApisList";
 import useAxiosPrivateRateControl from "../../../hooks/useAxiosPrivateRateControl";
 import Loading from "../../Util/Loading";
+import ServiceMetrics from "../Metrics/ServiceMetrics";
 
 const API_KEY_URL = "/auth";
 
@@ -141,6 +142,12 @@ const ServicePage = ({ onPageChange, selectedApp, serviceId }) => {
         onPageChange={onPageChange}
         serviceId={service.id}
       />
+      <div className="border-2 border-sideBarPurple m-8 pb-4 rounded-lg drop-shadow-lg">
+        <h1 class="text-3xl font-light leading-9 tracking-tight text-gray-900 text-center sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 flex-auto pt-4">
+          Metrics
+        </h1>
+        <ServiceMetrics onPageChange={onPageChange} selectedApp={service.id} />
+      </div>
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-8 rounded-md">

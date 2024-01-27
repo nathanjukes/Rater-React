@@ -8,6 +8,7 @@ import { Route } from "react-router-dom";
 import ServicesList from "../Services/ServicesList";
 import ApisList from "../Apis/ApisList";
 import Loading from "../../Util/Loading";
+import UsageGraph from "../Metrics/UsageGraph";
 
 const RULES_URL = "/apis/rules";
 const METRICS_URL = "/metrics/apis";
@@ -614,6 +615,16 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
                 ? "100%"
                 : (metrics.successRate * 100).toFixed(1) + "%"}
             </div>
+          </div>
+        </div>
+        <div
+          className={` ${buttonStyle} col-span-4 flex flex-col justify-start items-center`}
+        >
+          <h2 className="inline-block p-4 pb-2 pt-1 text-4xl font-medium leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
+            User Requests <span className="text-xl">(Last 24 Hours)</span>
+          </h2>
+          <div className="flex flex-grow">
+            <UsageGraph data={metrics.requestList} />
           </div>
         </div>
       </div>
