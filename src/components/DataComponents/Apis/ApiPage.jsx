@@ -613,7 +613,7 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
             <div className="inline-block px-4 pt-2 text-4xl font-bold">
               {metrics.successRate === "NaN"
                 ? "100%"
-                : (metrics.successRate * 100).toFixed(1) + "%"}
+                : (metrics.successRate * 100).toFixed(2) + "%"}
             </div>
           </div>
         </div>
