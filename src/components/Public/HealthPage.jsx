@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
-const ORGS_URL = "/orgs/health";
+const HEALTH_URL = "/orgs/health";
 
 const HealthPage = () => {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ const HealthPage = () => {
 
     const orgName = document.getElementById("orgName").value;
     try {
-      const resp = await axios.get(ORGS_URL + "/" + orgName);
+      const resp = await axios.get(HEALTH_URL + "/" + orgName);
       setHealthData(resp.data);
     } catch (error) {
       console.log(error);
@@ -65,19 +65,76 @@ const HealthPage = () => {
                 </h2>
               )}
               {healthData !== "error" && (
-                <div>
-                  <h2 className="text-5xl leading-normal font-semibold">
-                    {healthData.name}
-                  </h2>
-                  <h2 className="text-3xl mt-6 leading-normal font-normal">
-                    Health Status - <span className="text-green-700">Good</span>
-                  </h2>
-                  <h2 className="text-3xl mt-6 leading-normal font-normal">
-                    Uptime - 100% Downtime - 0%
-                  </h2>
-                  <h2 className="text-3xl mt-6 leading-normal font-semnormalibold">
-                    Average Requests / Second - 142
-                  </h2>
+                <div class="grid grid-cols-2 gap-0">
+                  <div className="col-span-2">
+                    <h2 class="text-5xl flex flex-col justify-center leading-normal font-semibold">
+                      {healthData.name}
+                      <span className="text-xl font-normal">
+                        (Last 24 Hours)
+                      </span>
+                    </h2>
+                  </div>
+                  <div className="col-span-1">
+                    <h2 class="text-3xl mt-6 leading-normal font-normal">
+                      Status -
+                      <span class="text-green-700 font-bold ml-2">Healthy</span>
+                    </h2>
+                  </div>
+                  <div className="col-span-1">
+                    <h2 class="text-3xl mt-6 leading-normal font-normal">
+                      Total Throughput -
+                      <span className="font-bold ml-2">
+                        {healthData.metadata[0][1]} requests
+                      </span>
+                    </h2>
+                  </div>
+                  <div>
+                    <h2 class="text-3xl mt-6 leading-normal font-normal">
+                      Accepted Requests -
+                      <span className="font-bold ml-2">
+                        {healthData.metadata[0][0]}
+                      </span>
+                    </h2>
+                  </div>
+                  <div>
+                    <h2 class="text-3xl mt-6 leading-normal font-normal">
+                      Denied Requests -
+                      <span className="font-bold ml-2">
+                        {healthData.metadata[0][2]}
+                      </span>
+                    </h2>
+                  </div>
+                  <div>
+                    <h2 class="text-3xl mt-6 leading-normal font-normal">
+                      Success Rate -
+                      <span className="font-bold ml-2">
+                        {healthData.metadata[0][1] !== 0
+                          ? (
+                              (healthData.metadata[0][0] /
+                                healthData.metadata[0][1]) *
+                              100
+                            ).toFixed(2)
+                          : 100}
+                        %
+                      </span>
+                    </h2>
+                  </div>
+                  <div>
+                    <h2 class="text-3xl mt-6 leading-normal font-normal">
+                      Error Rate -
+                      <span className="font-bold ml-2">
+                        {healthData.metadata[0][1] !== 0
+                          ? (
+                              100 -
+                              (healthData.metadata[0][0] /
+                                healthData.metadata[0][1]) *
+                                100
+                            ).toFixed(2)
+                          : 0}
+                        %
+                      </span>
+                    </h2>
+                  </div>
                 </div>
               )}
             </div>

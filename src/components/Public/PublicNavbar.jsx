@@ -43,48 +43,6 @@ const PublicNavbar = () => {
               <span>Rater.io</span>
             </h1>
           </div>
-          <div className="ml-2 relative inline-block text-left">
-            <button className={buttonStyle} onClick={handleButtonClick}>
-              Developer
-              <svg
-                className="w-2.5 h-2.5 ms-2.5 inline-block"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 10 6"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="m1 1 4 4 4-4"
-                />
-              </svg>
-            </button>
-            {showOptions && (
-              <div className="absolute bg-white text-gray-700 pt-1 pb-2 px-2 rounded shadow-lg">
-                <a
-                  href="#"
-                  className="hover:bg-gray-200 block px-4 py-2 text-sm"
-                >
-                  Option 1
-                </a>
-                <a
-                  href="#"
-                  className="hover:bg-gray-200 block px-4 py-2 text-sm"
-                >
-                  Option 2
-                </a>
-                <a
-                  href="#"
-                  className="hover:bg-gray-200 block px-4 py-2 text-sm"
-                >
-                  Option 3
-                </a>
-              </div>
-            )}
-          </div>
           <div className="relative inline-block text-left">
             <button className={buttonStyle} onClick={handlePricingClick}>
               Pricing

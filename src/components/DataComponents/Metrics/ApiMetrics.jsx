@@ -155,7 +155,7 @@ const ApiMetrics = ({ onPageChange, selectedApp }) => {
           <div className="inline-block px-4 pt-2 text-5xl font-bold">
             {metric.successRate === "NaN"
               ? "100%"
-              : (metric.successRate * 100).toFixed(1) + "%"}
+              : (metric.successRate * 100).toFixed(2) + "%"}
           </div>
         </div>
       </div>
