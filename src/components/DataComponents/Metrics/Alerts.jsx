@@ -56,15 +56,15 @@ const Alerts = ({ onPageChange }) => {
   useEffect(() => {
     const getApiAlerts = async () => {
       try {
-        const response = await axiosPrivate.get(ALERTS_URL + "/apis");
-        setUserData(response.data);
+        const response = await axiosPrivate.get(ALERTS_URL);
+        setApiData(response.data);
       } catch (error) {
-        console.error("Error getting user data:", error);
+        console.error("Error getting api data:", error);
       }
     };
     getUserAlerts();
     getOrgAlertSettings();
-    //getApiAlerts();
+    getApiAlerts();
   }, []);
 
   const addUserToTrack = async (userData) => {
@@ -172,6 +172,15 @@ const Alerts = ({ onPageChange }) => {
     }
   };
 
+  const handleDeleteAlert = async (alertId) => {
+    try {
+      const response = await axiosPrivate.delete(ALERTS_URL + "/" + alertId);
+      setApiData(apiData.filter((alert) => alert.id !== alertId));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleApiClick = (apiId) => {
     onPageChange("Api", null, null, apiId);
   };
@@ -179,7 +188,7 @@ const Alerts = ({ onPageChange }) => {
   const buttonStyle =
     "shadow-lg shadow-gray-400 p-3 pb-1 text-center rounded-xl flex flex-col border-2 border-gray-200";
 
-  if (!userData || !orgAlertSettings) {
+  if (!userData || !orgAlertSettings || !apiData) {
     return (
       <div>
         <Loading />
@@ -209,26 +218,54 @@ const Alerts = ({ onPageChange }) => {
             <table class="table-auto w-full text-sm rtl:text-right">
               <thead>
                 <tr class="bg-sideBarPurple text-gray-300 text-lg">
-                  <th class="px-6 py-3 font-normal tracking-wider">User Id</th>
+                  <th class="px-6 py-3 font-normal tracking-wider">
+                    User Data (Id/Ip)
+                  </th>
                   <th class="px-6 py-3 font-normal tracking-wider">
                     No. of Denied Requests
                   </th>
                   <th class="px-6 py-3 font-normal tracking-wider">
                     Timeframe
                   </th>
+                  <th class="px-6 py-3 font-normal tracking-wider"></th>
                 </tr>
               </thead>
               <tbody>
-                <tr
-                  key={1}
-                  class={`${
-                    1 % 2 === 0 ? "bg-gray-100" : "bg-white"
-                  } border-b text-center text-base`}
-                >
-                  <td class="px-6 py-4">{1}</td>
-                  <td class="px-6 py-4">124</td>
-                  <td class="px-6 py-4">10th Jan 15:33 - 15:43</td>
-                </tr>
+                {apiData
+                  .filter(
+                    (a) =>
+                      a.user &&
+                      a.deniedCount >= orgAlertSettings.userDenialThreshold
+                  )
+                  .map((a, index) => (
+                    <tr
+                      key={index}
+                      onClick={() => onPageChange("UserMetric", a.data)}
+                      class={`${
+                        index % 2 === 0 ? "bg-gray-100" : "bg-white"
+                      } border-b text-center text-base cursor-pointer`}
+                    >
+                      <td class="px-6 py-4">{a.data}</td>
+                      <td class="px-6 py-4">{a.deniedCount}</td>
+                      <td class="px-6 py-4">
+                        {new Date(a.startTime).toLocaleDateString()}{" "}
+                        {new Date(a.startTime).toTimeString().split(" ")[0]} -{" "}
+                        {new Date(a.endTime).toTimeString().split(" ")[0]}
+                      </td>
+                      <td class="px-6 py-4">
+                        <a
+                          href="#"
+                          class="font-light text-sm text-black hover:underline"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDeleteAlert(a.id);
+                          }}
+                        >
+                          Remove
+                        </a>
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
@@ -250,26 +287,54 @@ const Alerts = ({ onPageChange }) => {
             <table class="table-auto w-full text-sm rtl:text-right">
               <thead>
                 <tr class="bg-sideBarPurple text-gray-300 text-lg">
-                  <th class="px-6 py-3 font-normal tracking-wider">User Id</th>
                   <th class="px-6 py-3 font-normal tracking-wider">
-                    No. of Denied Requests
+                    User Data (Id/Ip)
+                  </th>
+                  <th class="px-6 py-3 font-normal tracking-wider">
+                    No. of Requests
                   </th>
                   <th class="px-6 py-3 font-normal tracking-wider">
                     Timeframe
                   </th>
+                  <th class="px-6 py-3 font-normal tracking-wider"></th>
                 </tr>
               </thead>
               <tbody>
-                <tr
-                  key={1}
-                  class={`${
-                    1 % 2 === 0 ? "bg-gray-100" : "bg-white"
-                  } border-b text-center text-base`}
-                >
-                  <td class="px-6 py-4">{1}</td>
-                  <td class="px-6 py-4">124</td>
-                  <td class="px-6 py-4">10th Jan 15:33 - 15:43</td>
-                </tr>
+                {apiData
+                  .filter(
+                    (a) =>
+                      a.user &&
+                      a.totalCount >= orgAlertSettings.userSurgeThreshold
+                  )
+                  .map((a, index) => (
+                    <tr
+                      key={index}
+                      onClick={() => onPageChange("UserMetric", a.data)}
+                      class={`${
+                        index % 2 === 0 ? "bg-gray-100" : "bg-white"
+                      } border-b text-center text-base cursor-pointer`}
+                    >
+                      <td class="px-6 py-4">{a.data}</td>
+                      <td class="px-6 py-4">{a.totalCount}</td>
+                      <td class="px-6 py-4">
+                        {new Date(a.startTime).toLocaleDateString()}{" "}
+                        {new Date(a.startTime).toTimeString().split(" ")[0]} -{" "}
+                        {new Date(a.endTime).toTimeString().split(" ")[0]}
+                      </td>
+                      <td class="px-6 py-4">
+                        <a
+                          href="#"
+                          class="font-light text-sm text-black hover:underline"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDeleteAlert(a.id);
+                          }}
+                        >
+                          Remove
+                        </a>
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
@@ -298,19 +363,45 @@ const Alerts = ({ onPageChange }) => {
                   <th class="px-6 py-3 font-normal tracking-wider">
                     Timeframe
                   </th>
+                  <th class="px-6 py-3 font-normal tracking-wider"></th>
                 </tr>
               </thead>
               <tbody>
-                <tr
-                  key={1}
-                  class={`${
-                    1 % 2 === 0 ? "bg-gray-100" : "bg-white"
-                  } border-b text-center text-base`}
-                >
-                  <td class="px-6 py-4">{1}</td>
-                  <td class="px-6 py-4">124</td>
-                  <td class="px-6 py-4">10th Jan 15:33 - 15:43</td>
-                </tr>
+                {apiData
+                  .filter(
+                    (a) =>
+                      !a.user &&
+                      a.deniedCount >= orgAlertSettings.apiDenialThreshold
+                  )
+                  .map((a, index) => (
+                    <tr
+                      key={index}
+                      onClick={() => onPageChange("Api", null, null, a.data)}
+                      class={`${
+                        index % 2 === 0 ? "bg-gray-100" : "bg-white"
+                      } border-b text-center text-base cursor-pointer`}
+                    >
+                      <td class="px-6 py-4">{a.data}</td>
+                      <td class="px-6 py-4">{a.deniedCount}</td>
+                      <td class="px-6 py-4">
+                        {new Date(a.startTime).toLocaleDateString()}{" "}
+                        {new Date(a.startTime).toTimeString().split(" ")[0]} -{" "}
+                        {new Date(a.endTime).toTimeString().split(" ")[0]}
+                      </td>
+                      <td class="px-6 py-4">
+                        <a
+                          href="#"
+                          class="font-light text-sm text-black hover:underline"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDeleteAlert(a.id);
+                          }}
+                        >
+                          Remove
+                        </a>
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
@@ -334,24 +425,52 @@ const Alerts = ({ onPageChange }) => {
                 <tr class="bg-sideBarPurple text-gray-300 text-lg">
                   <th class="px-6 py-3 font-normal tracking-wider">API Id</th>
                   <th class="px-6 py-3 font-normal tracking-wider">
-                    No. of Denied Requests
+                    No. of Requests
                   </th>
                   <th class="px-6 py-3 font-normal tracking-wider">
                     Timeframe
                   </th>
+                  <th class="px-6 py-3 font-normal tracking-wider"></th>
                 </tr>
               </thead>
               <tbody>
-                <tr
-                  key={1}
-                  class={`${
-                    1 % 2 === 0 ? "bg-gray-100" : "bg-white"
-                  } border-b text-center text-base`}
-                >
-                  <td class="px-6 py-4">{1}</td>
-                  <td class="px-6 py-4">124</td>
-                  <td class="px-6 py-4">10th Jan 15:33 - 15:43</td>
-                </tr>
+                {apiData
+                  .filter(
+                    (a) =>
+                      !a.user &&
+                      a.totalCount >= orgAlertSettings.apiSurgeThreshold
+                  )
+                  .map((a, index) => (
+                    <tr
+                      key={index}
+                      onClick={() =>
+                        onPageChange("Api", a.data, a.data, a.data)
+                      }
+                      class={`${
+                        index % 2 === 0 ? "bg-gray-100" : "bg-white"
+                      } border-b text-center text-base cursor-pointer`}
+                    >
+                      <td class="px-6 py-4">{a.data}</td>
+                      <td class="px-6 py-4">{a.totalCount}</td>
+                      <td class="px-6 py-4">
+                        {new Date(a.startTime).toLocaleDateString()}{" "}
+                        {new Date(a.startTime).toTimeString().split(" ")[0]} -{" "}
+                        {new Date(a.endTime).toTimeString().split(" ")[0]}
+                      </td>
+                      <td class="px-6 py-4">
+                        <a
+                          href="#"
+                          class="font-light text-sm text-black hover:underline"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDeleteAlert(a.id);
+                          }}
+                        >
+                          Remove
+                        </a>
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>

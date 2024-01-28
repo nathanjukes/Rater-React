@@ -189,6 +189,9 @@ const ApiPage = ({ onPageChange, selectedApp, serviceId, apiId }) => {
     if (!selectedApp) {
       onPageChange("ApisDataDisplay");
       return;
+    } else if (selectedApp === serviceId && serviceId === apiId) {
+      onPageChange("Alerts");
+      return;
     }
     onPageChange("Service", selectedApp, serviceId);
   };
