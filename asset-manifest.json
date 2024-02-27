@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Rater-React/static/css/main.91074e77.css",
-    "main.js": "/Rater-React/static/js/main.817009d2.js",
+    "main.js": "/Rater-React/static/js/main.5c19be92.js",
     "static/media/icon.png": "/Rater-React/static/media/icon.6d00be680c18c4482285.png",
     "static/media/dash.jpg": "/Rater-React/static/media/dash.6b3b610cd40dcbd05f1e.jpg",
     "static/media/icon.svg": "/Rater-React/static/media/icon.e0ed23fd883856a4a451130e9d816b2a.svg",
@@ -18,10 +18,10 @@
     "static/media/appDropdown.svg": "/Rater-React/static/media/appDropdown.8ae6f9985ddce3d5712420bdc788738f.svg",
     "static/media/bell.svg": "/Rater-React/static/media/bell.8bccd730c055f0c80212b222ea0bf696.svg",
     "main.91074e77.css.map": "/Rater-React/static/css/main.91074e77.css.map",
-    "main.817009d2.js.map": "/Rater-React/static/js/main.817009d2.js.map"
+    "main.5c19be92.js.map": "/Rater-React/static/js/main.5c19be92.js.map"
   },
   "entrypoints": [
     "static/css/main.91074e77.css",
-    "static/js/main.817009d2.js"
+    "static/js/main.5c19be92.js"
   ]
 }
