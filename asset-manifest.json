@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/Rater-React/static/css/main.91074e77.css",
+    "main.js": "/Rater-React/static/js/main.817009d2.js",
+    "static/media/icon.png": "/Rater-React/static/media/icon.6d00be680c18c4482285.png",
+    "static/media/dash.jpg": "/Rater-React/static/media/dash.6b3b610cd40dcbd05f1e.jpg",
+    "static/media/icon.svg": "/Rater-React/static/media/icon.e0ed23fd883856a4a451130e9d816b2a.svg",
+    "static/media/overview.svg": "/Rater-React/static/media/overview.48837de32b4430ffebd216fea2e0d175.svg",
+    "static/media/signOut.svg": "/Rater-React/static/media/signOut.6a874c5d28728c8aa5e32b82effbd4fc.svg",
+    "static/media/settings.svg": "/Rater-React/static/media/settings.fe7a95e58c3723969a8382452306e4d5.svg",
+    "static/media/apis.svg": "/Rater-React/static/media/apis.a6b89f722a04a75142ed03cfc8d85a75.svg",
+    "static/media/documentation.svg": "/Rater-React/static/media/documentation.64e445bd000e98d1c3b3e85cda7999af.svg",
+    "static/media/services.svg": "/Rater-React/static/media/services.87c7679481daa04be9009d7e08865af4.svg",
+    "index.html": "/Rater-React/index.html",
+    "static/media/apps.svg": "/Rater-React/static/media/apps.4bbc6defa9e9a0e0cb5b0c880771dc98.svg",
+    "static/media/metrics.svg": "/Rater-React/static/media/metrics.f7f6846a7b283007ffeb009fe19afd32.svg",
+    "static/media/userCircle.svg": "/Rater-React/static/media/userCircle.a1923fb82725b0e10709ecec0d1d9b7d.svg",
+    "static/media/appDropdown.svg": "/Rater-React/static/media/appDropdown.8ae6f9985ddce3d5712420bdc788738f.svg",
+    "static/media/bell.svg": "/Rater-React/static/media/bell.8bccd730c055f0c80212b222ea0bf696.svg",
+    "main.91074e77.css.map": "/Rater-React/static/css/main.91074e77.css.map",
+    "main.817009d2.js.map": "/Rater-React/static/js/main.817009d2.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.91074e77.css",
+    "static/js/main.817009d2.js"
+  ]
+}
