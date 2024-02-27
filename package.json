@@ -2,7 +2,7 @@
   "name": "rater-react",
   "version": "0.1.0",
   "homepage": "http://njwsoftware.tech/Rater-React/",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/user-event": "^13.5.0",
