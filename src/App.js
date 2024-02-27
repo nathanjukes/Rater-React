@@ -18,7 +18,7 @@ import SignUpPublic from "./components/Public/SignUpPublic";
 function App() {
   return (
     <div>
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <Router basename={process.env.PUBLIC_URL}>
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/signup" element={<SignUpPublic />} />
@@ -30,7 +30,7 @@ function App() {
             element={<Dashboard startPage="Overview" />}
           />
         </Routes>
-      </BrowserRouter>
+      </Router>
     </div>
   );
 }
