@@ -18,6 +18,7 @@ const HealthPage = () => {
     try {
       const resp = await axios.get(HEALTH_URL + "/" + orgName);
       setHealthData(resp.data);
+      console.log(healthData);
     } catch (error) {
       console.log(error);
       setHealthData("error");
@@ -84,7 +85,7 @@ const HealthPage = () => {
                     <h2 class="text-3xl mt-6 leading-normal font-normal">
                       Total Throughput -
                       <span className="font-bold ml-2">
-                        {healthData.metadata[0][1]} requests
+                        {healthData.metadata[0][0]} requests
                       </span>
                     </h2>
                   </div>
@@ -92,7 +93,7 @@ const HealthPage = () => {
                     <h2 class="text-3xl mt-6 leading-normal font-normal">
                       Accepted Requests -
                       <span className="font-bold ml-2">
-                        {healthData.metadata[0][0]}
+                        {healthData.metadata[0][1]}
                       </span>
                     </h2>
                   </div>
@@ -110,8 +111,8 @@ const HealthPage = () => {
                       <span className="font-bold ml-2">
                         {healthData.metadata[0][1] !== 0
                           ? (
-                              (healthData.metadata[0][0] /
-                                healthData.metadata[0][1]) *
+                              (healthData.metadata[0][1] /
+                                healthData.metadata[0][0]) *
                               100
                             ).toFixed(2)
                           : 100}
@@ -126,8 +127,8 @@ const HealthPage = () => {
                         {healthData.metadata[0][1] !== 0
                           ? (
                               100 -
-                              (healthData.metadata[0][0] /
-                                healthData.metadata[0][1]) *
+                              (healthData.metadata[0][1] /
+                                healthData.metadata[0][0]) *
                                 100
                             ).toFixed(2)
                           : 0}

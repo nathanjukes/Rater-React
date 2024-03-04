@@ -153,9 +153,13 @@ request_body = {
 # Send the POST request
 response = requests.post(url, json=request_body)
 
-# Print the response code and content
-print(f"Response Code: {{response.status_code}}")
-print(f"Response: {{response.text}}") - Check 'rateExceeded' here!`}
+# Check the response code and content
+if response.text == 'true':
+  return HttpStatus.429
+else:
+  Process Request 
+
+Check 'rateExceeded' here!`}
                     </code>
                   </pre>
                 </div>
