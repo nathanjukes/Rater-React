@@ -7,7 +7,13 @@ import { useMemo } from "react";
 
 const SERVICES_URL = "/services";
 
-const ServicesList = ({ services, onPageChange, appId, group }) => {
+const ServicesList = ({
+  services,
+  onPageChange,
+  appId,
+  group,
+  hideMetrics,
+}) => {
   const [showModal, setShowModal] = useState(false);
   const [newServiceName, setNewServiceName] = useState("");
   const [servicesList, setServices] = useState(null);
@@ -50,11 +56,13 @@ const ServicesList = ({ services, onPageChange, appId, group }) => {
 
   const openModal = () => {
     setShowModal(true);
+    hideMetrics(false);
   };
 
   const closeModal = () => {
     setShowModal(false);
     setNewServiceName("");
+    hideMetrics(true);
   };
 
   const createService = async () => {

@@ -6,7 +6,14 @@ import { useMemo } from "react";
 
 const APIS_URL = "/apis";
 
-const ApisList = ({ selectedApp, apis, onPageChange, serviceId, group }) => {
+const ApisList = ({
+  selectedApp,
+  apis,
+  onPageChange,
+  serviceId,
+  group,
+  hideMetrics,
+}) => {
   const [showModal, setShowModal] = useState(false);
   const [newApiName, setNewApiName] = useState("");
   const [newBaseLimit, setNewBaseLimit] = useState("");
@@ -68,6 +75,7 @@ const ApisList = ({ selectedApp, apis, onPageChange, serviceId, group }) => {
 
   const openModal = () => {
     setShowModal(true);
+    hideMetrics(false);
   };
 
   const closeModal = () => {
@@ -75,6 +83,7 @@ const ApisList = ({ selectedApp, apis, onPageChange, serviceId, group }) => {
     setNewApiName("");
     setNewBaseLimit("");
     setNewHttpMethod("GET");
+    hideMetrics(true);
   };
 
   const createApi = async () => {

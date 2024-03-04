@@ -17,6 +17,7 @@ const ServicePage = ({ onPageChange, selectedApp, serviceId }) => {
   const [service, setService] = useState(serviceId);
   const [apiKey, setApiKey] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [showMetrics, setShowMetrics] = useState(true);
   const [isKeyCopied, setIsCopied] = useState(false);
   const apiKeyRef = useRef(null);
   const axiosPrivate = useAxiosPrivate();
@@ -110,6 +111,10 @@ const ServicePage = ({ onPageChange, selectedApp, serviceId }) => {
     //closeModal();
   };
 
+  const hideMetricsServices = (bool) => {
+    setShowMetrics(bool);
+  };
+
   if (!service || !service.name) {
     return <Loading />;
   }
@@ -141,13 +146,20 @@ const ServicePage = ({ onPageChange, selectedApp, serviceId }) => {
         apis={service.apis}
         onPageChange={onPageChange}
         serviceId={service.id}
+        group={null}
+        hideMetrics={hideMetricsServices}
       />
-      <div className="border-2 border-sideBarPurple m-8 pb-4 rounded-lg drop-shadow-lg">
-        <h1 class="text-3xl font-light leading-9 tracking-tight text-gray-900 text-center sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 flex-auto pt-4">
-          Metrics
-        </h1>
-        <ServiceMetrics onPageChange={onPageChange} selectedApp={service.id} />
-      </div>
+      {showMetrics && (
+        <div className="border-2 border-sideBarPurple m-8 pb-4 rounded-lg drop-shadow-lg">
+          <h1 class="text-3xl font-light leading-9 tracking-tight text-gray-900 text-center sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 flex-auto pt-4">
+            Metrics
+          </h1>
+          <ServiceMetrics
+            onPageChange={onPageChange}
+            selectedApp={service.id}
+          />
+        </div>
+      )}
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-8 rounded-md">
