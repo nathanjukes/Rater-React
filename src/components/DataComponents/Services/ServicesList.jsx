@@ -297,7 +297,7 @@ const ServicesList = ({
 
         <button
           onClick={openModal}
-          className="m-4 flex items-center justify-center bg-sideBarPurple border-2 border-gray-500 hover:border-gray-400 hover:underline hover:bg-buttonPurple text-white font-semibold rounded-md transition-colors"
+          className="m-4 p-16 flex items-center justify-center bg-sideBarPurple border-2 border-gray-500 hover:border-gray-400 hover:underline hover:bg-buttonPurple text-white font-semibold rounded-md transition-colors"
         >
           <p className="text-gray-300 font-normal tracking-wider text-2xl">
             New Service
