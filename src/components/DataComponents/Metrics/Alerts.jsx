@@ -205,7 +205,8 @@ const Alerts = ({ onPageChange }) => {
           <h2 className="text-left p-4 pt-4 pb-3 text-4xl font-medium leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
             User Denial Alerts{" "}
             <span className="text-2xl">
-              - {orgAlertSettings.userDenialThreshold}+ denied requests p/m{" "}
+              - {orgAlertSettings.userDenialThreshold}+ denied requests per
+              minute{" "}
               <span
                 className="font-bold text-xl hover:cursor-pointer"
                 onClick={() => openNewSurgeTrack("userDenial")}
@@ -274,7 +275,7 @@ const Alerts = ({ onPageChange }) => {
           <h2 className="text-left p-4 pt-4 pb-3 text-4xl font-medium leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
             User Surge Alerts{" "}
             <span className="text-2xl">
-              - {orgAlertSettings.userSurgeThreshold}+ requests p/m{" "}
+              - {orgAlertSettings.userSurgeThreshold}+ requests per minute{" "}
               <span
                 className="font-bold text-xl hover:cursor-pointer"
                 onClick={() => openNewSurgeTrack("userSurge")}
@@ -343,7 +344,7 @@ const Alerts = ({ onPageChange }) => {
           <h2 className="text-left p-4 pt-4 pb-3 text-4xl font-medium leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
             API Denial Alerts{" "}
             <span className="text-2xl">
-              - {orgAlertSettings.apiDenialThreshold}+ requests p/m{" "}
+              - {orgAlertSettings.apiDenialThreshold}+ requests per minute{" "}
               <span
                 className="font-bold text-xl hover:cursor-pointer"
                 onClick={() => openNewSurgeTrack("apiDenial")}
