@@ -214,7 +214,7 @@ const Signup = () => {
               <h2
                 className={
                   errorMsg
-                    ? "text-lg font-medium leading-tight tracking-normal text-gray-900 text-center"
+                    ? "text-lg font-medium leading-tight tracking-normal text-black text-center"
                     : "hidden"
                 }
               >

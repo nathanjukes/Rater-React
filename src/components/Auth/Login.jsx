@@ -154,7 +154,7 @@ const Login = () => {
               <h2
                 className={
                   errorMsg
-                    ? "text-lg font-medium leading-tight tracking-normal text-gray-200 text-center"
+                    ? "text-lg font-medium leading-tight tracking-normal text-black text-center"
                     : "hidden"
                 }
               >
