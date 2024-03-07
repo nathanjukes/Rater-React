@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Rater-React/static/css/main.30e5f36d.css",
-    "main.js": "/Rater-React/static/js/main.0f45efca.js",
+    "main.js": "/Rater-React/static/js/main.86898a98.js",
     "static/media/icon.png": "/Rater-React/static/media/icon.6d00be680c18c4482285.png",
     "static/media/dash.jpg": "/Rater-React/static/media/dash.6b3b610cd40dcbd05f1e.jpg",
     "static/media/icon.svg": "/Rater-React/static/media/icon.e0ed23fd883856a4a451130e9d816b2a.svg",
@@ -18,10 +18,10 @@
     "static/media/appDropdown.svg": "/Rater-React/static/media/appDropdown.8ae6f9985ddce3d5712420bdc788738f.svg",
     "static/media/bell.svg": "/Rater-React/static/media/bell.8bccd730c055f0c80212b222ea0bf696.svg",
     "main.30e5f36d.css.map": "/Rater-React/static/css/main.30e5f36d.css.map",
-    "main.0f45efca.js.map": "/Rater-React/static/js/main.0f45efca.js.map"
+    "main.86898a98.js.map": "/Rater-React/static/js/main.86898a98.js.map"
   },
   "entrypoints": [
     "static/css/main.30e5f36d.css",
-    "static/js/main.0f45efca.js"
+    "static/js/main.86898a98.js"
   ]
 }
