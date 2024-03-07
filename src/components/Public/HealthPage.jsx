@@ -78,7 +78,25 @@ const HealthPage = () => {
                   <div className="col-span-1">
                     <h2 class="text-3xl mt-6 leading-normal font-normal">
                       Status -
-                      <span class="text-green-700 font-bold ml-2">Healthy</span>
+                      {healthData.metadata[0][1] !== 0 ? (
+                        (
+                          (healthData.metadata[0][1] /
+                            healthData.metadata[0][0]) *
+                          100
+                        ).toFixed(2) >= 50 ? (
+                          <span className="text-green-700 font-bold ml-2">
+                            Healthy
+                          </span>
+                        ) : (
+                          <span className="text-red-700 font-bold ml-2">
+                            Issues Present
+                          </span>
+                        )
+                      ) : (
+                        <span className="text-green-700 font-bold ml-2">
+                          Healthy
+                        </span>
+                      )}
                     </h2>
                   </div>
                   <div className="col-span-1">
