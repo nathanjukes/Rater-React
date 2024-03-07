@@ -314,70 +314,74 @@ const ApisList = ({
     return (
       <div className="grid grid-cols-4 mx-4">
         {apisList &&
-          apisList.map((api, index) => (
-            <div key={api.id} className="p-4 relative">
-              <div
-                onClick={() => handleApiClick(api.id)}
-                onMouseEnter={() => setHoveredApi(api.id)}
-                onMouseLeave={() => setHoveredApi(null)}
-              >
-                <div className={` ${buttonStyle}`}>
-                  <h2 className="inline-block p-4 pt-4 pb-6 text-4xl font-medium leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
-                    <span className="bg-sideBarPurple rounded-md px-2 py-0.5 mr-2 text-backgroundWhite">
-                      {api.httpMethod}:
-                    </span>
-                    /{api.name}
-                  </h2>
-                  <div className="flex justify-center mt-4">
-                    <div className="inline-block px-4 text-lg font-semibold">
-                      <div className="text-center border-gray-600 rounded-md px-2 mb-2">
-                        <span className="block text-3xl text-black">
-                          {api && api.basicLimit ? api.basicLimit : 0} rq/m
-                        </span>
-                        <span className="font-light text-2xl">Base Limit</span>
+          apisList
+            .sort((a, b) => a.id - b.id)
+            .map((api, index) => (
+              <div key={api.id} className="p-4 relative">
+                <div
+                  onClick={() => handleApiClick(api.id)}
+                  onMouseEnter={() => setHoveredApi(api.id)}
+                  onMouseLeave={() => setHoveredApi(null)}
+                >
+                  <div className={` ${buttonStyle}`}>
+                    <h2 className="inline-block p-4 pt-4 pb-6 text-4xl font-medium leading-none tracking-wider text-black overflow-hidden overflow-ellipsis">
+                      <span className="bg-sideBarPurple rounded-md px-2 py-0.5 mr-2 text-backgroundWhite">
+                        {api.httpMethod}:
+                      </span>
+                      /{api.name}
+                    </h2>
+                    <div className="flex justify-center mt-4">
+                      <div className="inline-block px-4 text-lg font-semibold">
+                        <div className="text-center border-gray-600 rounded-md px-2 mb-2">
+                          <span className="block text-3xl text-black">
+                            {api && api.basicLimit ? api.basicLimit : 0} rq/m
+                          </span>
+                          <span className="font-light text-2xl">
+                            Base Limit
+                          </span>
+                        </div>
+                      </div>
+                      <div className="inline-block px-4 text-lg font-semibold">
+                        <div className="text-center border-gray-600 rounded-md px-2 mb-2">
+                          <span className="block text-3xl text-black">
+                            {api && api.idRules
+                              ? api.idRules.length +
+                                api.ipRules.length +
+                                api.roleRules.length
+                              : 0}
+                          </span>
+                          <span className="font-light text-2xl">
+                            Custom Rules
+                          </span>
+                        </div>
                       </div>
                     </div>
-                    <div className="inline-block px-4 text-lg font-semibold">
-                      <div className="text-center border-gray-600 rounded-md px-2 mb-2">
-                        <span className="block text-3xl text-black">
-                          {api && api.idRules
-                            ? api.idRules.length +
-                              api.ipRules.length +
-                              api.roleRules.length
-                            : 0}
-                        </span>
-                        <span className="font-light text-2xl">
-                          Custom Rules
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  {hoveredApi === api.id && (
-                    <button
-                      className="absolute top-0 right-0 mt-6 mr-6 bg-sideBarPurple hover:bg-buttonPurple text-white font-bold p-2 px-3 rounded-full opacity-100 transition duration-300 ease-in-out z-20"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        deleteApi(api.id);
-                      }}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-5 w-5"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
+                    {hoveredApi === api.id && (
+                      <button
+                        className="absolute top-0 right-0 mt-6 mr-6 bg-sideBarPurple hover:bg-buttonPurple text-white font-bold p-2 px-3 rounded-full opacity-100 transition duration-300 ease-in-out z-20"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          deleteApi(api.id);
+                        }}
                       >
-                        <path
-                          fillRule="evenodd"
-                          d="M14.95 5.05a1 1 0 010 1.414L11.414 10l3.536 3.536a1 1 0 11-1.414 1.414L10 11.414l-3.536 3.536a1 1 0 01-1.414-1.414L8.586 10 5.05 6.464a1 1 0 111.414-1.414L10 8.586l3.536-3.537a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </button>
-                  )}
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-5 w-5"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M14.95 5.05a1 1 0 010 1.414L11.414 10l3.536 3.536a1 1 0 11-1.414 1.414L10 11.414l-3.536 3.536a1 1 0 01-1.414-1.414L8.586 10 5.05 6.464a1 1 0 111.414-1.414L10 8.586l3.536-3.537a1 1 0 011.414 0z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
         <button
           onClick={openModal}
           className="m-4 p-16 flex items-center justify-center bg-sideBarPurple border-2 border-gray-500 hover:border-gray-400 hover:underline hover:bg-buttonPurple text-white font-semibold rounded-md transition-colors"
