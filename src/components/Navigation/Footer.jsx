@@ -16,6 +16,7 @@ const Footer = () => {
 
   const commonClasses = "mb-0 mt-4 font-bold";
 
+  // Footer (Edited) from: https://flowbite.com/docs/components/footer/
   return (
     <footer className="bg-white md:flex md:items-center md:justify-between shadow rounded-lg p-4 md:p-6 xl:p-5 my-4 mx-4">
       <ul className="flex items-center flex-wrap mb-6 md:mb-0">
